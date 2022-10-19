@@ -57,7 +57,10 @@ async def get_user(email : str):
     filter = {
         'email': email
     }
-    if client.bgv.user.count_documents(filter) == 0:
+    if client.bgv.user.count_documents(filter) == 1:
+        return dict(client.bgv.user.find_one(filter))
+    else : 
+        return False
         
 ################################################################################################
 
