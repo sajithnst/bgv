@@ -25,17 +25,14 @@ class UserModel(BaseModel):
     email : str
     password : str
     empid : str
-    company_name : str
-    designation : str
-    aadhaar : int
-    pan : str
+    firstlogin : bool
     status : str = 'pending'
 
 ### create a new user and also create a folder with email as filename
 @app.post('/user')
 async def add_user(user: UserModel):
     filter = {
-        'aadhaar': user.aadhaar,
+        'email': user.email,
     }
     if client.bgv.user.count_documents(filter) == 0:
         try:
@@ -57,8 +54,11 @@ async def get_user(email : str):
     filter = {
         'email': email
     }
+    project = {
+        '_id': 0,
+    }
     if client.bgv.user.count_documents(filter) == 1:
-        return dict(client.bgv.user.find_one(filter))
+        return dict(client.bgv.user.find_one(filter,project))
     else : 
         return False
         
@@ -97,9 +97,18 @@ class NotaryModel(BaseModel):
     aadhaar : str
     designation : str = 'Notary'
 
-class SslcModel(BaseModel):
-    regno :str
-    name : str
-
+@app.post('/notary')
+async def add_notary(notary:NotaryModel):
+    filter = {
+        'email': notary.email,
+    }
+    if client.bgv.notary.count_documents(filter) == 0:
+        try:
+            client.bgv.notary.insert_one(dict(notary))
+            return True
+        except Exception as e:
+            print ('Error inserting notary'+ str(e))
+    else :
+        return False
 
 
