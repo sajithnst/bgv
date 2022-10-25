@@ -24,7 +24,6 @@ class UserModel(BaseModel):
     name : str
     email : str
     password : str
-    empid : str
     firstlogin : bool
     status : str = 'pending'
 
@@ -68,11 +67,11 @@ async def get_user(email : str):
 
 class HrModel(BaseModel):
     name : str
+    empid :str
     company_email : str
-    company_name : str
-    empid : str
-    designation : str
     password : str
+    firstlogin: bool
+
 @app.post('/hr')
 async def add_hr(hr:HrModel):
     filter = {
@@ -83,7 +82,7 @@ async def add_hr(hr:HrModel):
             client.bgv.hr.insert_one(dict(hr))
             return True
         except Exception as e:
-            print('Error inserting hr'+ str(e))
+            print('Error inserting hr'+ st(e))
             return False
     else: 
         return False
@@ -93,9 +92,9 @@ async def add_hr(hr:HrModel):
 class NotaryModel(BaseModel):
     name : str
     email : str
+    aadhaar :str
     password : str
-    aadhaar : str
-    designation : str = 'Notary'
+    firstlogin : bool
 
 @app.post('/notary')
 async def add_notary(notary:NotaryModel):
@@ -111,4 +110,29 @@ async def add_notary(notary:NotaryModel):
     else :
         return False
 
+#################################################################################################
 
+##################################### Login API #################################################
+class Login(BaseModel):
+    email :str
+    password : str
+
+@app.post("/login")
+async def login(login : Login):
+    filter = dict(login)
+
+    if client.bgv.user.count_documents(filter) ==1:
+        return {'status': True,'user': 'user'}
+    else:
+        if client.bgv.notary.count_documents(filter) ==1:
+                return {'status':True, 'user' : 'notary'}
+        else:
+            filter = {
+                'company_email' : login.email,
+                'password' : login.password
+            }
+            if client.bgv.hr.count_documents(filter) ==1:
+                return {'status' : True, 'user': 'hr'}
+            else :
+                return {'status': False, 'user' : 'Check login creadentials'}
+            

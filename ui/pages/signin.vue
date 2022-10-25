@@ -1,20 +1,24 @@
 <template>
     <v-app signin>
-        <v-app-bar>
-            <v-btn icon ><v-icon size="32">mdi-home</v-icon></v-btn>
+        <v-app-bar app>
+            <v-btn icon @click="home()"><v-icon size="32">mdi-home</v-icon></v-btn>
         </v-app-bar>
         <v-main>
-            <v-container>
+            <v-container class="signinform">
                 <v-form>
+                    <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
+                    <br/><br/>
+                    <h1 class="text-center"> User Login </h1>
+                    <br/><br/>
                     <v-col>
                         <v-row>
-                            <v-text-field label="Email ID"></v-text-field>
+                            <v-text-field v-model="signindata.email" label="Email ID" :rules="[rules.email,rules.required]"></v-text-field>
                         </v-row>
                         <v-row>
-                            <v-text-field label="Password"></v-text-field>
+                            <v-text-field v-model="signindata.password" label="Password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
                         </v-row>
                         <v-row>
-                            <v-btn large block color="teal" @click="signin()"> Sign In</v-btn>
+                            <v-btn large block color="teal" @click="signin()"> Sign In</v-btn> 
                         </v-row>
                     </v-col>
                 </v-form>
@@ -26,11 +30,38 @@
 export default{
     name : 'signinpage',
     data: () =>({
-        signin : {
-            username : '',
+        signindata : {
+            email : '',
             password : '',
-            
+
+        },
+        error : false,
+        rules : {
+            required: (v) => !!v || "Required",
+            min : (v) =>  v.length > 8 || "Minimun 8 Characters is required",
+            email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
         }
     }),
+    methods :{
+        async signin(){
+            let url= 'http://127.0.0.1:8000/login'
+            await this.$axios.post(url, this.signindata).then(res => {
+                if (res.data.status == true){
+                    console.log(res.data)
+                }else{
+                    this.error = true;
+                }
+            }).catch(err => this.error=true);
+        },
+        async home(){
+            this.$router.push('/')
+        },
+    },
 }
 </script>
+<style>
+.signinform{
+    width: 30%;
+    margin: 0% auto;
+}
+</style>

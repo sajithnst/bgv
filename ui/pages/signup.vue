@@ -1,9 +1,7 @@
 <template>
     <v-app app>
     <v-app-bar app>
-    <v-btn icon><v-icon size="32">mdi-home</v-icon></v-btn>
-    <v-spacer> </v-spacer>
-    <v-btn icon><v-icon size="32">mdi-arrow-left-bold</v-icon></v-btn>
+    <v-btn icon @click="home()"><v-icon size="32">mdi-home</v-icon></v-btn>
     </v-app-bar>
     <v-main>
         <v-container class="signupform">
@@ -11,8 +9,8 @@
             <h1 class="text-center">User Signup </h1>
             <br/><br/>
             <v-form>
-            <v-alert dismissible type="success" v-model="success"> User creates successfully</v-alert>
-            <v-alert dismissible type="error" v-model="fail"> User already exit </v-alert>
+            <v-alert dismissible type="success" v-model="success"> User Created Successfully</v-alert>
+            <v-alert dismissible type="error" v-model="fail"> Duplicate User Email </v-alert>
             <v-col>
                 <v-row>
                     <v-col>
@@ -22,11 +20,6 @@
                 <v-row>
                     <v-col>
                         <v-text-field v-model="user.email" label="Personal Email" :rules="[rules.required,rules.email]"></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-text-field v-model="user.empid" label="Current Employee ID" :rules="[rules.required]"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -42,6 +35,7 @@
 </v-app>
 </template>
 <script>
+
 export default{
     name:'signuppage',
     data:() => ({
@@ -49,7 +43,6 @@ export default{
             name :'',
             email :'',
             password :'',
-            empid :'',
             firstlogin :true,
             status: 'pending'
         },
@@ -65,14 +58,21 @@ export default{
     methods:{
         async signup(){
     
-            let res = await this.$axios.post('http://127.0.0.1:8000/user',this.user)
-            if (res.data == true){
-
-                this.success = true
-            }else{
-                this.fail = true
-            }
-        }
+            await this.$axios.post('http://127.0.0.1:8000/user',this.user).then(res => { 
+                if (res.data == true){
+                    this.success = true
+                    this.$router.push('/signin')
+                }else{
+                    this.fail = true
+                }
+            }).catch(error =>{
+                this.fail =true
+            });
+    
+        },
+        async home(){
+            this.$router.push('/')
+        },
     }
 }
 </script>
