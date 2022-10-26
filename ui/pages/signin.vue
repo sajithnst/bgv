@@ -47,7 +47,10 @@ export default{
             let url= 'http://127.0.0.1:8000/login'
             await this.$axios.post(url, this.signindata).then(res => {
                 if (res.data.status == true){
-                    console.log(res.data)
+                    if (res.data.user == 'user'){
+                        this.$storage.setUniversal('Email',this.signindata.email)
+                        this.$router.push('/user')
+                    }
                 }else{
                     this.error = true;
                 }
