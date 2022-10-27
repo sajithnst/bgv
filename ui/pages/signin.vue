@@ -32,7 +32,8 @@ export default{
     data: () =>({
         signindata : {
             email : '',
-            password : '',
+            password :'',
+            firstlogin : null, 
 
         },
         error : false,
@@ -44,7 +45,14 @@ export default{
     }),
     methods :{
         async signin(){
-            let url= 'http://127.0.0.1:8000/login'
+            let userurl ='http://127.0.0.1:8000/user'
+            await this.$axios.get(userurl,{params:{email : this.signindata.email}}).then(result =>{
+                let firstlogin = result.data.firstlogin;
+            }).catch(error =>{ console.log(error)});
+            if (this.firstlogin == true){
+                this.$router.push('/sslc')
+            }else{
+                let url= 'http://127.0.0.1:8000/login'
             await this.$axios.post(url, this.signindata).then(res => {
                 if (res.data.status == true){
                     if (res.data.user == 'user'){
@@ -55,6 +63,8 @@ export default{
                     this.error = true;
                 }
             }).catch(err => this.error=true);
+            }
+            
         },
         async home(){
             this.$router.push('/')

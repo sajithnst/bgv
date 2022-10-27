@@ -5,15 +5,29 @@
       app
     >
     <v-container class="nav-pic">
-        <v-avatar size="130">
-          <v-icon size="100">mdi-account-circle</v-icon>
-        </v-avatar>
+          <v-icon size="120">mdi-account-circle</v-icon>
       </v-container>
       <v-divider></v-divider>
-      <v-container class="nav-pic">
-        <h2 class="text-center">{{name}}</h2>
-    </v-container>
-    <v-btn icon > <v-icon size="30">mdi-account-circle</v-icon></v-btn>
+      <v-list>
+        <v-list-item>
+          <v-list-item-title class="font-weight-light"> {{ email }} </v-list-item-title>
+        </v-list-item>
+      </v-list>
+        <v-list dense nav>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          @click="router(item.title)"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app>
@@ -24,7 +38,9 @@
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <v-container v-if="empdata">
+        <h1 class="text-center"> Empdata</h1>
+      </v-container>
     </v-main>
 </v-app>
 </template>
@@ -36,20 +52,30 @@ export default {
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
-            this.firstlogin = res.data.firstlogin
         }).catch(error => console.log(error));
+
     },
    
     data :()=>({
         email :'fasdf',
         name : '',
-        firstlogin:null,
-        drawer: null
+        drawer: null,
+        empdata:null,
+        items: [
+      { title: "Profile", icon: "mdi-certificate-outline" },
+    ],
         
     }),
     methods:{
         async logout(){
             this.$router.push('/signin')
+        },
+        async router(title){
+           switch(title){
+            case "Profile" : 
+                this.empdata = true; 
+                break;
+           }
         }
     }
 };
