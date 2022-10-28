@@ -2,7 +2,8 @@
 <v-app >
 <v-app-bar app>
     <v-btn icon><v-icon size="32">mdi-home</v-icon></v-btn>
-    <v-toolbar-title> User Profile </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-title> User Data Collection </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon><v-icon size="32">mdi-arrow-left-bold-outline</v-icon></v-btn>
 </v-app-bar>

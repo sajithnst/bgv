@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from random import choice
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import os
@@ -79,8 +80,39 @@ async def get_user(email : str):
         return dict(client.bgv.user.find_one(filter,project))
     else : 
         return False
+#### generating otp for email verification
+@app.get('/otp')
+async def otp(email: str):
+    number =['0','1','2','3','4','5','6','7','8','9']
+    otp =''
+    for i in range(6):
+        otp+=choice(number)
 
-@app.post('/userotp')
+    subject = "OTP for New Account Created"
+    msg = f" Hi \n The OTP your email verification is {otp} in the verifychain application\n\n "
+    graph.send_mail(subject,msg,email)
+    return otp
+
+####  comparing OTP with existing user account
+
+
+@app.post('/emailverified')
+async def checkotp(email : str ):
+
+    filter = { 'email' : email}
+    update = {
+        '$set': {'emailverified' : True}
+    }
+    try:
+        client.bgv.user.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
+        print ("Error in updating email verification status"+str(e))
+        return False
+
+
+
+
         
 ################################################################################################
 
