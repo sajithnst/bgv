@@ -3,8 +3,27 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import os
+import configparser
+from graph import Graph
 
 client = MongoClient('mongodb://localhost:27017/')
+
+##############Graph API interface #############################################################
+
+config = configparser.ConfigParser()
+config.read(['config.cfg', 'config.dev.cfg'])
+azure_settings = config['azure']
+graph: Graph = Graph(azure_settings)
+# For testing the working of the  graph api integration
+def greet_user(graph: Graph):
+    user = graph.get_user()
+    print('Hello,', user['displayName'])
+    # For Work/school accounts, email is in mail property
+    # Personal accounts, email is in userPrincipalName
+    print('Email:', user['mail'] or user['userPrincipalName'], '\n')
+greet_user(graph)
+
+##############################################################################################
 
 app = FastAPI()
 app.add_middleware(
@@ -60,6 +79,8 @@ async def get_user(email : str):
         return dict(client.bgv.user.find_one(filter,project))
     else : 
         return False
+
+@app.post('/userotp')
         
 ################################################################################################
 
