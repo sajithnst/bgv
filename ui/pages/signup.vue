@@ -8,12 +8,12 @@
             <br/><br/>
             <h1 class="text-center">User Signup </h1>
             <br/><br/>
-            <v-form>
+            <v-form v-model="isFormValid">
             <v-alert dismissible type="error" v-model="fail"> Duplicate User Email </v-alert>
             <v-col>
                 <v-row>
                     <v-col>
-                        <v-text-field v-model="user.name" label="Full Name" :rules="[rules.required, rules.name]"></v-text-field>
+                        <v-text-field required v-model="user.name" label="Full Name" :rules="[rules.required, rules.name]"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -27,7 +27,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-btn large block color="teal" elevation="4" @click="submit()"> Submit</v-btn>
+            <v-btn large block color="teal" elevation="4" @click="submit()" :disabled="!isFormValid"> Submit</v-btn>
             </v-form>
             <br/><br/>
             <v-container v-if="sendotp">
