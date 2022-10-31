@@ -56,13 +56,15 @@ export default{
     },
     data : () =>({
       email : '',
-      rules:{
+      rules : {
             required: (v) => !!v || "Required",
             min : (v) =>  v.length > 8 || "Minimun 8 Characters is required",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
-            name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name"
-        }
-    })
+        },
+    }),
+    methods:{
+
+    }
 
 }
 </script>
