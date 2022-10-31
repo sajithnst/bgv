@@ -1,5 +1,5 @@
 <template>
-<v-app >
+<v-app data>
 <v-app-bar app>
     <v-btn icon><v-icon size="32">mdi-home</v-icon></v-btn>
     <v-spacer></v-spacer>
@@ -9,15 +9,15 @@
 </v-app-bar>
 <v-main>
 <v-container class="personal">
-  <v-form v-model="isFormvalid" >
+  <v-form v-model="valid" >
       <h1 class="text-center " > Personal Data</h1><br/>
       <v-divider></v-divider><br/>
       <v-col>
         <v-row>
-            <v-text-field v-model="empid" label="Employee ID" :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="empid" label="Employee ID" :rules="[rules.required, rules.nospecchar]"></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field v-model="doj" label="Date of Joining" :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="doj" label="Date of Joining" :rules="[rules.required ,rules.nospecchar]"></v-text-field>
         </v-row>
         <v-row>
             <v-text-field v-model="email" label="Personal Email" :rules="[rules.required]"></v-text-field>
@@ -26,20 +26,21 @@
             <v-text-field v-model="cmail" label="Official Email" :rules="[rules.required,rules.email]"></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field v-model="mob" label="Mobile Number" :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="mob" label="Mobile Number" :rules="[rules.required,rules.number ,rules.mobile,rules.nospecchar]"></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field v-model="aadhaar" label="Aadhaar  Number" :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="aadhaar" label="Aadhaar  Number" :rules="[rules.required,rules.number , rules.aadhaar ]"></v-text-field>
         </v-row>
         <v-row>
-              <v-text-field v-model="pan" label="PAN  Number" :rules="[rules.required]"></v-text-field>
+              <v-text-field v-model="pan" label="PAN  Number" :rules="[rules.required, rules.pan ,rules.nospecchar]"></v-text-field>
         </v-row>
         <v-row>
-              <v-text-field v-model="passport" label="Passport Number" :rules="[rules.required]"></v-text-field>
+              <v-text-field v-model="passport" label="Passport Number" :rules="[rules.required, rules.passport, rules.nospecchar]"></v-text-field>
         </v-row>
         <v-row>
-              <v-btn :disabled="!isFormvalid" block large color="teal" :rules="[rules.required]">Save </v-btn>
+              <v-btn :disabled="!valid" block large color="teal" @click="save()">Save </v-btn>
         </v-row>
+    
       </v-col>
   </v-form>
   
@@ -55,15 +56,31 @@ export default{
       this.email = await this.$storage.getUniversal('Email');
     },
     data : () =>({
-      email : '',
+      email :'',
+      empid :'',
+      doj :'',
+      cmail:'',
+      valid:'',
+      mob:'',
+      aadhaar:'',
+      pan: '',
+      passport:'',
       rules : {
             required: (v) => !!v || "Required",
-            min : (v) =>  v.length > 8 || "Minimun 8 Characters is required",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
+            aadhaar : (v) => v.length ==12 || "length should be 12",
+            number: (v) => v.match(/([1-9][0-9]*)|0/) || "Pleas use only numbers",
+            mobile : (v) => v.length == 10 || "10 digits is required",
+            pan : (v) => v.length == 10 || "10 Characters is required",
+            passport : (v) => v.match(/^[A-Z]{1}[0-9]{7}$/) || "Passport is not valid",
+            nospecchar: (v) => v.match(/^[A-Za-z]+$/) || "No special Characters allowed"
+          
         },
     }),
     methods:{
-
+      async save(){
+        
+      }
     }
 
 }
