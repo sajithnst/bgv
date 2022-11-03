@@ -1,3 +1,4 @@
+from pydoc import cli
 from fastapi import FastAPI
 from pydantic import BaseModel
 from random import choice
@@ -11,7 +12,7 @@ client = MongoClient('mongodb://localhost:27017/')
 
 ##############Graph API interface #############################################################
 
-config = configparser.ConfigParser()
+'''config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
 azure_settings = config['azure']
 graph: Graph = Graph(azure_settings)
@@ -22,7 +23,7 @@ def greet_user(graph: Graph):
     # For Work/school accounts, email is in mail property
     # Personal accounts, email is in userPrincipalName
     print('Email:', user['mail'] or user['userPrincipalName'], '\n')
-greet_user(graph)
+greet_user(graph)'''
 
 ##############################################################################################
 
@@ -80,6 +81,7 @@ async def get_user(email : str):
         return dict(client.bgv.user.find_one(filter,project))
     else : 
         return False
+
 #### generating otp for email verification
 @app.get('/otp')
 async def otp(email: str):
@@ -90,7 +92,7 @@ async def otp(email: str):
 
     subject = "OTP for New Account Created"
     msg = f" Hi \n The OTP your email verification is {otp} in the verifychain application\n\n "
-    graph.send_mail(subject,msg,email)
+    #graph.send_mail(subject,msg,email)
     return otp
 
 ####  comparing OTP with existing user account
@@ -109,6 +111,45 @@ async def checkotp(email : str ):
     except Exception as e:
         print ("Error in updating email verification status"+str(e))
         return False
+
+## the personal data input api for the user     
+
+class PersonalData(BaseModel):
+
+    empid : str
+    doj : str
+    email : str
+    cmail : str
+    mob : str
+    aadhaar: str
+    pan : str
+    passport : str
+
+@app.put('/user')
+async def update( data : PersonalData ):
+    filter = { 'email' : data.email}
+    update = {
+        '$set': {
+            'empid' : data.empid,
+            'doj': data.doj,
+            'cmail': data.cmail,
+            'mob': data.mob,
+            'aadhaar': data.aadhaar,
+            'pan': data.pan,
+            'passport': data.passport,
+            'sslcdata': True
+
+        }
+    }
+    try:
+        client.bgv.user.find_one_and_update(filter, update)
+        return True
+    except Exception as e:
+        print('Error updating user' +str(e))
+        return False
+
+
+
 
 
 
