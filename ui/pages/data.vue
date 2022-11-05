@@ -85,7 +85,7 @@ export default{
           email : this.email,
           empid : this.empid,
           doj : this.doj,
-          company_mail: this.cmail,
+          company_mail: this.company_mail,
           mob : this.mob,
           aadhaar : this.aadhaar,
           pan : this.pan,
@@ -102,7 +102,7 @@ export default{
 
       },
       async home(){
-        this.$router.push('/singin')
+        this.$router.push('/signin')
       },
     }
 

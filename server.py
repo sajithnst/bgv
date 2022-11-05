@@ -175,9 +175,9 @@ async def sslcinput(sslc : SSLC):
 
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
-def upload(mob : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
     
-    path = os.path.join(mob,regno+".pdf")
+    path = os.path.join(email,regno+".pdf")
     try:
         contents = file.file.read()
         with open(path, 'wb') as f:

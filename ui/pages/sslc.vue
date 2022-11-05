@@ -22,6 +22,10 @@
                     <v-text-field label="Board" v-model="board" :rules="[rules.required, rules.nospecchar]"></v-text-field>
                 </v-row>
                 <v-row>
+                    <v-file-input @change="fileselect"  label = "Upload SSLC Certificate as PDF">
+                    </v-file-input>
+                </v-row>
+                <v-row>
                     <v-btn large block color="teal" @click="save()" :disabled="!isFormValid"> Save </v-btn>
                 </v-row>
             </v-col>
@@ -60,6 +64,9 @@
 
     }),
     methods:{
+        async fileselect(event){
+            this.file=event
+        },
         async  save(){
             let fdata= {
                 email : this.email,
