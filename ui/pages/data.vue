@@ -21,9 +21,6 @@
             <v-text-field v-model="doj" label="Date of Joining ( DD.MM.YYYY)" :rules="[rules.required ,rules.dateformat]"></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field v-model="email" label="Personal Email" :rules="[rules.required]"></v-text-field>
-        </v-row>
-        <v-row>
             <v-text-field v-model="cmail" label="Official Email" :rules="[rules.required,rules.email]"></v-text-field>
         </v-row>
         <v-row>

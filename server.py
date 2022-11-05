@@ -1,5 +1,4 @@
-from pydoc import cli
-from fastapi import FastAPI
+from fastapi import FastAPI,File , UploadFile,Form
 from pydantic import BaseModel
 from random import choice
 from fastapi.middleware.cors import CORSMiddleware
@@ -119,7 +118,7 @@ class PersonalData(BaseModel):
     empid : str
     doj : str
     email : str
-    cmail : str
+    company_mail : str
     mob : str
     aadhaar: str
     pan : str
@@ -137,7 +136,7 @@ async def update( data : PersonalData ):
             'aadhaar': data.aadhaar,
             'pan': data.pan,
             'passport': data.passport,
-            'sslcdata': True
+            'personal': True
 
         }
     }
@@ -149,10 +148,74 @@ async def update( data : PersonalData ):
         return False
 
 
+## sslc certificate input
 
+class SSLC(BaseModel):
+    regno : str
+    email : str
+    marks : int
+    school : str
+    passout : str
+    name : str
+    board : str
+    status : str = 'pending'
 
+@app.post('/sslc')
+async def sslcinput(sslc : SSLC):
+    filter = {
+        'regno': sslc.regno,
+        'email': sslc.email,
+    }
+    if client.bgv.sslc.count_documents(filter) == 0:
+        try:
+            client.bgv.sslc.insert_one(dict(sslc))
+            return True
+        except Exception as e:
+            print (str(e))
+    else: return False
 
+### code to upload pdf file 
+@app.post('/uploadsslcpdf')
+def upload(mob : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+    
+    path = os.path.join(mob,regno+".pdf")
+    try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return False
+    finally:
+        file.file.close()
 
+    return True
+
+## hser certificate input
+
+class HSE (BaseModel):
+    regno: str
+    email : str
+    name : str
+    marks : int
+    passout : str
+    school : str
+    board : str
+    status : str = 'pending'
+
+@app.post('/hse')
+async def hseinput(hse : HSE):
+    filter = {
+        'email': hse.email,
+        'regno': hse.regno,
+    }
+    if client.bgv.hse.count_documents(filter) == 0:
+        try:
+            client.bgv.hse.insert_one(dict(hse))
+            return True
+        except Exception as e:
+            print (str(e))
+    else: 
+        return False
 
         
 ################################################################################################
@@ -176,7 +239,7 @@ async def add_hr(hr:HrModel):
             client.bgv.hr.insert_one(dict(hr))
             return True
         except Exception as e:
-            print('Error inserting hr'+ st(e))
+            print('Error inserting hr'+ str(e))
             return False
     else: 
         return False
