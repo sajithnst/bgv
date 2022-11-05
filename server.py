@@ -131,8 +131,7 @@ async def update( data : PersonalData ):
         '$set': {
             'empid' : data.empid,
             'doj': data.doj,
-            'cmail': data.cmail,
-            'mob': data.mob,
+            'company_mail': data.company_mail,
             'aadhaar': data.aadhaar,
             'pan': data.pan,
             'passport': data.passport,

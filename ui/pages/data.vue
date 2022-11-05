@@ -21,7 +21,7 @@
             <v-text-field v-model="doj" label="Date of Joining ( DD.MM.YYYY)" :rules="[rules.required ,rules.dateformat]"></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field v-model="cmail" label="Official Email" :rules="[rules.required,rules.email]"></v-text-field>
+            <v-text-field v-model="company_mail" label="Official Email" :rules="[rules.required,rules.email]"></v-text-field>
         </v-row>
         <v-row>
             <v-text-field v-model="mob" label="Mobile Number" :rules="[rules.required,rules.number ,rules.mobile]"></v-text-field>
@@ -57,7 +57,7 @@ export default{
       email :'',
       empid :'',
       doj :'',
-      cmail:'',
+      company_mail:'',
       valid:'',
       mob:'',
       aadhaar:'',
@@ -85,7 +85,7 @@ export default{
           email : this.email,
           empid : this.empid,
           doj : this.doj,
-          cmail: this.cmail,
+          company_mail: this.cmail,
           mob : this.mob,
           aadhaar : this.aadhaar,
           pan : this.pan,
@@ -98,7 +98,7 @@ export default{
             }else {
               this.fail = true
             }
-         }).catch(err => { console.log(err)})
+         }).catch(err => { console.log(err);this.fail = true;})
 
       },
       async home(){
