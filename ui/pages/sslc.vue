@@ -7,7 +7,7 @@
             <v-divider></v-divider><br/>
             <v-col>
                 <v-row>
-                    <v-text-field label="SSLC Registration Number" v-model="regno" :rules="[rules.required]"></v-text-field>
+                    <v-text-field label="Registration Number" v-model="regno" :rules="[rules.required]"></v-text-field>
                 </v-row>
                 <v-row>
                     <v-text-field label="Marks in % " v-model="marks" :rules="[rules.required,rules.marksmax]"></v-text-field>
@@ -22,7 +22,7 @@
                     <v-text-field label="Board" v-model="board" :rules="[rules.required, rules.nospecchar]"></v-text-field>
                 </v-row>
                 <v-row>
-                    <v-file-input @change="fileselect"  label = "Upload SSLC Certificate as PDF">
+                    <v-file-input @change="fileselect"  label = "Upload SSLC Certificate as PDF" :rules="[rules.required]">
                     </v-file-input>
                 </v-row>
                 <v-row>
@@ -51,6 +51,7 @@
         regno :'',
         marks :0,
         school :'',
+        file:null,
         passout :'',
         fail:null,
         board :'',
@@ -85,6 +86,18 @@
                     this.fail = true
                 }
             }).catch( err => { console.log(err)})
+            let formdata= new FormData()
+            formdata.append('email',this.email)
+            formdata.append('regno',this.regno)
+            formdata.append('file',this.file)
+             let furl="http://127.0.0.1:8000/uploadsslcpdf"
+            await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}}).then(res => { 
+                if (res.data == fales){
+                    this.fail = true
+                }
+            }
+            ).catch( err => { console.log(err)})
+        
 
         },
     }

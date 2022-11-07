@@ -22,6 +22,10 @@
                     <v-text-field label="Board" v--model="board" :rules="[rules.required]"></v-text-field>
                 </v-row>
                 <v-row>
+                    <v-file-input @change="fileselect"  label = "Upload HSE Certificate as PDF" :rules="[rules.required]">
+                    </v-file-input>
+                </v-row>
+                <v-row>
                     <v-btn large block color="teal" @click="save()" :disabled="!isFormValid">Save HSE Details</v-btn>
                 </v-row>
             </v-col>
@@ -44,6 +48,7 @@ export default{
         email:'',
         name : '',
         regno: '',
+        file:null,
         fail : null,
         marks:0,
         school: '',
@@ -58,6 +63,9 @@ export default{
 
     }),
     methods:{
+        async fileselect(event){
+            this.file=event
+        },
         async save(){
                 let hdata= {
                     regno : this.regno,
@@ -76,6 +84,18 @@ export default{
                         this.fail= true;
                     }
                 }).catch(error => console.log(error));
+
+                let formdata= new FormData()
+                formdata.append('email',this.email)
+                formdata.append('regno',this.regno)
+                formdata.append('file',this.file)
+                let furl="http://127.0.0.1:8000/uploadhsepdf"
+                await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}}).then(res => { 
+                    if (res.data == false){
+                        this.fail = true
+                    }
+                }
+                ).catch( err => { console.log(err)})
         },
     }
 
@@ -84,7 +104,7 @@ export default{
 </script>
 <style>
 .hseform{
-    width: 30%;
+    width: 40%;
     margin:5% auto ;
 }
 </style>

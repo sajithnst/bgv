@@ -92,13 +92,11 @@ export default{
           passport : this.passport
 
          }
-         await this.$axios.put(url,p).then(res =>{
-            if (res.data == true){
-              this.$router.push('/sslc')
-            }else {
-              this.fail = true
-            }
-         }).catch(err => { console.log(err);this.fail = true;})
+        let res= await this.$axios.put(url,p)
+        console.log(res.data)
+        if(res.data == true) {
+          this.$router.push('/sslc')
+        }
 
       },
       async home(){
@@ -110,7 +108,7 @@ export default{
 </script>
 <style>
 .personal{
-  width: 30%;
+  width: 40%;
   margin: 5% auto;
 }
 </style>

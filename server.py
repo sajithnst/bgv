@@ -157,7 +157,7 @@ class SSLC(BaseModel):
     passout : str
     name : str
     board : str
-    status : str = 'pending'
+    status : bool = False
 
 @app.post('/sslc')
 async def sslcinput(sslc : SSLC):
@@ -199,7 +199,7 @@ class HSE (BaseModel):
     passout : str
     school : str
     board : str
-    status : str = 'pending'
+    status : bool = False
 
 @app.post('/hse')
 async def hseinput(hse : HSE):
@@ -216,6 +216,60 @@ async def hseinput(hse : HSE):
     else: 
         return False
 
+@app.post('/uploadhsepdf')
+def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+    
+    path = os.path.join(email,regno+".pdf")
+    try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return False
+    finally:
+        file.file.close()
+    return True
+
+# --------------- API for uploading UG data --------------------------------
+
+class UG(BaseModel):
+    regno : str
+    email : str
+    name : str
+    specialization : str
+    college : str
+    marks : int
+    passout : str
+    university : str
+    status : bool = False
+
+@app.post('/ug')
+async def addug(ug: UG):
+    filter= {
+        'email': ug.email,
+        'regno': ug.regno,
+    }
+    if client.bgv.ug.count_documents(filter) == 0:
+        try:
+            client.bgv.ug.insert_one(dict(ug))
+            return True
+        except Exception as e:
+            print(str(e))
+    else: return False
+
+@app.post('/uploadugpdf')
+def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+    
+    path = os.path.join(email,regno+".pdf")
+    try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return False
+    finally:
+        file.file.close()
+    return True
         
 ################################################################################################
 

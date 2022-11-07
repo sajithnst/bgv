@@ -44,7 +44,6 @@
                             <v-btn large block color="teal" @click="signup()">signup</v-btn>
                         </v-row>
                     </v-col>
-                
                 </v-form>
             </v-container>
         </v-container>
@@ -86,6 +85,7 @@ export default{
             await this.$axios.get(url,mdata).then(res => {
                 this.otp = res.data
                 this.sendotp = true
+                console.log(this.otp)
             }).catch(err => { console.log(err)});
         },
         async signup(){
