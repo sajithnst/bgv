@@ -270,6 +270,48 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
     finally:
         file.file.close()
     return True
+
+class Experience(BaseModel):
+    empid : str
+    name : str
+    email : str
+    company : str
+    hr_mail : str
+    start_date : str
+    end_date : str
+    designation : str
+    lpa : str
+    reporting_manager : str
+    status : bool = False
+
+@app.post('/exp')
+async def add_exp(exp :Experience):
+    filter = {
+        'email': exp.email,
+        'empid': exp.empid,
+    }
+    if client.bgv.exp.count_documents(filter) == 0: 
+        try :
+             client.bgv.exp.insert_one(dict(exp))
+             return True
+        except Exception as e:
+            print(str(e))
+    else : return False
+
+
+@app.post('/uploadexppdf')
+def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(...)):
+    
+    path = os.path.join(email,empid+".pdf")
+    try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return False
+    finally:
+        file.file.close()
+    return True
         
 ################################################################################################
 
