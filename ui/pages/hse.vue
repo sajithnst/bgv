@@ -37,7 +37,7 @@ export default{
     name: "hsedata",
     async mounted(){
         this.email= await this.$storage.getUniversal('Email');
-        let url ='http://127.0.0.1:8000/user'
+        let url ='http://192.168.26.93:8000/user'
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
         }).catch(error => console.log(error));
@@ -76,7 +76,7 @@ export default{
                     passout : this.passout,
                     board : this.board, 
                 }
-                let url = "http://127.0.0.1:8000/hse"
+                let url = "http://192.168.26.93:8000/hse"
                 await this.$axios.post(url, hdata).then( res => {
                     if (res.data == true){
                         this.$router.push('/ug');
@@ -89,7 +89,7 @@ export default{
                 formdata.append('email',this.email)
                 formdata.append('regno',this.regno)
                 formdata.append('file',this.file)
-                let furl="http://127.0.0.1:8000/uploadhsepdf"
+                let furl="http://192.168.26.93:8000/uploadhsepdf"
                 await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}}).then(res => { 
                     if (res.data == false){
                         this.fail = true

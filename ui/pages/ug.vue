@@ -41,7 +41,7 @@ export default {
     name:"ugdata",
     async mounted(){
         this.email = await this.$storage.getUniversal('Email');
-        let url ='http://127.0.0.1:8000/user'
+        let url ='http://192.168.26.93:8000/user'
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
         }).catch(error => console.log(error));
@@ -80,7 +80,7 @@ export default {
                 passout : this.passout,
                 university : this.university,
             }
-            let url = 'http://127.0.0.1:8000/ug'
+            let url = 'http://192.168.26.93:8000/ug'
             await this.$axios.post(url, ugdata).then(res => {
                 if (res.data == true){
                     this.$router.push('/exp')
@@ -90,7 +90,7 @@ export default {
             }).catch(err => {
                 console.log(err)
             });
-            let furl ='http://127.0.0.1:8000/uploadugpdf'
+            let furl ='http://192.168.26.93:8000/uploadugpdf'
             let formdata = new FormData();
             formdata.append('email', this.email)
             formdata.append('regno', this.regno)

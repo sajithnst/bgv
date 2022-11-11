@@ -66,7 +66,8 @@ export default{
         fail:false,
         otp:'',
         utop:'',
-        error:false,
+        isFormValid:null,
+        error:false, 
         sendotp:null,
         rules:{
             required: (v) => !!v || "Required",
@@ -80,7 +81,7 @@ export default{
             this.$router.push('/')
         },
         async submit(){
-            let url = "http://127.0.0.1:8000/otp"
+            let url = "http://192.168.26.93:8000/otp"
             let mdata = { params :{email : this.user.email}}
             await this.$axios.get(url,mdata).then(res => {
                 this.otp = res.data
@@ -90,7 +91,7 @@ export default{
         },
         async signup(){
             if (this.utop == this.otp){
-                let url = "http://127.0.0.1:8000/user"
+                let url = "http://192.168.26.93:8000/user"
                 await this.$axios.post(url,this.user).then(res => {
                     if (res.data == true){
                         this.success = true

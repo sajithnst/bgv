@@ -11,7 +11,7 @@ client = MongoClient('mongodb://localhost:27017/')
 
 ##############Graph API interface #############################################################
 
-'''config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
 azure_settings = config['azure']
 graph: Graph = Graph(azure_settings)
@@ -22,7 +22,7 @@ def greet_user(graph: Graph):
     # For Work/school accounts, email is in mail property
     # Personal accounts, email is in userPrincipalName
     print('Email:', user['mail'] or user['userPrincipalName'], '\n')
-greet_user(graph)'''
+greet_user(graph)
 
 ##############################################################################################
 
@@ -91,7 +91,7 @@ async def otp(email: str):
 
     subject = "OTP for New Account Created"
     msg = f" Hi \n The OTP your email verification is {otp} in the verifychain application\n\n "
-    #graph.send_mail(subject,msg,email)
+    graph.send_mail(subject,msg,email)
     return otp
 
 ####  comparing OTP with existing user account

@@ -53,7 +53,7 @@
 export default{
     name :'expdata',
     async mounted(){
-        let url ='http://127.0.0.1:8000/user'
+        let url ='http://192.168.26.93:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -97,7 +97,7 @@ export default{
                 reporting_manager : this.reporting_manager,
 
             }
-            let url ="http://127.0.0.1:8000/exp"
+            let url ="http://192.168.26.93:8000/exp"
             await this.$axios.post(url, edata).then(res =>{
                 if (res.data == true){
                     this.success = true
@@ -107,17 +107,6 @@ export default{
             }).catch(err => {
                 console.log(err)
             })
-            let furl ='http://127.0.0.1:8000/uploadexppdf'
-            let formdata = new FormData();
-            formdata.append('email', this.email)
-            formdata.append('empid', this.empid)
-            formdata.append('file',this.file)
-            await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json'}}).then(res => { 
-                    if (res.data == false){
-                        this.fail = true
-                    }
-                }
-                ).catch( err => { console.log(err)})
         },
         async addnewexp(){
             this.$router.push('/exp.vue')
