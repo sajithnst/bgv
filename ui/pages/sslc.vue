@@ -38,7 +38,7 @@
     name : "sslcdata",
     async mounted(){
 
-        let url ='http://192.168.26.93:8000/user'
+        let url ='http://52.27.5.60:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -78,7 +78,7 @@
                 passout : this.passout,
                 board : this.board,
             }
-             let url = 'http://192.168.26.93:8000/sslc'
+             let url = 'http://52.27.5.60:8000/sslc'
             await this.$axios.post(url,fdata).then(res => {
                 if (res.data == true){
                     this.$router.push('/hse')
@@ -90,7 +90,7 @@
             formdata.append('email',this.email)
             formdata.append('regno',this.regno)
             formdata.append('file',this.file)
-             let furl="http://192.168.26.93:8000/uploadsslcpdf"
+             let furl="http://52.27.5.60:8000/uploadsslcpdf"
             await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}}).then(res => { 
                 if (res.data == fales){
                     this.fail = true

@@ -53,7 +53,7 @@
 export default{
     name :'expdata',
     async mounted(){
-        let url ='http://192.168.26.93:8000/user'
+        let url ='http://52.27.5.60:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -97,7 +97,7 @@ export default{
                 reporting_manager : this.reporting_manager,
 
             }
-            let url ="http://192.168.26.93:8000/exp"
+            let url ="http://52.27.5.60:8000/exp"
             await this.$axios.post(url, edata).then(res =>{
                 if (res.data == true){
                     this.success = true

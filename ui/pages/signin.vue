@@ -45,14 +45,14 @@ export default{
     }),
     methods :{
         async signin(){
-            let userurl ='http://192.168.26.93:8000/user'
+            let userurl ='http://52.27.5.60:8000/user'
             await this.$axios.get(userurl,{params:{email : this.signindata.email}}).then(result =>{
                  this.firstlogin = result.data.firstlogin;
             }).catch(error =>{ console.log(error)});
             if (this.firstlogin == true){
                 this.$router.push('/data')
             }else{
-                let url= 'http://192.168.26.93:8000/login'
+                let url= 'http://52.27.5.60:8000/login'
                 await this.$axios.post(url, this.signindata).then(res => {
                 if (res.data.status == true){
                     if (res.data.user == 'user'){
