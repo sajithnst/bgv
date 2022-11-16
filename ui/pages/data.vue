@@ -80,7 +80,7 @@ export default{
     methods:{
     
       async save(){
-          let url ='http://52.27.5.60:8000/user'
+          let url ='http://52.27.5.60:8000/userupdate'
          let p = {
           email : this.email,
           empid : this.empid,
