@@ -10,7 +10,6 @@ from graph import Graph
 client = MongoClient('mongodb://localhost:27017/')
 
 ##############Graph API interface #############################################################
-
 config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
 azure_settings = config['azure']
@@ -123,30 +122,32 @@ class PersonalData(BaseModel):
     aadhaar: str
     pan : str
     passport : str
+    personal : bool = True
 
 @app.post('/userupdate')
 async def update( data : PersonalData ):
-    filter = { 'email' : data.email}
-    update = {
-        '$set': {
-            'empid' : data.empid,
-            'doj': data.doj,
-            'company_mail': data.company_mail,
-            'aadhaar': data.aadhaar,
-            'pan': data.pan,
-            'passport': data.passport,
-            'personal': True
-
+    filt = {
+        'email' : data.email
+    }
+    update={
+        '$set':{
+        'empid': data.empid,
+        'doj': data.doj,
+        'company_mail': data.company_mail,
+        'mob': data.mob,
+        'aadhaar': data.aadhaar,
+        'pan': data.pan,
+        'passport': data.passport,
+        'personal': data.personal,
         }
     }
-    try:
-        client.bgv.user.find_one_and_update(filter, update)
+
+    try: 
+        client.bgv.user.find_one_and_update(filt, update)
         return True
     except Exception as e:
-        print('Error updating user' +str(e))
+        print (str(e))
         return False
-
-
 ## sslc certificate input
 
 class SSLC(BaseModel):
