@@ -93,7 +93,8 @@ export default{
 
          }
         let res= await this.$axios.post(url,p)
-        console.log(res.data)
+      
+        console.log(url, p, res.data )
         if(res.data == true) {
           this.$router.push('/sslc')
         }
