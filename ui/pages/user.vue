@@ -48,7 +48,7 @@
 export default {
     name: 'userpage',
     async mounted(){
-        let url ='http://127.0.0.1:8000/user'
+        let url ='http://52.27.5.60:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
