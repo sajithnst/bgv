@@ -124,7 +124,7 @@ class PersonalData(BaseModel):
     pan : str
     passport : str
 
-@app.put('/user')
+@app.post('/user')
 async def update( data : PersonalData ):
     filter = { 'email' : data.email}
     update = {

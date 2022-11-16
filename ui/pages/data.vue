@@ -92,7 +92,7 @@ export default{
           passport : this.passport
 
          }
-        let res= await this.$axios.put(url,p)
+        let res= await this.$axios.post(url,p)
         console.log(res.data)
         if(res.data == true) {
           this.$router.push('/sslc')
