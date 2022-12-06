@@ -64,6 +64,18 @@ class Graph:
         self.user_client.post(request_url,
                             data=json.dumps(request_body),
                             headers={'Content-Type': 'application/json'})
+    def get_inbox(self):
+        endpoint = '/me/mailFolders/inbox/messages'
+        # Only request specific properties
+        select = 'from,isRead,receivedDateTime,subject'
+        # Get at most 25 results
+        top = 25
+        # Sort by received time, newest first
+        order_by = 'receivedDateTime DESC'
+        request_url = f'{endpoint}?$select={select}&$top={top}&$orderBy={order_by}'
+
+        inbox_response = self.user_client.get(request_url)
+        return inbox_response.json()
 def greet_user(graph: Graph):
     user = graph.get_user()
     print('Hello,', user['displayName'])

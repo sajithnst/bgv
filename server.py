@@ -389,3 +389,22 @@ async def login(login : Login):
             else :
                 return {'status': False, 'user' : 'Check login creadentials'}
             
+@app.get('/inbox')
+async def inbox():
+    inbox=graph.get_inbox()
+    return inbox
+
+@app.get('/pendingexp')
+async def pendingexp():
+    filter ={
+        'status': False
+    }
+    project={
+        '_id':0
+    }
+    try:
+        return client.bgv.exp.find(filter, project)
+    except Exception as e:
+        print (str(e))
+        return False
+    

@@ -8,7 +8,7 @@
 </v-app-bar>
 <v-main>
   <v-container>
-   
+   <notary/>
   </v-container>
   <v-container>
     
