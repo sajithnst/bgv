@@ -10,7 +10,7 @@ from graph import Graph
 client = MongoClient('mongodb://localhost:27017/')
 
 ##############Graph API interface #############################################################
-'''config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
 azure_settings = config['azure']
 graph: Graph = Graph(azure_settings)
@@ -21,7 +21,7 @@ def greet_user(graph: Graph):
     # For Work/school accounts, email is in mail property
     # Personal accounts, email is in userPrincipalName
     print('Email:', user['mail'] or user['userPrincipalName'], '\n')
-greet_user(graph)'''
+greet_user(graph)
 
 ##############################################################################################
 
@@ -392,7 +392,11 @@ async def login(login : Login):
 @app.get('/inbox')
 async def inbox():
     inbox=graph.get_inbox()
-    return inbox
+    newmail=[]
+    for i in range(inbox['value']):
+        if ("RE" not in inbox['value'][i]['subject']):
+            if ("FW" not in inbox["value"][i]['subject']):
+                newmail.append(inbox['value'][i])
 
 @app.get('/pendingexp')
 async def pendingexp():
