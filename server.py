@@ -392,11 +392,13 @@ async def login(login : Login):
 @app.get('/inbox')
 async def inbox():
     inbox=graph.get_inbox()
-    newmail=[]
+    return inbox
+    '''newmail=[]
     for i in range(inbox['value']):
         if ("RE" not in inbox['value'][i]['subject']):
             if ("FW" not in inbox["value"][i]['subject']):
                 newmail.append(inbox['value'][i])
+    return newmail'''
 
 @app.get('/pendingexp')
 async def pendingexp():
