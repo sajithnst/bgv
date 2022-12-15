@@ -392,13 +392,13 @@ async def login(login : Login):
 @app.get('/inbox')
 async def inbox():
     inbox=graph.get_inbox()
-    return inbox
-    '''newmail=[]
-    for i in range(inbox['value']):
-        if ("RE" not in inbox['value'][i]['subject']):
-            if ("FW" not in inbox["value"][i]['subject']):
-                newmail.append(inbox['value'][i])
-    return newmail'''
+    newmail=[]
+    for i in range(len(inbox['value'])):
+        if ('RE' not in inbox['value'][i]['subject']):
+            if ('FW' not in inbox['value'][i]['subject']):
+                if ('Re' not in inbox['value'][i]['subject']):
+                    newmail.append(inbox['value'][i])
+    return newmail
 
 @app.get('/pendingexp')
 async def pendingexp():
@@ -409,7 +409,7 @@ async def pendingexp():
         '_id':0
     }
     try:
-        return client.bgv.exp.find(filter, project)
+        return list(client.bgv.exp.find(filter, project))
     except Exception as e:
         print (str(e))
         return False
