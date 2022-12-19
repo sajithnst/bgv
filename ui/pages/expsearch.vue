@@ -7,15 +7,14 @@
             <v-container v-if="exit" fluid style="width:30%">
                 <v-card>
                   <v-card-title>{{ employee.empid }}</v-card-title>
-                  <v-card-content>
                     <v-container>
                         Name : {{ employee.name }} <br/>
                         Designation : {{ employee.designation}}<br/>
                         Start Date : {{ employee.start_date }}<br/>
                         End Date : {{ employee.end_date }}<br/>
                         Reporting Manager : {{ employee.reporting_manager}} <br/>
+                        CTC : {{ employee.lpa}} <br/>
                     </v-container>
-                  </v-card-content>
                   <v-card-actions>
                     <v-container>
                         <v-btn icon @click="update()"><v-icon>mdi-account-check-outline</v-icon></v-btn>
