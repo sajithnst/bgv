@@ -11,7 +11,7 @@
                           <v-list-item-title v-text="mail.from.emailAddress.name"></v-list-item-title>
                           <v-list-item-title v-text="mail.subject"></v-list-item-title>
                         </v-list-item-content>
-                        <v-btn icon @click="sendmail(mail.id,mail.from.emailAddress.email)"><v-icon icon>mdi-email</v-icon></v-btn> &nbsp;
+                        <v-btn icon @click="sendmail(mail.id,mail.from.emailAddress.address)"><v-icon icon>mdi-email</v-icon></v-btn> &nbsp;
                         <v-btn icon @click="discard(mail.id)"><v-icon icon>mdi-delete-circle</v-icon></v-btn>
                       </v-list-item>
                   </v-list-item-group>
@@ -29,5 +29,20 @@ export default{
     data: () =>({
         mails:[],
     }),
+    methods:{
+      async sendmail(id,email){
+        console.log(id, email)
+        let mailurl = "http://127.0.0.1:8000/sendprofile"
+        let mail={
+          id: this.id,
+          email: this.email
+        }
+        let res=await this.$axios.post(mailurl,mail)
+        console.log(res.data)
+      },
+      async discard(id){
+        console.log(id)
+      }
+    }
 }
 </script>

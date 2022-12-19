@@ -284,6 +284,7 @@ class Experience(BaseModel):
     lpa : str
     reporting_manager : str
     status : bool = False
+######### Experience models and API ################################
 
 @app.post('/exp')
 async def add_exp(exp :Experience):
@@ -313,6 +314,17 @@ def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(..
     finally:
         file.file.close()
     return True
+
+@app.get('/exp')
+async def exp(empid : str ):
+    filter= {
+        "empid" : empid
+    }
+    project={
+        "_id":0
+    }
+    return dict(client.bgv.exp.find_one(filter,project))
+ 
         
 ################################################################################################
 
@@ -410,6 +422,23 @@ async def pendingexp():
     }
     try:
         return list(client.bgv.exp.find(filter, project))
+    except Exception as e:
+        print (str(e))
+        return False
+class Sendprofile(BaseModel):
+    id : str
+    email : str
+    status : str= "replied"
+
+@app.post('/sendprofile')
+async def sendprofile(profile: Sendprofile):
+    try:
+        subject = "Employement Verification Link"
+        link = "http://localhost:3000/expsearch"
+        msg = f" Hi \n This is a system generated mail generated against your enquiry for employement verification in our company.\n Please click on the following link  and follow instructions to see the employement details\n\n {link}\n\n "
+        graph.send_mail(subject,msg,profile.email)
+        client.bgv.email.insert_one(dict(profile))
+        return True
     except Exception as e:
         print (str(e))
         return False

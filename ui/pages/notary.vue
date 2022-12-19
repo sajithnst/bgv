@@ -14,9 +14,6 @@
               <outgoing/>
           </v-col>
         </v-row>
-      
-       
-  
     </v-main>
  </v-app>
 </template>
