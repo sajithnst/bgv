@@ -409,7 +409,7 @@ async def inbox():
         if ('RE' not in inbox['value'][i]['subject']):
             if ('FW' not in inbox['value'][i]['subject']):
                 if ('Re' not in inbox['value'][i]['subject']):
-                    if  client.bgv.mail.count_documents(inbox['value'][i]['id'] == 0):
+                    if  client.bgv.mail.count_documents({'id':inbox['value'][i]['id']}) == 0:
                         newmail.append(inbox['value'][i])
     
     return newmail

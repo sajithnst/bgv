@@ -1,7 +1,7 @@
 <template>
 <v-app :dark="false">
 <v-app-bar app>
-    <h1 class="text-center"> Verify Chain</h1>
+    <v-btn icon> <v-icon>mdi-home</v-icon></v-btn> 
     <v-spacer></v-spacer>
     <v-btn text @click="signin()">Sign In</v-btn>
     <v-btn text @click="signup()">Sign Up</v-btn>
