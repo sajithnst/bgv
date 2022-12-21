@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app :dark="false">
 <v-app-bar app>
     <h1 class="text-center"> Verify Chain</h1>
     <v-spacer></v-spacer>

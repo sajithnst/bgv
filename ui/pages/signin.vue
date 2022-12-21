@@ -8,7 +8,6 @@
                 <v-form>
                     <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
                     <br/><br/>
-                    <h1 class="text-center"> User Login </h1>
                     <br/><br/>
                     <v-col>
                         <v-row>
@@ -18,7 +17,10 @@
                             <v-text-field v-model="signindata.password" label="Password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
                         </v-row>
                         <v-row>
-                            <v-btn large block color="teal" @click="signin()"> Sign In</v-btn> 
+                            <v-container class="text-center">
+                                <v-btn outlined color="cyan" @click="signin()"> Sign In</v-btn> 
+                            </v-container>
+                            
                         </v-row>
                     </v-col>
                 </v-form>
@@ -73,6 +75,9 @@ export default{
 }
 </script>
 <style>
+.v-btn{
+ width: 200px;
+}
 .signinform{
     width: 30%;
     margin: 0% auto;
