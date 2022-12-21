@@ -42,6 +42,9 @@ export default{
             this.employee = res.data
             console.log(res.data)
         },
+        async update(){
+            this.$router.push('/')
+        },
     }
 }
 </script>

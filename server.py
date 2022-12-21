@@ -409,7 +409,9 @@ async def inbox():
         if ('RE' not in inbox['value'][i]['subject']):
             if ('FW' not in inbox['value'][i]['subject']):
                 if ('Re' not in inbox['value'][i]['subject']):
-                    newmail.append(inbox['value'][i])
+                    if  client.bgv.mail.count_documents(inbox['value'][i]['id'] == 0):
+                        newmail.append(inbox['value'][i])
+    
     return newmail
 
 @app.get('/pendingexp')
@@ -443,3 +445,16 @@ async def sendprofile(profile: Sendprofile):
         print (str(e))
         return False
     
+class Deletemail(BaseModel):
+    id : str
+    email : str
+    status : str= "deleted"
+
+@app.post('/deletemail')
+async def deletemail(delete : Sendprofile):
+    try :
+        client.bgv.email.insert_one(dict(delete))
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
