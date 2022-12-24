@@ -24,6 +24,7 @@ export default{
     async mounted(){
         let url = "http://127.0.0.1:8000/inbox"
       let res=await this.$axios.get(url)
+      console.log(res.data)
       this.mails = res.data;
     },
     data: () =>({
@@ -39,12 +40,14 @@ export default{
         console.log(mail);
         let res=await this.$axios.post(mailurl,mail)
         console.log(res.data)
+        window.location.reload()
       },
       async discard(id,email){
           let url = "http://127.0.0.1:8000/deletemail"
           let pdata = { id : id , email : email}
           let res=await this.$axios.post(url,pdata)
           console.log(res.data)
+          window.location.reload()
       }
     }
 }

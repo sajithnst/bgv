@@ -10,8 +10,7 @@
                         <v-list-item-title v-text="exp.name"></v-list-item-title>
                         <v-list-item-title v-text="exp.company"></v-list-item-title>
                     </v-list-item-content>
-                    <v-btn icon><v-icon >mdi-email</v-icon></v-btn>
-                    <v-btn icon><v-icon>mdi-delete-circle</v-icon></v-btn>
+                    <v-btn icon @click="sendverifymail(exp.empid)"><v-icon >mdi-email</v-icon></v-btn>
                 </v-list-item>
             </v-list-item-group>
         </v-list>
@@ -28,5 +27,17 @@ export default {
     data : () =>({
         exps:[],
     }),
+    methods:{
+        async sendverifymail(empid){
+            console.log(empid)
+            let url = "http://127.0.0.1:8000/verifydatamail";
+            let mail = {
+                empid : empid
+            }
+            let res = await this.$axios.post(url, mail)
+            console.log(res.data)
+            window.location.reload()
+        }
+    }
 }
 </script>

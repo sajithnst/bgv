@@ -409,10 +409,12 @@ async def inbox():
         if ('RE' not in inbox['value'][i]['subject']):
             if ('FW' not in inbox['value'][i]['subject']):
                 if ('Re' not in inbox['value'][i]['subject']):
-                    if  client.bgv.mail.count_documents({'id':inbox['value'][i]['id']}) == 0:
                         newmail.append(inbox['value'][i])
-    
-    return newmail
+    maildata=[]
+    for i in range(len(newmail)):
+        if (client.bgv.email.count_documents({'id': newmail[i]['id']})==0):
+            maildata.append(newmail[i])
+    return maildata
 
 @app.get('/pendingexp')
 async def pendingexp():
@@ -451,10 +453,61 @@ class Deletemail(BaseModel):
     status : str= "deleted"
 
 @app.post('/deletemail')
-async def deletemail(delete : Sendprofile):
+async def deletemail(delete : Deletemail):
     try :
         client.bgv.email.insert_one(dict(delete))
         return True
     except Exception as e:
         print(str(e))
+        return False
+
+class Email(BaseModel):
+    empid : str
+    status : str= "emailed"
+
+@app.post('/verifydatamail')
+async def verifydatamail(empdata : Email):
+    filter={
+    'empid': empdata.empid
+    }
+    project={
+        '_id': 0, 
+        'name': 1, 
+        'hr_mail': 1
+    }
+    try : 
+        expdetails=dict(client.bgv.exp.find_one(filter,project))
+    except Exception as e:
+        print(str(e))
+
+    try :
+        subject = f" Employment Verification of {expdetails['name']} with Employee ID { empdata.empid}"
+        link = f"http://localhost:3000/approveexp"
+        msg = f" Hi \n This is a system generated mail to initiate the employment verification of { expdetails['name']} with employee ID { empdata.empid }. \n\n Please use the following link to complete the same \n\n {link} \n\n Please refrain from sending further messages to this mail and use the link to complete the verification \n\n"
+        graph.send_mail(subject,msg,expdetails['hr_mail'])
+        update= {
+            '$set': {'status': empdata.status }
+        }
+        try :
+            client.bgv.exp.find_one_and_update(filter,update)
+            return True
+        except Exception as e :
+            print( str(e))    
+    except Exception as e: 
+            print(str(e)) 
+            return False
+
+@app.post('/expstatusupdate')
+async def statusupdate( expdata: Email):
+    filter = {
+         'empid': expdata.empid
+    }
+    update ={
+        '$set': {'status': expdata.status}
+    }
+    try : 
+        client.bgv.exp.find_one_and_update(filter,update)
+        return True
+    except Exception as e : 
+        print( str(e))
         return False

@@ -16,9 +16,6 @@
                         CTC : {{ employee.lpa}} <br/>
                     </v-container>
                   <v-card-actions>
-                    <v-container>
-                        <v-btn icon @click="update()"><v-icon>mdi-account-check-outline</v-icon></v-btn>
-                    </v-container>
                 </v-card-actions>
                 </v-card>
             </v-container>
@@ -41,9 +38,6 @@ export default{
             this.exit= true
             this.employee = res.data
             console.log(res.data)
-        },
-        async update(){
-            this.$router.push('/')
         },
     }
 }
