@@ -19,7 +19,6 @@
                 </v-card-actions>
                 </v-card>
             </v-container>
-        
     </v-app>
 </template>
 <script>
