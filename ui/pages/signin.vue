@@ -1,14 +1,17 @@
 <template>
     <v-app signin>
-        <v-app-bar app>
-            <v-btn icon @click="home()"><v-icon size="32">mdi-home</v-icon></v-btn>
+        <v-app-bar app color="indigo darken-3">
+            <v-btn icon @click="home()"><v-icon size="32" color="white">mdi-home</v-icon></v-btn>
         </v-app-bar>
         <v-main>
             <v-container class="signinform">
                 <v-form>
                     <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
                     <br/><br/>
-                    <br/><br/>
+                    <v-container class="text-center">
+                    <img class="mr-3" :src="require('../assets/blockedge-logo.svg')" height="40"/>
+                </v-container>
+                    <br/>
                     <v-col>
                         <v-row>
                             <v-text-field v-model="signindata.email" label="Email ID" :rules="[rules.email,rules.required]"></v-text-field>
@@ -18,9 +21,8 @@
                         </v-row>
                         <v-row>
                             <v-container class="text-center">
-                                <v-btn outlined color="cyan" @click="signin()"> Sign In</v-btn> 
+                                <v-btn text  color="indigo lighten-1" @click="signin()"> Sign In</v-btn> 
                             </v-container>
-                            
                         </v-row>
                     </v-col>
                 </v-form>
@@ -47,14 +49,15 @@ export default{
     }),
     methods :{
         async signin(){
-            let userurl ='http://52.27.5.60:8000/user'
+            let userurl ='http://127.0.0.1:8000/user'
             await this.$axios.get(userurl,{params:{email : this.signindata.email}}).then(result =>{
                  this.firstlogin = result.data.firstlogin;
             }).catch(error =>{ console.log(error)});
             if (this.firstlogin == true){
+                this.$storage.setUniversal('Email',this.signindata.email)
                 this.$router.push('/onboard')
             }else{
-                let url= 'http://52.27.5.60:8000/login'
+                let url= 'http://127.0.0.1:8000/login'
                 await this.$axios.post(url, this.signindata).then(res => {
                 if (res.data.status == true){
                     if (res.data.user == 'user'){
@@ -76,7 +79,7 @@ export default{
 </script>
 <style>
 .v-btn{
- width: 200px;
+ width: 250px;
 }
 .signinform{
     width: 30%;

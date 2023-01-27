@@ -295,6 +295,13 @@ async def add_exp(exp :Experience):
     if client.bgv.exp.count_documents(filter) == 0: 
         try :
              client.bgv.exp.insert_one(dict(exp))
+             filter2= {
+                'email' : exp.email
+             }
+             update = {
+                '$set' : { 'firstlogin' : False}
+             }
+             client.bgv.user.find_one_and_update(filter2,update)
              return True
         except Exception as e:
             print(str(e))

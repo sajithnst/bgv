@@ -41,6 +41,9 @@
       <v-container v-if="empdata">
         <h1 class="text-center"> Empdata</h1>
       </v-container>
+      <v-container v-if="uploaddata">
+        <h1 class="text-center"> Upload data</h1>
+      </v-container>
     </v-main>
 </v-app>
 </template>
@@ -48,7 +51,7 @@
 export default {
     name: 'userpage',
     async mounted(){
-        let url ='http://52.27.5.60:8000/user'
+        var url ='http://52.27.5.60:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -63,6 +66,7 @@ export default {
         empdata:null,
         items: [
       { title: "Profile", icon: "mdi-certificate-outline" },
+      { title: "Upload", icon: "mdi-upload" },
     ],
         
     }),

@@ -1,9 +1,15 @@
 <template>
     <v-app approve>
-        <v-container>
-            <v-text-field label="" v-model="empid"></v-text-field>
-            <v-btn @click="fetchexp()"> Search </v-btn>
-        </v-container>
+        <v-app-bar appro>
+
+        </v-app-bar>
+        <v-main>
+            <v-container>
+                <v-text-field label="Employee ID" v-model="empid"></v-text-field>
+                <v-btn @click="fetchexp()"> Check </v-btn>
+            </v-container>
+        </v-main>
+        
     </v-app>
 </template>
 <script>     

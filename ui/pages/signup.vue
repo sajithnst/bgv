@@ -1,12 +1,12 @@
 <template>
-    <v-app app>
-    <v-app-bar app>
-    <v-btn icon @click="home()"><v-icon size="32">mdi-home</v-icon></v-btn>
+    <v-app app color="green">
+    <v-app-bar app color="indigo darken-3" dark elevate-on-scroll>
+    <img class="mr-3" :src="require('../assets/blockedge-logo.svg')" height="40"/>
+    <v-spacer></v-spacer>
+    <v-btn icon @click="home()"><v-icon size="32" color="white">mdi-home</v-icon></v-btn>
     </v-app-bar>
     <v-main>
         <v-container class="signupform">
-            <br/><br/>
-            <h1 class="text-center">User Signup </h1>
             <br/><br/>
             <v-form v-model="isFormValid">
             <v-alert dismissible type="error" v-model="fail"> Duplicate User Email </v-alert>
@@ -27,7 +27,9 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-btn large block color="teal" elevation="4" @click="submit()" :disabled="!isFormValid"> Submit</v-btn>
+            <v-container class="text-center">
+            <v-btn  color="indigo darken-3" elevation="4" @click="submit()" :disabled="!isFormValid" class="button"> Submit</v-btn>
+            </v-container>
             </v-form>
             <br/><br/>
             <v-container v-if="sendotp">
@@ -41,7 +43,7 @@
                             <v-text-field label ="Enter OTP Here" v-model="utop"></v-text-field>
                         </v-row>
                         <v-row>
-                            <v-btn large block color="teal" @click="signup()">signup</v-btn>
+                            <v-btn large block color="indigo darken-3" @click="signup()" class="button">signup</v-btn>
                         </v-row>
                     </v-col>
                 </v-form>
@@ -81,7 +83,7 @@ export default{
             this.$router.push('/')
         },
         async submit(){
-            let url = "http://52.27.5.60:8000/otp"
+            let url = "http://127.0.0.1:8000/otp"
             let mdata = { params :{email : this.user.email}}
             await this.$axios.get(url,mdata).then(res => {
                 this.otp = res.data
@@ -91,7 +93,7 @@ export default{
         },
         async signup(){
             if (this.utop == this.otp){
-                let url = "http://52.27.5.60:8000/user"
+                let url = "http://127.0.0.1:8000/user"
                 await this.$axios.post(url,this.user).then(res => {
                     if (res.data == true){
                         this.success = true
@@ -114,4 +116,5 @@ export default{
     width: 30%;
     margin: 0% auto;
 }
+
 </style>
