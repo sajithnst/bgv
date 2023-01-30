@@ -340,14 +340,14 @@ async def exp(empid : str ):
 class HrModel(BaseModel):
     name : str
     empid :str
-    company_email : str
+    company_mail : str
     password : str
     firstlogin: bool
 
 @app.post('/hr')
 async def add_hr(hr:HrModel):
     filter = {
-        'company_email': hr.company_email
+        'company_email': hr.company_mail
     }
     if client.bgv.hr.count_documents(filter) == 0:
         try:
@@ -357,6 +357,21 @@ async def add_hr(hr:HrModel):
             print('Error inserting hr'+ str(e))
             return False
     else: 
+        return False
+class Hrprofile(BaseModel):
+    company_mail : str
+@app.post('hr')
+async def gethr(hr:Hrprofile):
+    try:
+        filter = dict(hr)
+        project={
+            '_id':0,
+            'name': 1,
+            'company_mail': 1
+        }
+        return dict(client.bgv.hr.find_one(filter,project))
+    except Exception as e:
+        print('Error getting hr'+ str(e))
         return False
 ################################################################################################
 
@@ -396,17 +411,21 @@ async def login(login : Login):
     if client.bgv.user.count_documents(filter) ==1:
         return {'status': True,'user': 'user'}
     else:
-        if client.bgv.notary.count_documents(filter) ==1:
-                return {'status':True, 'user' : 'notary'}
-        else:
-            filter = {
-                'company_email' : login.email,
-                'password' : login.password
-            }
-            if client.bgv.hr.count_documents(filter) ==1:
-                return {'status' : True, 'user': 'hr'}
-            else :
-                return {'status': False, 'user' : 'Check login creadentials'}
+        return {'status': False, 'user' : 'Check login creadentials'}
+
+class HRLogin(BaseModel):
+    company_mail :str
+    password :str
+
+@app.post("/hrlogin")
+async def hrlogin(login : HRLogin):
+    filter = dict(login)
+    if client.bgv.hr.count_documents(filter) ==1:
+        return True
+    else: 
+        return False
+### API to retrieve mail from email inboxes ###
+
             
 @app.get('/inbox')
 async def inbox():
@@ -418,11 +437,31 @@ async def inbox():
                 if ('Re' not in inbox['value'][i]['subject']):
                         newmail.append(inbox['value'][i])
     maildata=[]
-    for i in range(len(newmail)):
-        if (client.bgv.email.count_documents({'id': newmail[i]['id']})==0):
-            maildata.append(newmail[i])
+    for i in newmail:
+        filter = {
+            'id': i['id']
+        }
+        doc= {
+            'id': i['id'],
+            'status': False
+        }
+        if ( client.bgv.email.count_documents(filter) == 0):
+            client.bgv.email.insert_one(doc)
+    for i in newmail:
+        filter = {
+            'id': i['id'],
+            'status': 'replied'
+        }
+        if ( client.bgv.email.count_documents(filter) == 0):
+            filter = {
+                'id': i['id'],
+                'status': 'deleted'
+            }
+            if ( client.bgv.email.count_documents(filter) == 0):
+                maildata.append(i)
+        
     return maildata
-
+#### API to retrieve experience added pending for approval
 @app.get('/pendingexp')
 async def pendingexp():
     filter ={
@@ -448,7 +487,13 @@ async def sendprofile(profile: Sendprofile):
         link = "http://localhost:3000/expsearch"
         msg = f" Hi \n This is a system generated mail generated against your enquiry for employement verification in our company.\n Please click on the following link  and follow instructions to see the employement details\n\n {link}\n\n "
         graph.send_mail(subject,msg,profile.email)
-        client.bgv.email.insert_one(dict(profile))
+        filter ={
+            'id': profile.id,
+        }
+        update= {
+            '$set' : {'status': profile.status}
+        }
+        client.bgv.email.find_one_and_update(filter, update)
         return True
     except Exception as e:
         print (str(e))
