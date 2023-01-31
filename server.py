@@ -272,6 +272,8 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
         file.file.close()
     return True
 
+######### Experience models and API ################################
+
 class Experience(BaseModel):
     empid : str
     name : str
@@ -284,7 +286,7 @@ class Experience(BaseModel):
     lpa : str
     reporting_manager : str
     status : bool = False
-######### Experience models and API ################################
+
 
 @app.post('/exp')
 async def add_exp(exp :Experience):
@@ -324,14 +326,46 @@ def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(..
 
 @app.get('/exp')
 async def exp(empid : str ):
-    filter= {
-        "empid" : empid
-    }
-    project={
-        "_id":0
-    }
-    return dict(client.bgv.exp.find_one(filter,project))
+    try:
+        filter= {
+            "empid" : empid
+        }
+        project={
+            "_id":0
+        }
+        return dict(client.bgv.exp.find_one(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
  
+class Expupdate(BaseModel):
+    empid : str
+    reason : str
+    rehire : str
+    dues: str
+    relieved: str
+    remarks: str
+@app.post('/expdataadd')
+async def dataadd(data : Expupdate):
+    filter = {
+        'empid' : data.empid
+    }
+    update = {
+        '$set': {
+            'reason': data.reason,
+            'dues': data.dues,
+            'relieved': data.relieved,
+            'remarks': data.remarks,
+            'rehire': data.rehire
+        }
+    }
+    try:
+        client.bgv.exp.find_one_and_update(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+    
         
 ################################################################################################
 
@@ -360,7 +394,7 @@ async def add_hr(hr:HrModel):
         return False
 class Hrprofile(BaseModel):
     company_mail : str
-@app.post('hr')
+@app.post('/hrprofile')
 async def gethr(hr:Hrprofile):
     try:
         filter = dict(hr)

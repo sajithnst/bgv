@@ -2,11 +2,11 @@
     <v-app expsearch>
         <v-container class="text-center" fluid style="width:30%">
             <v-text-field label="Enter Employee ID" v-model="empid"></v-text-field>
-            <v-btn text @click="search()">Search</v-btn>
+            <v-btn text @click="search()">Search</v-btn><br/><br/>
         </v-container>
             <v-container v-if="exit" fluid style="width:30%">
                 <v-card>
-                  <v-card-title>{{ employee.empid }}</v-card-title>
+                  <v-card-title> Employee ID :{{ employee.empid }}</v-card-title>
                     <v-container>
                         Name : {{ employee.name }} <br/>
                         Designation : {{ employee.designation}}<br/>

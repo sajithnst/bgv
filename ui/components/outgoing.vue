@@ -1,6 +1,4 @@
 <template>
-<v-container class="sm-auto">
-    <h2>Outgoing Requests</h2><br/>
         <v-list
             style="max-height:500px"
             class="overflow-y-auto">
@@ -14,7 +12,6 @@
                 </v-list-item>
             </v-list-item-group>
         </v-list>
-</v-container>
 </template>
 <script>
 export default {
