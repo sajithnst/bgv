@@ -80,6 +80,7 @@ async def get_user(email : str):
     else : 
         return False
 
+
 #### generating otp for email verification
 @app.get('/otp')
 async def otp(email: str):
@@ -674,7 +675,7 @@ async def pendingmail():
         "_id":0,
     }
     try:
-        return list(client.bgv.email.find(filter))
+        return list(client.bgv.email.find(filter,project))
     except Exception as e:
         print(str(e))
         return False

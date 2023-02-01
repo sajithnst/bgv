@@ -11,7 +11,11 @@
             <v-row dense>
                 <v-col>
                     <v-container fluid style="width:80%">
-                        <test/>
+                        <mailstat/>
+                    </v-container>
+                    <v-container fluid style="width:80%">
+                        <h3 class="indigo--text text-center"> Incoming requests</h3>
+                        <incomingmail/>
                     </v-container>
                 </v-col>
                 <v-col>

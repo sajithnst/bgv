@@ -47,6 +47,9 @@ export default {
         async logout(){
             this.$router.push('/signin')
         },
+        async home(){
+            this.$router.push('/');
+        },
         async router(title){
            switch(title){
             case "Profile" : 

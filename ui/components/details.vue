@@ -14,5 +14,11 @@
 <script>
 export default{
     name: "menu",
+    data:()=>({
+
+    }),
+    methods:{
+        
+    }
 }
 </script>

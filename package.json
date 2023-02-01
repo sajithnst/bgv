@@ -1,6 +1,10 @@
 {
   "dependencies": {
-    "@vue/composition-api": "^1.7.1",
-    "vue-echarts": "^6.5.2"
+    "vue-echarts": "^6.5.2",
+    "vue-google-charts": "^1.1.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/composition-api": "^0.33.1",
+    "@vue/composition-api": "^1.7.1"
   }
 }
