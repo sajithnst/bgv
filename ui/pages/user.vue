@@ -1,40 +1,13 @@
 <template>
-      <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
-    <v-container class="nav-pic">
-          <v-icon size="120">mdi-account-circle</v-icon>
-      </v-container>
-      <v-divider></v-divider>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title class="font-weight-light"> {{ email }} </v-list-item-title>
-        </v-list-item>
-      </v-list>
-        <v-list dense nav>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          @click="router(item.title)"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app id="inspire" >
+    <v-app-bar app color="indigo darken-2">
+        <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
         <v-toolbar-title>{{name}}</v-toolbar-title> 
         <v-spacer></v-spacer>
-        <v-btn icon @click="logout()"><v-icon>mdi-logout</v-icon></v-btn>
+        <v-btn text @click="exp()" color="white">Experience</v-btn>
+        <v-btn text @click="pg()"  color="white">PG</v-btn>
+        <v-btn text @click="skill()" color="white">Skills</v-btn>
+        <v-btn icon @click="logout()" color="white"><v-icon>mdi-logout</v-icon></v-btn>
     </v-app-bar>
 
     <v-main>
@@ -84,10 +57,3 @@ export default {
     }
 };
 </script>
-<style>
-.nav-pic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-</style>

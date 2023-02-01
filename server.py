@@ -287,6 +287,7 @@ class Experience(BaseModel):
     reporting_manager : str
     status : bool = False
 
+#### API to add experience  #########################
 
 @app.post('/exp')
 async def add_exp(exp :Experience):
@@ -308,6 +309,7 @@ async def add_exp(exp :Experience):
         except Exception as e:
             print(str(e))
     else : return False
+
 
 
 @app.post('/uploadexppdf')
@@ -458,7 +460,7 @@ async def hrlogin(login : HRLogin):
         return True
     else: 
         return False
-### API to retrieve mail from email inboxes ###
+############# API to retrieve mail from email inboxes ################
 
             
 @app.get('/inbox')
@@ -470,31 +472,27 @@ async def inbox():
             if ('FW' not in inbox['value'][i]['subject']):
                 if ('Re' not in inbox['value'][i]['subject']):
                         newmail.append(inbox['value'][i])
-    maildata=[]
     for i in newmail:
         filter = {
             'id': i['id']
         }
         doc= {
             'id': i['id'],
+            'subject': i['subject'],
+            'name': i['from']['emailAddress']['name'],
+            'email':i['from']['emailAddress']['address'],
             'status': False
         }
         if ( client.bgv.email.count_documents(filter) == 0):
             client.bgv.email.insert_one(doc)
-    for i in newmail:
-        filter = {
-            'id': i['id'],
-            'status': 'replied'
-        }
-        if ( client.bgv.email.count_documents(filter) == 0):
-            filter = {
-                'id': i['id'],
-                'status': 'deleted'
-            }
-            if ( client.bgv.email.count_documents(filter) == 0):
-                maildata.append(i)
-        
-    return maildata
+    filter = {
+        'status': False
+    }
+    project={
+        "_id":0
+    }
+    return list(client.bgv.email.find(filter,project))
+
 #### API to retrieve experience added pending for approval
 @app.get('/pendingexp')
 async def pendingexp():
@@ -513,6 +511,7 @@ class Sendprofile(BaseModel):
     id : str
     email : str
     status : str= "replied"
+################################ API to send link to verify securekloud employment #################################
 
 @app.post('/sendprofile')
 async def sendprofile(profile: Sendprofile):
@@ -532,7 +531,8 @@ async def sendprofile(profile: Sendprofile):
     except Exception as e:
         print (str(e))
         return False
-    
+
+######### API to delete mail #####################################
 class Deletemail(BaseModel):
     id : str
     email : str
@@ -541,12 +541,21 @@ class Deletemail(BaseModel):
 @app.post('/deletemail')
 async def deletemail(delete : Deletemail):
     try :
-        client.bgv.email.insert_one(dict(delete))
+        filter ={
+            'id': delete.id,
+        }
+        update={
+            '$set': {
+                'status': delete.status
+            }
+        }
+        client.bgv.email.find_one_and_update(filter, update)
         return True
     except Exception as e:
         print(str(e))
         return False
 
+######## API to verification to external HR #####################################
 class Email(BaseModel):
     empid : str
     status : str= "emailed"
@@ -583,6 +592,8 @@ async def verifydatamail(empdata : Email):
             print(str(e)) 
             return False
 
+############ API to update experience status ############################
+
 @app.post('/expstatusupdate')
 async def statusupdate( expdata: Email):
     filter = {
@@ -596,4 +607,169 @@ async def statusupdate( expdata: Email):
         return True
     except Exception as e : 
         print( str(e))
+        return False
+
+
+############# API to get mail status count ############################
+@app.get('/mailstat')
+async def mailstat():
+    filter={
+        'status': False
+    }
+    pending =  client.bgv.email.count_documents(filter)
+    filter = {
+        'status': 'replied'
+    }
+    replied = client.bgv.email.count_documents(filter)
+    filter = { 
+        'status': 'deleted'
+    }
+    deleted = client.bgv.email.count_documents(filter)
+    total = client.bgv.email.count_documents({})
+    data = {
+        'pendings': pending,
+        'deleted': deleted,
+        'replied': replied,
+        'total': total
+    }
+    return data
+
+############# API to get experience verification count #########################
+@app.get('/expstat')
+async def expstat():
+    filter ={
+        'status': False
+    }
+    pending = client.bgv.exp.count_documents(filter)
+    filter ={
+        'status': 'emailed'
+    }
+    emailed = client.bgv.exp.count_documents(filter)
+    filter = {
+        'status': 'approved'
+    }
+    approved= client.bgv.exp.count_documents(filter)
+    filter={
+        'status':'rejected'
+    }
+    rejected = client.bgv.exp.count_documents(filter)
+    total = client.bgv.exp.count_documents({})
+    data = {
+        'pending': pending,
+        'emailed' : emailed,
+        'approved': approved,
+        'rejected' : rejected,
+        'total' : total
+    }
+    return data
+
+####### API to get pending mail ################### 
+
+@app.get('/pendingmail')
+async def pendingmail():
+    filter = {
+        'status': False,
+    }
+    project = {
+        "_id":0,
+    }
+    try:
+        return list(client.bgv.email.find(filter))
+    except Exception as e:
+        print(str(e))
+        return False
+
+######## API to get deleted mail ###################
+@app.get('/deletedmail')
+async def deletedmail():
+    filter={
+        'status': 'deleted'
+    }
+    project = {
+        '_id':0,
+    }
+    try:
+        return list(client.bgv.email.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+######### API to get replied mail ######################
+
+@app.get('/repliedmail')
+async def repliedmail():
+    filter={
+        'status' : 'replied'
+    }
+    project = {
+        '_id':0,
+    }
+    try:
+        return list(client.bgv.email.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+######### API to get pending experience #################
+
+@app.get('/exppending')
+async def exppending(): 
+    filter = {
+        'status' : False
+    }
+    project = {
+        '_id':0,
+    }
+    try:
+        return list(client.bgv.exp.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+######## API to get emailed experience #################
+
+@app.get('/emailedexp')
+async def emailedexp():
+    filter ={
+        'status': 'emailed'
+    }
+    project ={
+        '_id':0
+    }
+    try :
+        return list(client.bgv.exp.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+##### API to get approved exp###########
+
+@app.get('/approvedexp')
+async def apprvedexp():
+    filter = {
+        'status': 'approved'
+    }
+    project ={
+        '_id':0,
+    }
+    try :
+        return list(client.bgv.exp.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+######## API to get rejected experince ################
+
+@app.get('/rejectedexp')
+async def rejectedexp():
+    filter ={
+        'status':'rejected'
+    }
+    project={
+        '_id':0
+    }
+    try:
+        return list(client.bgv.exp.find(filter,project))
+    except Exception as e:
+        print(str(e))
         return False

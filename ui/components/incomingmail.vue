@@ -6,11 +6,11 @@
                   <v-list-item-group >
                       <v-list-item v-for="mail in mails" :key="mail.id">
                         <v-list-item-content>
-                          <v-list-item-title v-text="mail.from.emailAddress.name"></v-list-item-title>
+                          <v-list-item-title v-text="mail.name"></v-list-item-title>
                           <v-list-item-title v-text="mail.subject"></v-list-item-title>
                         </v-list-item-content>
-                        <v-btn icon @click="sendmail(mail.id,mail.from.emailAddress.address)"><v-icon icon>mdi-email</v-icon></v-btn> &nbsp;
-                        <v-btn icon @click="discard(mail.id,mail.from.emailAddress.address)"><v-icon icon>mdi-delete-circle</v-icon></v-btn>
+                        <v-btn icon @click="sendmail(mail.id,mail.email)"><v-icon icon>mdi-email</v-icon></v-btn> &nbsp;
+                        <v-btn icon @click="discard(mail.id,mail.email)"><v-icon icon>mdi-delete-circle</v-icon></v-btn>
                       </v-list-item>
                   </v-list-item-group>
                 </v-list>
