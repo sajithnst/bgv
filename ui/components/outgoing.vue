@@ -17,7 +17,7 @@
 export default {
     name : "outgoing",
     async mounted(){
-        let eurl = "http://127.0.0.1:8000/pendingexp";
+        let eurl = "http://52.27.5.60:8000/pendingexp";
         let eres = await this.$axios.get(eurl)
         this.exps = eres.data
     },
@@ -27,7 +27,7 @@ export default {
     methods:{
         async sendverifymail(empid){
             console.log(empid)
-            let url = "http://127.0.0.1:8000/verifydatamail";
+            let url = "http://52.27.5.60:8000/verifydatamail";
             let mail = {
                 empid : empid
             }

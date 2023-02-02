@@ -31,7 +31,7 @@ export default{
     }),
     methods:{
         async search(){
-            let url = "http://127.0.0.1:8000/exp"
+            let url = "http://52.27.5.60:8000/exp"
             let empiddata = { params :{ 'empid': this.empid}}
             let res = await this.$axios.get(url,empiddata)
             this.exit= true

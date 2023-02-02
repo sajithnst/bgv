@@ -30,7 +30,7 @@ export default{
     name: 'hrpage',
     async mounted(){
         this.company_mail = await this.$storage.getUniversal('hrmail');
-        let url = "http://127.0.0.1:8000/hrprofile";
+        let url = "http://52.27.5.60:8000/hrprofile";
         let hr={
             'company_mail': this.company_mail,
         }

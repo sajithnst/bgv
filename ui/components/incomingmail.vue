@@ -19,7 +19,7 @@
 export default{
     name : "incomingmail",
     async mounted(){
-        let url = "http://127.0.0.1:8000/inbox"
+        let url = "http://52.27.5.60:8000/inbox"
       let res=await this.$axios.get(url)
       console.log(res.data)
       this.mails = res.data;
@@ -29,7 +29,7 @@ export default{
     }),
     methods:{
       async sendmail(id,email){
-        let mailurl = "http://127.0.0.1:8000/sendprofile"
+        let mailurl = "http://52.27.5.60:8000/sendprofile"
         let mail={
           id: id,
           email:email
@@ -40,7 +40,7 @@ export default{
         window.location.reload()
       },
       async discard(id,email){
-          let url = "http://127.0.0.1:8000/deletemail"
+          let url = "http://52.27.5.60:8000/deletemail"
           let pdata = { id : id , email : email}
           let res=await this.$axios.post(url,pdata)
           console.log(res.data)
