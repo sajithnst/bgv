@@ -17,7 +17,7 @@
 </template>
 <script>
 export default{
-    name : "incoming",
+    name : "incomingmail",
     async mounted(){
         let url = "http://127.0.0.1:8000/inbox"
       let res=await this.$axios.get(url)

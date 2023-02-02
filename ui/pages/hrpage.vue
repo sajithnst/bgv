@@ -10,17 +10,17 @@
         <v-main>
             <v-row dense>
                 <v-col>
-                    <v-container fluid style="width:80%">
+                    <v-container>
                         <mailstat/>
                     </v-container>
                     <v-container fluid style="width:80%">
-                        <h3 class="indigo--text text-center"> Incoming requests</h3>
+                        <h3 class="indigo--text text-center"> Outgoing</h3>
                         <incomingmail/>
                     </v-container>
                 </v-col>
                 <v-col>
                     <v-container fluid style="width:80%">
-                        <h3 class="indigo--text text-center"> Outgoing requests</h3>
+                        <h3 class="indigo--text text-center"> Incoming</h3>
                        <outgoing/>
                     </v-container>
                 </v-col>

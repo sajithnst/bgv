@@ -60,7 +60,9 @@
 <script>
 export default {
   name: 'IndexPage',
-  data:() =>({}),
+  data:() =>({
+    
+  }),
   methods:{
     async signup(){
       this.$router.push('/signup')
