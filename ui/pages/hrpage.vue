@@ -9,7 +9,7 @@
         </v-app-bar>
         <v-main>
             <v-row dense>
-                <v-col>
+                <v-col> 
                     <v-container fluid style="width:80%">
                         <h3 class="indigo--text text-center"> Outgoing</h3>
                         <incomingmail/>
