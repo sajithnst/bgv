@@ -11,11 +11,9 @@
     </v-app-bar>
 
     <v-main>
-      <v-container v-if="empdata">
-        <h1 class="text-center"> Empdata</h1>
-      </v-container>
-      <v-container v-if="uploaddata">
-        <h1 class="text-center"> Upload data</h1>
+      <br/><br/><br/><br/>
+      <v-container>
+        <h1 class="text-center indigo--text text--lighten-2" > You have completed the onboarding process</h1>
       </v-container>
     </v-main>
 </v-app>

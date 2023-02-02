@@ -76,7 +76,12 @@ async def get_user(email : str):
         '_id': 0,
     }
     if client.bgv.user.count_documents(filter) == 1:
-        return dict(client.bgv.user.find_one(filter,project))
+        data= dict(client.bgv.user.find_one(filter,project))
+        data['sslc'] = dict(client.bgv.sslc.find_one(filter,project))
+        data['hse'] = dict(client.bgv.hse.find_one(filter,project))
+        data['ug'] = dict(client.bgv.ug.find_one(filter,project))
+        data['exp'] = dict(client.bgv.exp.find_one(filter,project))
+        return data
     else : 
         return False
 
@@ -149,6 +154,9 @@ async def update( data : PersonalData ):
     except Exception as e:
         print (str(e))
         return False
+
+
+
 ## sslc certificate input
 
 class SSLC(BaseModel):
