@@ -10,9 +10,6 @@
         <v-main>
             <v-row dense>
                 <v-col>
-                    <v-container>
-                        <mailstat/>
-                    </v-container>
                     <v-container fluid style="width:80%">
                         <h3 class="indigo--text text-center"> Outgoing</h3>
                         <incomingmail/>
