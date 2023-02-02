@@ -76,12 +76,7 @@ async def get_user(email : str):
         '_id': 0,
     }
     if client.bgv.user.count_documents(filter) == 1:
-        data= dict(client.bgv.user.find_one(filter,project))
-        data['sslc'] = dict(client.bgv.sslc.find_one(filter,project))
-        data['hse'] = dict(client.bgv.hse.find_one(filter,project))
-        data['ug'] = dict(client.bgv.ug.find_one(filter,project))
-        data['exp'] = dict(client.bgv.exp.find_one(filter,project))
-        return data
+        return dict(client.bgv.user.find_one(filter,project))
     else : 
         return False
 
