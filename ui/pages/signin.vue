@@ -33,6 +33,9 @@
 <script>
 export default{
     name : 'signinpage',
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data: () =>({
         signindata : {
             email : '',

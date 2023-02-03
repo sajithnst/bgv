@@ -56,6 +56,9 @@
 
 export default{
     name:'signuppage',
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data:() => ({
         user :{
             name :'',

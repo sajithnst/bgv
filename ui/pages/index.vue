@@ -8,12 +8,6 @@
 </v-app-bar>
 <v-main>
   <v-container class="text-center">
-    <v-switch
-        v-model="$vuetify.theme.dark"
-        inset
-        label="Dark"
-        persistent-hint
-      ></v-switch>
   </v-container>
   <v-container >
     <v-sheet elevation="4" color="indigo darken-4">
@@ -67,10 +61,11 @@
 
 <script>
 export default {
-  theme:{dark : false},
   name: 'IndexPage',
+  async mounted(){
+    this.$vuetify.theme.dark=false;
+  },
   data:() =>({
-    
   }),
   methods:{
     async signup(){

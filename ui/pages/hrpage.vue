@@ -12,7 +12,7 @@
                 <v-col> 
                     <v-container fluid style="width:80%">
                         <h3 class="indigo--text text-center"> Outgoing</h3>
-                        <incomingmail/>
+                        <incoming/>
                     </v-container>
                 </v-col>
                 <v-col>
@@ -29,6 +29,7 @@
 export default{
     name: 'hrpage',
     async mounted(){
+        this.$vuetify.theme.dark =false;
         this.company_mail = await this.$storage.getUniversal('hrmail');
         let url = "http://52.27.5.60:8000/hrprofile";
         let hr={

@@ -30,6 +30,9 @@
 <script>
 export default {
     name: 'onbord',
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data: () => ({
         personal:true,
         sslc:null,

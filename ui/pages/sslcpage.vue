@@ -14,6 +14,9 @@
 <script>
 export default{
     name :"sslcpages",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data :()=>({
         isValid :null,
 

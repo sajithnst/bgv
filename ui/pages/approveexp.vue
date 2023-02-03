@@ -59,6 +59,9 @@
 <script>     
 export default {
     name: "Approve Experience",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data:() => ({
         user:null,
         empid:null, 

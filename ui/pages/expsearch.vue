@@ -24,6 +24,9 @@
 <script>
 export default{
     name:"expsearch",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data:() =>({
         empid:"",
         employee: {},

@@ -21,6 +21,9 @@
 <script>
 export default{
     name: "hrsignin",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data: () => ({
 
     }),

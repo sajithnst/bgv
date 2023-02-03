@@ -22,6 +22,7 @@
 export default {
     name: 'userpage',
     async mounted(){
+        this.$vuetify.theme.dark=false;
         var url ='http://52.27.5.60:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{

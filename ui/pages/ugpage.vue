@@ -14,6 +14,9 @@
 <script>
 export default{
     name : "ugpage",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data : () =>({
 
     }),

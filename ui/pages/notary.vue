@@ -20,6 +20,9 @@
 <script>
 export default{
     name :"mailmodel",
+    async mounted(){
+        this.$vuetify.theme.dark=false;
+    },
     data:() =>({
     }),
     
