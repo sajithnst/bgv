@@ -7,6 +7,14 @@
     <v-btn text @click="signup()" color="indigo darken-4"   >Sign Up</v-btn>
 </v-app-bar>
 <v-main>
+  <v-container class="text-center">
+    <v-switch
+        v-model="$vuetify.theme.dark"
+        inset
+        label="Dark"
+        persistent-hint
+      ></v-switch>
+  </v-container>
   <v-container >
     <v-sheet elevation="4" color="indigo darken-4">
      <h1 class="verifychain" > VERIFI EDGE</h1>
@@ -59,6 +67,7 @@
 
 <script>
 export default {
+  theme:{dark : false},
   name: 'IndexPage',
   data:() =>({
     
