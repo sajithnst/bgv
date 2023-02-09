@@ -521,7 +521,7 @@ class Sendprofile(BaseModel):
 async def sendprofile(profile: Sendprofile):
     try:
         subject = "Employement Verification Link"
-        link = "http://52.27.5.60:9000//expsearch"
+        link = "http://52.27.5.60:9000/expsearch"
         msg = f" Hi \n This is a system generated mail generated against your enquiry for employement verification in our company.\n Please click on the following link  and follow instructions to see the employement details\n\n {link}\n\n "
         graph.send_mail(subject,msg,profile.email)
         filter ={
@@ -581,7 +581,7 @@ async def verifydatamail(empdata : Email):
 
     try :
         subject = f" Employment Verification of {expdetails['name']} with Employee ID { empdata.empid}"
-        link = f"http://52.27.5.60:9000//approveexp"
+        link = f"http://52.27.5.60:9000/approveexp"
         msg = f" Hi \n This is a system generated mail to initiate the employment verification of { expdetails['name']} with employee ID { empdata.empid }. \n\n Please use the following link to complete the same \n\n {link} \n\n Please refrain from sending further messages to this mail and use the link to complete the verification \n\n"
         graph.send_mail(subject,msg,expdetails['hr_mail'])
         update= {
