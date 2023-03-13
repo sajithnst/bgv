@@ -8,20 +8,7 @@
            <v-btn icon @click="logout()" ><v-icon color="white">mdi-logout</v-icon></v-btn>
         </v-app-bar>
         <v-main>
-            <v-row dense>
-                <v-col> 
-                    <v-container fluid style="width:80%">
-                        <h3 class="indigo--text text-center"> Outgoing</h3>
-                        <incoming/>
-                    </v-container>
-                </v-col>
-                <v-col>
-                    <v-container fluid style="width:80%">
-                        <h3 class="indigo--text text-center"> Incoming</h3>
-                       <outgoing/>
-                    </v-container>
-                </v-col>
-            </v-row>
+            
         </v-main>
     </v-app>
 </template>
@@ -31,7 +18,7 @@ export default{
     async mounted(){
         this.$vuetify.theme.dark =false;
         this.company_mail = await this.$storage.getUniversal('hrmail');
-        let url = "http://52.27.5.60:8000/hrprofile";
+        let url = "http://127.0.0.1:8000/hrprofile";
         let hr={
             'company_mail': this.company_mail,
         }

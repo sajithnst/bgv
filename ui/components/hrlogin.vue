@@ -27,7 +27,7 @@ export default{
     }),
     methods:{
         async hrlogin(){
-            let url = "http://52.27.5.60:8000/hrlogin";
+            let url = "http://127.0.0.1:8000/hrlogin";
             let hlogin = {
                 company_mail : this.company_mail,
                 password : this.password,

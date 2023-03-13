@@ -44,6 +44,7 @@ class UserModel(BaseModel):
     email : str
     password : str
     firstlogin : bool
+    wallet : int = 0
     status : str = 'pending'
 
 ### create a new user and also create a folder with email as filename

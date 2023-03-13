@@ -86,7 +86,7 @@ export default {
     }),
     methods:{
         async fetchdata(){
-            let url = "http://52.27.5.60:8000/exp"
+            let url = "http://127.0.0.1:8000/exp"
             let empiddata = { params :{ 'empid': this.empid}}
             let res = await this.$axios.get(url,empiddata)
             console.log(res.data)
@@ -108,7 +108,7 @@ export default {
             }
         },
         async update(){
-            let url= "http://52.27.5.60:8000/expdataadd";
+            let url= "http://127.0.0.1:8000/expdataadd";
             let update={
                 empid : this.empid,
                 rehire: this.rehire,
@@ -124,7 +124,7 @@ export default {
             this.data=true
         },
         async accept(){
-            let url = "http://52.27.5.60:8000/expstatusupdate";
+            let url = "http://127.0.0.1:8000/expstatusupdate";
             let empdata= {
                 empid : this.empid,
                 status : 'approved'
@@ -137,7 +137,7 @@ export default {
             }
         },
         async refuse(){
-            let url = "http://52.27.5.60:8000/expstatusupdate";
+            let url = "http://127.0.0.1:8000/expstatusupdate";
             let empdata= {
                 empid : this.empid,
                 status : 'rejected'

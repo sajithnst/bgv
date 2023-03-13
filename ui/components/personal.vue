@@ -47,7 +47,7 @@ export default {
     }),
     methods:{
         async submit(){
-            let url = "http://52.27.5.60:8000/userupdate";
+            let url = "http://127.0.0.1:8000/userupdate";
             let pdata= {
                 empid : this.empid,
                 doj : this.doj,

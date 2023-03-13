@@ -21,7 +21,7 @@
 export default{
     name: "sslc",
     async mounted(){
-        var url ='http://52.27.5.60:8000/user'
+        var url ='http://127.0.0.1:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -49,7 +49,7 @@ export default{
       this.file=event
     },
         async submit(){
-            let url ="http://52.27.5.60:8000/sslc"
+            let url ="http://127.0.0.1:8000/sslc"
             let sslcdata = {
                 regno : this.regno,
                 email : this.email,
@@ -65,7 +65,7 @@ export default{
             formdata.append('email',this.email)
             formdata.append('regno',this.regno)
             formdata.append('file',this.file)
-            let furl = "http://52.27.5.60:8000/uploadsslcpdf"
+            let furl = "http://127.0.0.1:8000/uploadsslcpdf"
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
             if (res.data === result.data){
                 this.$router.push('/hsepage')

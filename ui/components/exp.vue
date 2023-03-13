@@ -24,7 +24,7 @@
 export default{
     name : "exp",
     async mounted(){
-        var url ='http://52.27.5.60:8000/user'
+        var url ='http://127.0.0.1:8000/user'
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -53,7 +53,7 @@ export default{
       this.file=event
     },
      async submit(){
-        let url="http://52.27.5.60:8000/exp"
+        let url="http://127.0.0.1:8000/exp"
         let edata = {
             empid : this.empid,
             name: this.name,
@@ -67,7 +67,7 @@ export default{
             reporting_manager: this.reporting_manager
         }
         let result = await this.$axios.post(url,edata);
-        let furl = "http://52.27.5.60:8000/uploadexppdf"
+        let furl = "http://127.0.0.1:8000/uploadexppdf"
         let formdata= new FormData()
             formdata.append('email',this.email)
             formdata.append('empid',this.empid)
