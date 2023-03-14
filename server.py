@@ -383,6 +383,7 @@ class HrModel(BaseModel):
     empid :str
     company_mail : str
     password : str
+    wallet : int =0
     firstlogin: bool
 
 @app.post('/hr')
@@ -421,6 +422,7 @@ class NotaryModel(BaseModel):
     name : str
     email : str
     aadhaar :str
+    wallet : int  = 0
     password : str
     firstlogin : bool
 
@@ -778,3 +780,54 @@ async def rejectedexp():
     except Exception as e:
         print(str(e))
         return False
+
+@app.get('/pendinguser')
+async def pendinguser():
+    filter ={
+        'status' : 'pending'
+    }
+    project ={
+        '_id':0
+        }
+    try:
+        return list(client.bgv.user.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+class Verify(BaseModel):
+    user_email : str
+    notary_email: str
+    notart_name :str
+    status : str = "verified"
+    charge : int = 100
+@app.post('/verify')
+async def verify(verify:Verify):
+    try:
+        filter = {
+            'email': verify.notary_email,
+        }
+        project={
+            '_id':0,
+            'wallet':1
+        }
+        notary_wallet = client.bgv.notary.find_one(filter=filter,projection=project)['wallet']+verify.charge
+        client.bgv.notary.update_one(filter=filter,update={'$set':{'wallet':notary_wallet}})
+        filter = {
+            'email': verify.user_email,
+        }
+        update ={
+            '$set':{ 'status': verify.status}
+        }
+        client.bgv.user.update_one(filter=filter,update=update)
+        client.bgv.sslc.update_one(filter, update)
+        client.bgv.hse.update_one(filter, update)
+        client.bgv.ug.update_one(filter, update)
+        client.bgv.exp.update_many(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+
+
+        

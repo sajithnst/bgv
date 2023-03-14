@@ -9,13 +9,13 @@
 <v-main>
   <v-container class="text-center">
   </v-container>
-  <v-container >
+  <v-container style="margin-bottom: 10%;">
     <v-sheet elevation="4" color="indigo darken-4">
      <h1 class="verifychain" > VERIFI EDGE</h1>
      </v-sheet>
   </v-container>
   <v-container >
-    <h1 class="bgv">Credentials Authentication Simplified</h1>
+    <h1 class="bgv">Credentials and Authentications  Simplified</h1>
   </v-container>
   <v-container>
     <v-divider class="border-opacity-100" color="indigo darken-6"></v-divider>

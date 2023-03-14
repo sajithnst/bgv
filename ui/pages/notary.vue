@@ -11,7 +11,7 @@
       </v-container>
   <v-card
     class="mx-auto pa-2"
-    style="width: 50%;"
+    style="width: 80%;"
   >
     <v-list density="compact">
       <v-list-item
@@ -20,8 +20,9 @@
         :value="profile.email"
         active-color="primary"
       >
-        <v-list-item-title v-text="profile.regno"></v-list-item-title>
-        <v-list-item-title v-text="profile.doc"></v-list-item-title>
+        <v-list-item-title v-text="profile.name"></v-list-item-title>
+        <v-list-item-title v-text="profile.status"></v-list-item-title>
+        <v-list-item-subtitle v-text="profile.email"></v-list-item-subtitle>
         <v-btn icon @click="view()"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
         <v-btn icon @click="approve()"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
         <v-btn icon @click="deny()"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>
@@ -37,6 +38,10 @@ export default{
     name :"mailmodel",
     async mounted(){
         this.$vuetify.theme.dark=false;
+        let url = "http://127.0.0.1:8000/pendinguser"
+        let res = await this.$axios.get(url)
+        console.log(res.data)
+        this.profiles =  res.data
     },
     data:() =>({
       profiles: [{
