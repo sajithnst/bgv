@@ -63,8 +63,8 @@
     <v-divider class="border-opacity-100" color="indigo darken-6"></v-divider>
   </v-container>
   <v-container>
-      <h3 class="text-center" style="font-size: x-large; padding: 5%;" >How it works?</h3>
-      <v-img :src="require('@/assets/VerifiEdge.png')" style="border: 10px;" height="600px"></v-img>
+      <h3 class="text-center" style="font-size: x-large;padding: 2%;" >How it works?</h3>
+      <v-img :src="require('@/assets/VerifiEdge.png')" style="border: 10px;" height="70%"></v-img>
   </v-container>
   <v-container>
     <v-divider class="border-opacity-100" color="indigo darken-6"></v-divider>
@@ -121,7 +121,7 @@ export default {
           this.$router.push("/hrsignin");
         },
         async notary(){
-          this.$router.push("/notary");
+          this.$router.push("/notarysignin");
         }
     },
 

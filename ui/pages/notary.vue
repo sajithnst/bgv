@@ -2,6 +2,8 @@
  <v-app notary>
     <v-app-bar app color="indigo darken-4">
       <v-btn icon @click="home()" color="white"><v-icon size="32">mdi-home</v-icon></v-btn>
+      &emsp;
+      <h2 style="color: ghostwhite;"> {{ notary_name }}</h2>
       <v-spacer></v-spacer>
       <v-btn icon @click="logout()" color="white"><v-icon size="32">mdi-logout</v-icon></v-btn>
     </v-app-bar>
@@ -21,12 +23,11 @@
         active-color="primary"
       >
         <v-list-item-title v-text="profile.name"></v-list-item-title>
-        <v-list-item-title v-text="profile.status"></v-list-item-title>
         <v-list-item-subtitle v-text="profile.email"></v-list-item-subtitle>
-        <v-btn icon @click="view()"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
-        <v-btn icon @click="approve()"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-        <v-btn icon @click="deny()"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>
-
+        <v-list-item-title v-text="profile.status"></v-list-item-title>
+        <v-btn icon @click="view(profile.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
+        <v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+        <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>
       </v-list-item>
     </v-list>
   </v-card>
@@ -38,31 +39,58 @@ export default{
     name :"mailmodel",
     async mounted(){
         this.$vuetify.theme.dark=false;
+        let nurl ="http://127.0.0.1:8000/notary"
+        this.notary_email = this.$storage.getUniversal('notaryemail')
+  
+        let nres = await this.$axios.get(nurl,{
+          params :{
+            email : this.notary_email
+          }
+        });
+        this.notary_name = nres.data.name
         let url = "http://127.0.0.1:8000/pendinguser"
         let res = await this.$axios.get(url)
-        console.log(res.data)
-        this.profiles =  res.data
+        this.profiles = res.data
+        console.log(this.notary_email,this.notary_name)
     },
     data:() =>({
-      profiles: [{
-        'doc' : "SSLC",
-        'regno': "DFADF",
-        'email': "sajithsurendran007@gmail.com",
-        'marks': 98
-      },
-      {
-        'doc' : "HSE",
-        'regno': "9787",
-        'email': "sajithindra.si@gmail.com",
-        'marks': 80
-      },
-      {
-        'doc' : "UG",
-        'regno' : "FDF9077",
-        'email': "sajithsurendran@gmail.com",
-        'marks': 70
-      },]
+      profiles: [],
+      notary_email: null,
+      notary_name: null,
+
+
     }),
+    methods:{
+      async home(){
+        this.$router.push("/");
+      },
+      async logout(){
+        this.$router.push("/notarysignin");
+      },
+      async view(){
+      },
+      async approve(email){
+        let url = "http://127.0.0.1:8000/verify"
+        let verify ={
+          user_email: email,
+          notary_email : this.notary_email,
+          notary_name: this.notary_name
+        }
+        let res = await this.$axios.post(url,verify)
+        console.log(res.data)
+      },
+      async deny(email){
+        let url = "http://127.0.0.1:8000/verify"
+        let verify ={
+          user_email: email,
+          notary_email : this.notary_email,
+          notary_name: this.notary_name,
+          status: 'rejected'
+        }
+        let res = await this.$axios.post(url,verify)
+        console.log(res.data)
+      }
+    }
     
-}
+  }
 </script>

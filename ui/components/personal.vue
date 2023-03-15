@@ -6,6 +6,7 @@
                 <h3 class="text-center"> Personal Data</h3> <br />
                 <v-text-field label="Employee ID " v-model="empid" :rules="[rules.required,rules.alphnum]"></v-text-field>
                 <v-text-field label="Date of Join (DD/MM/YYYY)" v-model="doj" :rules="[rules.required]"></v-text-field>
+                <v-text-field label="Current Company Name" v-model="company" :rules="[rules.required]"></v-text-field>
                 <v-text-field label="Company Email" v-model="company_email" :rules="[rules.required,rules.email]"></v-text-field>
                 <v-text-field label="Mobile Number" v-model="mob" :rules="[rules.required,rules.pan]"></v-text-field>
                 <v-text-field label="Aadhaar" v-model="aadhaar" :rules="[rules.required,rules.aadhaar]"></v-text-field>
@@ -29,6 +30,7 @@ export default {
         empid:"",
         doj:"",
         email:"",
+        company :"",
         company_email:"",
         mob:"",
         aadhaar : "",
@@ -52,6 +54,7 @@ export default {
                 empid : this.empid,
                 doj : this.doj,
                 email:this.email,
+                company_name : this.company,
                 company_mail : this.company_email,
                 mob : this.mob,
                 aadhaar : this.aadhaar,

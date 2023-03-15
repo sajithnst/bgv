@@ -119,6 +119,7 @@ class PersonalData(BaseModel):
     empid : str
     doj : str
     email : str
+    company_name:str
     company_mail : str
     mob : str
     aadhaar: str
@@ -135,6 +136,7 @@ async def update( data : PersonalData ):
         '$set':{
         'empid': data.empid,
         'doj': data.doj,
+        'company_name':data.company_name,
         'company_mail': data.company_mail,
         'mob': data.mob,
         'aadhaar': data.aadhaar,
@@ -418,6 +420,21 @@ async def gethr(hr:Hrprofile):
 ################################################################################################
 
 ############### API related to Notary ##########################################################
+
+@app.get('/notary')
+async def get_notary(email: str):
+    try :
+        filter = {
+            'email':email
+            }
+        project ={
+            '_id':0,
+        }
+        return dict(client.bgv.notary.find_one(filter,project))
+    except Exception as e:
+        print('Error getting notary'+ str(e))
+        return False
+
 class NotaryModel(BaseModel):
     name : str
     email : str
@@ -438,6 +455,20 @@ async def add_notary(notary:NotaryModel):
         except Exception as e:
             print ('Error inserting notary'+ str(e))
     else :
+        return False
+
+class NLogin(BaseModel):
+    email : str
+    password : str
+@app.post('/notarylogin')
+async def notary_login(login:NLogin):
+    try:
+        if(client.bgv.notary.count_documents(dict(login))) ==1:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(str(e))
         return False
 
 #################################################################################################
@@ -794,10 +825,26 @@ async def pendinguser():
     except Exception as e:
         print(str(e))
         return False
+@app.get('/verifiedusers')
+async def apprpvedusers():
+    try:
+        filter ={
+            'status' : 'verified'
+            }
+        project ={
+            '_id':0
+            }
+        return list(client.bgv.user.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+
+
 class Verify(BaseModel):
     user_email : str
     notary_email: str
-    notart_name :str
+    notary_name :str
     status : str = "verified"
     charge : int = 100
 @app.post('/verify')
@@ -827,7 +874,5 @@ async def verify(verify:Verify):
     except Exception as e:
         print(str(e))
         return False
-
-
 
         
