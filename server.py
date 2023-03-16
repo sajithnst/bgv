@@ -81,6 +81,33 @@ async def get_user(email : str):
     else : 
         return False
 
+@app.get('/usereducation')
+async def get_usercertificates(email:str):
+    filter = {
+        'email': email
+        }
+    project={
+        '_id': 0,
+    }
+    data ={
+        'sslc' : dict(client.bgv.sslc.find_one(filter,project)),
+        'hse' : dict(client.bgv.hse.find_one(filter,project)),
+        'ug': dict(client.bgv.ug.find_one(filter,project)),
+    }
+    return data
+
+@app.get('userexp')
+async def user_exp(email: str):
+    filter ={
+        'email': email
+    }
+    project = {
+        '_id': 0,
+        }
+    if client.bgv.exp.count_documents(filter) == 0:
+        return False
+    else :
+        return list(client.bgv.exp.find(filter,project))
 
 #### generating otp for email verification
 @app.get('/otp')
@@ -180,6 +207,15 @@ async def sslcinput(sslc : SSLC):
         except Exception as e:
             print (str(e))
     else: return False
+@app.get('/sslc')
+async def get_sslc(email: str):
+    filter = {'email': email}
+    project = { '_id':0}
+    try:
+        return client.bgv.sslc.find_one(filter,project)
+    except Exception  as e:
+        print(str(e))
+        return False
 
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
@@ -223,6 +259,19 @@ async def hseinput(hse : HSE):
             print (str(e))
     else: 
         return False
+@app.get('/hse')
+async def get_hse(email:str):
+    filter = {
+        'email': email,
+    }
+    project={
+        '_id':0
+    }
+    try:
+        return dict(client.bgv.hse.find_one(filter,project))
+    except Exception as e:
+        print (str(e))
+        return False
 
 @app.post('/uploadhsepdf')
 def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
@@ -264,6 +313,19 @@ async def addug(ug: UG):
         except Exception as e:
             print(str(e))
     else: return False
+
+
+@app.get('/ug')
+async def get_ug(email:str):
+    filter = {'email': email}
+    project = {
+        '_id':0
+    }
+    try:
+        return dict(client.bgv.ug.find_one(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
 
 @app.post('/uploadugpdf')
 def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
@@ -317,7 +379,22 @@ async def add_exp(exp :Experience):
             print(str(e))
     else : return False
 
+@app.get('exp')
+async def get_exp(email:str):
+    filter = {
+        'email':email
+    }
+    project ={
+        '_id':0
+    }
+    try:
 
+        if client.bgv.exp.count_documents(filter) == 0:
+            return None
+        return list(client.bgv.exp.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
 
 @app.post('/uploadexppdf')
 def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(...)):

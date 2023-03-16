@@ -67,7 +67,9 @@ export default{
       async logout(){
         this.$router.push("/notarysignin");
       },
-      async view(){
+      async view(email){
+        this.$storage.setUniversal('user_email',email)
+        this.$router.push("/userprofile");
       },
       async approve(email){
         let url = "http://127.0.0.1:8000/verify"

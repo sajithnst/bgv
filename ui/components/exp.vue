@@ -17,6 +17,9 @@
             <v-container class="text-center">
                 <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
             </v-container>
+            <v-container class="text-center">
+                <v-btn text  @click="skip()" color="indigo lighten-2"> I'm a fresher </v-btn>
+            </v-container>
         </v-form>
     </v-container>
 </template>
@@ -80,6 +83,9 @@ export default{
             }
 
      },
+     async skip(){
+        this.$router.push('/signin')
+     }
     }
 }
 </script>
