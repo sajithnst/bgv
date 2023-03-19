@@ -12,7 +12,7 @@
     <v-main>
       <br/><br/><br/><br/>
       <v-container>
-        <wallet/>
+        <userwallet/>
       </v-container>
     </v-main>
 </v-app>

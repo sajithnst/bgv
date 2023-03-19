@@ -8,6 +8,15 @@
       <v-btn icon @click="logout()" color="white"><v-icon size="32">mdi-logout</v-icon></v-btn>
     </v-app-bar>
     <v-main>
+      <v-container class="text-center">
+          <h1 style="color: indigo;">INR {{ wallet }}</h1>
+          <v-container class="text-center">
+            <v-btn text @click="sync()" outlined>sync</v-btn>
+          </v-container>
+      </v-container>
+      <v-container>
+        <v-divider class="border-opacity-100 " color="indigo" inset></v-divider>
+      </v-container>
       <v-container>
         <h2 class="text-center" style="color: darkblue;"> Profiles</h2>
       </v-container>
@@ -48,15 +57,16 @@ export default{
           }
         });
         this.notary_name = nres.data.name
+        this.wallet = nres.data.wallet
         let url = "http://127.0.0.1:8000/pendinguser"
         let res = await this.$axios.get(url)
         this.profiles = res.data
-        console.log(this.notary_email,this.notary_name)
     },
     data:() =>({
       profiles: [],
       notary_email: null,
       notary_name: null,
+      wallet:0,
 
 
     }),
@@ -69,6 +79,7 @@ export default{
       },
       async view(email){
         this.$storage.setUniversal('user_email',email)
+        this.$storage.setUniversal('hrlogin',0)
         this.$router.push("/userprofile");
       },
       async approve(email){
@@ -91,6 +102,15 @@ export default{
         }
         let res = await this.$axios.post(url,verify)
         console.log(res.data)
+      },
+      async sync(){
+        let nurl ="http://127.0.0.1:8000/notary"
+        let nres = await this.$axios.get(nurl,{
+          params :{
+            email : this.notary_email
+          }
+        });
+        this.wallet = nres.data.wallet
       }
     }
     

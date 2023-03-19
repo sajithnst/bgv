@@ -8,7 +8,7 @@
            <v-btn icon @click="logout()" ><v-icon color="white">mdi-logout</v-icon></v-btn>
         </v-app-bar>
         <v-main>
-            
+            <approvedprofile/>
         </v-main>
     </v-app>
 </template>

@@ -12,10 +12,10 @@
             <sslc/>
         </v-container>
         <v-container class="form" v-if="hse">
-            hse
+            <hse/>
         </v-container>
         <v-container class="form" v-if="ug">
-        ug
+            <ug/>
         </v-container>
         <v-container class="form" v-if="pg">
             pg

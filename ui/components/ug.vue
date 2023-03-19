@@ -6,7 +6,7 @@
             <v-text-field label="Registration Number" v-model="regno" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Specialization" v-model="specialization" :rules="[rules.required]"></v-text-field>
             <v-text-field label="College" v-model="college" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Marks" v-model="marks" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Marks in percent (e.g. 80)" v-model="marks" :rules="[rules.required,rules.percents]"></v-text-field>
             <v-text-field label="Year of completion" v-model="passout" :rules="[rules.required]"></v-text-field>
             <v-text-field label="University" v-model="university" :rules="[rules.required]"></v-text-field>
             <v-file-input @change="fileselect" label="Upload PDF File" :rules="[rules.required]"></v-file-input>

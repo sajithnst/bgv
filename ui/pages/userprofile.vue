@@ -1,13 +1,24 @@
 <template>
     <v-app userprofile>
         <v-app-bar app  color="indigo darken-4">
-            <v-app-bar-title style="color: ghostwhite;">{{ name }}</v-app-bar-title>
+            <v-app-bar-title style="color: ghostwhite;">User Profile</v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-app-bar-subtitle style="color: ghostwhite;">Close</v-app-bar-subtitle>
+            <v-btn text style="color: ghostwhite;" @click="logout()">Close</v-btn>
         </v-app-bar>
         <v-main>
-            <personaldetails/>
-            <education/>
+            <v-container>
+                <userbanner/>
+                <v-divider class="border-opacity-100" inset color="blue"></v-divider>
+                <personaldetails/>
+                <v-divider class="border-opacity-100" inset color="blue"></v-divider>
+                <sslcview/>
+                <v-divider class="border-opacity-100" inset color="blue"></v-divider>
+                <hseview/>
+                <v-divider class="border-opacity-100" inset color="blue"></v-divider>
+                <ugview/>
+                <v-divider class="border-opacity-100" inset color="blue"></v-divider>
+                <expview/>
+            </v-container>
         </v-main>
     </v-app>
 </template>
@@ -25,5 +36,16 @@ export default{
         name : "Sajith Surendran",
         email:"",
     }),
+   methods: {
+    async logout (){
+        if (this.$storage.getUniversal('hrlogin') == 1){
+            this.$router.push("/hrpage");
+        }
+        else{
+            this.$router.push("/notary");
+        }
+
+    }
+   }
 }
 </script>

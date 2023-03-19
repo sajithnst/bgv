@@ -147,6 +147,7 @@ class PersonalData(BaseModel):
     doj : str
     email : str
     company_name:str
+    designation: str
     company_mail : str
     mob : str
     aadhaar: str
@@ -164,6 +165,7 @@ async def update( data : PersonalData ):
         'empid': data.empid,
         'doj': data.doj,
         'company_name':data.company_name,
+        'designation' : data.designation,
         'company_mail': data.company_mail,
         'mob': data.mob,
         'aadhaar': data.aadhaar,
@@ -207,6 +209,7 @@ async def sslcinput(sslc : SSLC):
         except Exception as e:
             print (str(e))
     else: return False
+
 @app.get('/sslc')
 async def get_sslc(email: str):
     filter = {'email': email}
@@ -259,6 +262,7 @@ async def hseinput(hse : HSE):
             print (str(e))
     else: 
         return False
+    
 @app.get('/hse')
 async def get_hse(email:str):
     filter = {
@@ -379,7 +383,7 @@ async def add_exp(exp :Experience):
             print(str(e))
     else : return False
 
-@app.get('exp')
+@app.get('/exp')
 async def get_exp(email:str):
     filter = {
         'email':email
@@ -575,327 +579,16 @@ async def hrlogin(login : HRLogin):
         return True
     else: 
         return False
-############# API to retrieve mail from email inboxes ################
 
-            
-@app.get('/inbox')
-async def inbox():
-    inbox=graph.get_inbox()
-    newmail=[]
-    for i in range(len(inbox['value'])):
-        if ('RE' not in inbox['value'][i]['subject']):
-            if ('FW' not in inbox['value'][i]['subject']):
-                if ('Re' not in inbox['value'][i]['subject']):
-                        newmail.append(inbox['value'][i])
-    for i in newmail:
-        filter = {
-            'id': i['id']
-        }
-        doc= {
-            'id': i['id'],
-            'subject': i['subject'],
-            'name': i['from']['emailAddress']['name'],
-            'email':i['from']['emailAddress']['address'],
-            'status': False
-        }
-        if ( client.bgv.email.count_documents(filter) == 0):
-            client.bgv.email.insert_one(doc)
-    filter = {
-        'status': False
-    }
-    project={
-        "_id":0
-    }
-    return list(client.bgv.email.find(filter,project))
-
-#### API to retrieve experience added pending for approval
-@app.get('/pendingexp')
-async def pendingexp():
-    filter ={
-        'status': False
-    }
-    project={
-        '_id':0
-    }
-    try:
-        return list(client.bgv.exp.find(filter, project))
-    except Exception as e:
-        print (str(e))
-        return False
-class Sendprofile(BaseModel):
-    id : str
-    email : str
-    status : str= "replied"
-################################ API to send link to verify securekloud employment #################################
-
-@app.post('/sendprofile')
-async def sendprofile(profile: Sendprofile):
-    try:
-        subject = "Employement Verification Link"
-        link = "http://52.27.5.60:9000/expsearch"
-        msg = f" Hi \n This is a system generated mail generated against your enquiry for employement verification in our company.\n Please click on the following link  and follow instructions to see the employement details\n\n {link}\n\n "
-        graph.send_mail(subject,msg,profile.email)
-        filter ={
-            'id': profile.id,
-        }
-        update= {
-            '$set' : {'status': profile.status}
-        }
-        client.bgv.email.find_one_and_update(filter, update)
-        return True
-    except Exception as e:
-        print (str(e))
-        return False
-
-######### API to delete mail #####################################
-class Deletemail(BaseModel):
-    id : str
-    email : str
-    status : str= "deleted"
-
-@app.post('/deletemail')
-async def deletemail(delete : Deletemail):
-    try :
-        filter ={
-            'id': delete.id,
-        }
-        update={
-            '$set': {
-                'status': delete.status
-            }
-        }
-        client.bgv.email.find_one_and_update(filter, update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
-
-######## API to verification to external HR #####################################
-class Email(BaseModel):
-    empid : str
-    status : str= "emailed"
-
-@app.post('/verifydatamail')
-async def verifydatamail(empdata : Email):
-    filter={
-    'empid': empdata.empid
-    }
-    project={
-        '_id': 0, 
-        'name': 1, 
-        'hr_mail': 1
-    }
-    try : 
-        expdetails=dict(client.bgv.exp.find_one(filter,project))
-    except Exception as e:
-        print(str(e))
-
-    try :
-        subject = f" Employment Verification of {expdetails['name']} with Employee ID { empdata.empid}"
-        link = f"http://52.27.5.60:9000/approveexp"
-        msg = f" Hi \n This is a system generated mail to initiate the employment verification of { expdetails['name']} with employee ID { empdata.empid }. \n\n Please use the following link to complete the same \n\n {link} \n\n Please refrain from sending further messages to this mail and use the link to complete the verification \n\n"
-        graph.send_mail(subject,msg,expdetails['hr_mail'])
-        update= {
-            '$set': {'status': empdata.status }
-        }
-        try :
-            client.bgv.exp.find_one_and_update(filter,update)
-            return True
-        except Exception as e :
-            print( str(e))    
-    except Exception as e: 
-            print(str(e)) 
-            return False
-
-############ API to update experience status ############################
-
-@app.post('/expstatusupdate')
-async def statusupdate( expdata: Email):
-    filter = {
-         'empid': expdata.empid
-    }
-    update ={
-        '$set': {'status': expdata.status}
-    }
-    try : 
-        client.bgv.exp.find_one_and_update(filter,update)
-        return True
-    except Exception as e : 
-        print( str(e))
-        return False
-
-
-############# API to get mail status count ############################
-@app.get('/mailstat')
-async def mailstat():
-    filter={
-        'status': False
-    }
-    pending =  client.bgv.email.count_documents(filter)
-    filter = {
-        'status': 'replied'
-    }
-    replied = client.bgv.email.count_documents(filter)
-    filter = { 
-        'status': 'deleted'
-    }
-    deleted = client.bgv.email.count_documents(filter)
-    total = client.bgv.email.count_documents({})
-    data = {
-        'pendings': pending,
-        'deleted': deleted,
-        'replied': replied,
-        'total': total
-    }
-    return data
-
-############# API to get experience verification count #########################
-@app.get('/expstat')
-async def expstat():
-    filter ={
-        'status': False
-    }
-    pending = client.bgv.exp.count_documents(filter)
-    filter ={
-        'status': 'emailed'
-    }
-    emailed = client.bgv.exp.count_documents(filter)
-    filter = {
-        'status': 'approved'
-    }
-    approved= client.bgv.exp.count_documents(filter)
-    filter={
-        'status':'rejected'
-    }
-    rejected = client.bgv.exp.count_documents(filter)
-    total = client.bgv.exp.count_documents({})
-    data = {
-        'pending': pending,
-        'emailed' : emailed,
-        'approved': approved,
-        'rejected' : rejected,
-        'total' : total
-    }
-    return data
-
-####### API to get pending mail ################### 
-
-@app.get('/pendingmail')
-async def pendingmail():
-    filter = {
-        'status': False,
-    }
-    project = {
-        "_id":0,
-    }
-    try:
-        return list(client.bgv.email.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-######## API to get deleted mail ###################
-@app.get('/deletedmail')
-async def deletedmail():
-    filter={
-        'status': 'deleted'
-    }
-    project = {
-        '_id':0,
-    }
-    try:
-        return list(client.bgv.email.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-######### API to get replied mail ######################
-
-@app.get('/repliedmail')
-async def repliedmail():
-    filter={
-        'status' : 'replied'
-    }
-    project = {
-        '_id':0,
-    }
-    try:
-        return list(client.bgv.email.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-######### API to get pending experience #################
-
-@app.get('/exppending')
-async def exppending(): 
-    filter = {
-        'status' : False
-    }
-    project = {
-        '_id':0,
-    }
-    try:
-        return list(client.bgv.exp.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-######## API to get emailed experience #################
-
-@app.get('/emailedexp')
-async def emailedexp():
-    filter ={
-        'status': 'emailed'
-    }
-    project ={
-        '_id':0
-    }
-    try :
-        return list(client.bgv.exp.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-##### API to get approved exp###########
-
-@app.get('/approvedexp')
-async def apprvedexp():
-    filter = {
-        'status': 'approved'
-    }
-    project ={
-        '_id':0,
-    }
-    try :
-        return list(client.bgv.exp.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
-
-######## API to get rejected experince ################
-
-@app.get('/rejectedexp')
-async def rejectedexp():
-    filter ={
-        'status':'rejected'
-    }
-    project={
-        '_id':0
-    }
-    try:
-        return list(client.bgv.exp.find(filter,project))
-    except Exception as e:
-        print(str(e))
-        return False
 
 @app.get('/pendinguser')
 async def pendinguser():
     filter ={
-        'status' : 'pending'
+        'status' : 'pending',
+        'firstlogin':{'$ne':True},
     }
     project ={
-        '_id':0
+        '_id':0,
         }
     try:
         return list(client.bgv.user.find(filter,project))
@@ -930,17 +623,15 @@ async def verify(verify:Verify):
         filter = {
             'email': verify.notary_email,
         }
-        project={
-            '_id':0,
-            'wallet':1
+        update={
+            '$inc': {'wallet':verify.charge}
         }
-        notary_wallet = client.bgv.notary.find_one(filter=filter,projection=project)['wallet']+verify.charge
-        client.bgv.notary.update_one(filter=filter,update={'$set':{'wallet':notary_wallet}})
+        client.bgv.notary.update_one(filter,update)
         filter = {
             'email': verify.user_email,
         }
         update ={
-            '$set':{ 'status': verify.status}
+            '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
         }
         client.bgv.user.update_one(filter=filter,update=update)
         client.bgv.sslc.update_one(filter, update)
@@ -951,5 +642,22 @@ async def verify(verify:Verify):
     except Exception as e:
         print(str(e))
         return False
+## API to update use wallet
+class Payment(BaseModel):
+    email :str
+    
 
-        
+@app.post('/userwallet')
+async def user_wallet(payment: Payment):
+    filter ={
+        'email': payment.email
+    }
+    update={
+        '$inc':{'wallet':100}
+    }
+    try:
+        client.bgv.user.update_one(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False

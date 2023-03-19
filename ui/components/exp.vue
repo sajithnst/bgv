@@ -8,8 +8,8 @@
             :rules="[rules.required]"></v-text-field>
             <v-text-field label="Company Name" v-model="company" :rules="[rules.required]"></v-text-field>
             <v-text-field label="HR Email" v-model="hr_mail" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Start Date (DD/MM/YYYY)" v-model="start_date" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="End Date (DD/MM/YYYY)" v-model="end_date" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Start Date (DD/MM/YYYY)" v-model="start_date" :rules="[rules.required,rules.date]"></v-text-field>
+            <v-text-field label="End Date (DD/MM/YYYY)" v-model="end_date" :rules="[rules.required,rules.date]"></v-text-field>
             <v-text-field label="Designation" v-model="designation" :rules="[rules.required]"></v-text-field>
             <v-text-field label="CTC (Cost To Company)" v-model="lpa" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Reporting Manager" v-model="reporting_manager" :rules="[rules.required]"></v-text-field>
@@ -41,14 +41,15 @@ export default{
         email:null,
         company:null,
         hr_mail: null,
-        start_date:null,
-        end_date:null,
+        start_date:"",
+        end_date:"",
         designation: null,
         lpa:null,
         reporting_manager:null,
         rules : {
             required: (v) => !!v || "Required",
-            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
+            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
+            date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"
         },
     }),
     methods:{

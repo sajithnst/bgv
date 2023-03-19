@@ -1,17 +1,13 @@
 <template>
-         <v-container style="width: 70%;">
-                <v-card>
-                    <v-card-title>Personal Details</v-card-title>
-                    <v-card-subtitle>Name:{{ pdata.name }}</v-card-subtitle>
-                    <v-card-text>
-                        Email : {{ pdata.email }}<br/>
-                        Aadhaar : {{ pdata.aadhaar }}<br/>
-                        PAN :{{ pdata.pan }}<br/>
-                        Mobile:{{ pdata.mob }}<br/>
-                        Status : {{ pdata.status }}
-                    </v-card-text>
-                </v-card>
-            </v-container>
+        <v-container style="width: 50%; ">
+            <h1 class="text-h6">Personal Details</h1>
+            <h3 class="text-subtitle-1"> Aadhaar Number : {{ pdata.aadhaar }} </h3>
+            <h3 class="text-subtitle-1"> Mobile number : {{ pdata.mob }}</h3>
+            <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
+            <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
+            <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
+            <h3 class="text-subtitle-1"> Status : {{ pdata.status }}</h3>
+        </v-container>
 </template>
 
 <script>
@@ -23,6 +19,7 @@ export default{
         let url = "http://127.0.0.1:8000/user"
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
+        console.log(this.pdata)
 
     },
     data: () =>({

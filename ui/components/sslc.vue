@@ -41,7 +41,7 @@ export default{
         board : null,
         rules : {
             required: (v) => !!v || "Required",
-            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
+            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
         },
     }),
     methods:{
