@@ -23,16 +23,31 @@ export default{
     async mounted(){
         this.$vuetify.theme.dark=false
         this.email = await this.$storage.getUniversal('user_email')
+        this.hr_email = await this.$storage.getUniversal('hrmail');
+        let url = "http://127.0.0.1:8000/hrprofile";
+        let hr={
+            'company_mail': this.hr_email,
+        }
+        let result= await this.$axios.post(url,hr);
+        this.hr_name = result.data.name
     },
     data:()=>({
         email :"",
+        hr_email : '',
+        hr_name:"",
     }),
     methods:{
         async pay(){
-            let url="http://127.0.0.1:8000/userwallet"
-            let res = await this.$axios.post(url,{email:this.email });
+            let url="http://127.0.0.1:8000/requestdata"
+            let requestdata = {
+                user_email : this.email,
+                hr_email : this.hr_email,
+                hr_name : this.hr_name,
+            }
+            let res = await this.$axios.post(url,requestdata);
             if(res.data == true){
-                this.$router.push("/userprofile");
+                console.log("request updates")
+                this.$router.push('/hrpage')
             }
             
         },

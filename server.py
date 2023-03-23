@@ -642,10 +642,109 @@ async def verify(verify:Verify):
     except Exception as e:
         print(str(e))
         return False
-## API to update use wallet
+## API to create view request
+
+class Request(BaseModel):
+    user_email : str
+    hr_email :str
+    hr_name:str
+    status: str = 'pending'
+@app.post('/requestdata')
+async def request(request:Request):
+    try:
+        client.bgv.request.insert_one(dict(request))
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+## API to update request status
+@app.get('/user/pendingrequest')
+async def get_request(email:str):
+    try:
+        filter = {
+            'user_email': email,
+            'status' :'pending'
+            }
+        project ={
+            '_id':0
+        }
+        return list(client.bgv.request.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.get('/user/approved')
+async def get_approved(email:str):
+    try:
+        filter = {
+            'user_email': email,
+            'status':'approved'
+        }
+        project ={
+            '_id':0
+            }
+        return list(client.bgv.request.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+
+
+@app.post('/hr/pendingrequest')
+async def pendingrequest(hr_email: str):
+    try:
+        filter ={
+            'hr_email':hr_email,
+        }
+        project={
+            '_id':0
+        }
+        return list(client.bgv.request.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/hr/approved')
+async def approvedhr(email: str):
+    try:
+        filter ={
+            'hr_email':email,
+            'status':'approved'
+            }
+        project={
+            '_id':0
+        }
+        return list(client.bgv.request.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+
+class UpdateRequest(BaseModel):
+    user_email : str
+    hr_email : str
+    status : str
+@app.post('/request/update')
+async def update_user(update : UpdateRequest ):
+    try:
+        filter = {
+            'user_email': update.user_email,
+            'hr_email' : update.hr_email,
+            }
+        update= {
+            '$set' : {
+                'status' : update.status
+            }
+        }
+        client.bgv.request.update_one(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+ ## API to update use wallet
 class Payment(BaseModel):
     email :str
-    
 
 @app.post('/userwallet')
 async def user_wallet(payment: Payment):
@@ -657,7 +756,10 @@ async def user_wallet(payment: Payment):
     }
     try:
         client.bgv.user.update_one(filter=filter,update=update)
+        client.bgv.request
         return True
     except Exception as e:
         print(str(e))
         return False
+
+
