@@ -14,6 +14,9 @@
       <v-container>
         <userwallet/>
       </v-container>
+      <v-container>
+        <userrequest/>
+      </v-container>
     </v-main>
 </v-app>
 </template>

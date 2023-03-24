@@ -690,21 +690,47 @@ async def get_approved(email:str):
 
 
 
-@app.post('/hr/pendingrequest')
+@app.get('/hr/pendingrequest')
 async def pendingrequest(hr_email: str):
     try:
-        filter ={
-            'hr_email':hr_email,
-        }
-        project={
-            '_id':0
-        }
-        return list(client.bgv.request.find(filter,project))
+        pipeline = [
+            {
+                '$match': {
+                    'hr_email': hr_email, 
+                    'status': 'pending'
+                }
+            }, {
+                '$lookup': {
+                    'from': 'user', 
+                    'localField': 'user_email', 
+                    'foreignField': 'email', 
+                    'as': 'user_name'
+                }
+            }, {
+                '$addFields': {
+                    'user_name': {
+                        '$arrayElemAt': [
+                            '$user_name', 0
+                        ]
+                    }
+                }
+            }, {
+                '$addFields': {
+                    'user_name': '$user_name.name', 
+                    'user_designation': '$user_name.designation'
+                }
+            }, {
+                '$project': {
+                    '_id': 0
+                }
+            }
+]
+        return list(client.bgv.request.aggregate(pipeline))
     except Exception as e:
         print(str(e))
         return False
 
-@app.post('/hr/approved')
+@app.get('/hr/approved')
 async def approvedhr(email: str):
     try:
         filter ={
@@ -762,4 +788,18 @@ async def user_wallet(payment: Payment):
         print(str(e))
         return False
 
+@app.get('/user/firstlogin')
+async def firstlogin(email:str):
+    filter ={
+        'email': email
+        }
+    update = {
+        '$set': { 'firstlogin': False}
+    }
+    try:
+        client.bgv.user.update_one(filter,update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
 

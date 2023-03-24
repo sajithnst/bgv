@@ -85,6 +85,8 @@ export default{
 
      },
      async skip(){
+        let url ="http://127.0.0.1:8000/user/firstlogin"
+        let response = await this.$axios.get(url,{params:{email:this.email}})
         this.$router.push('/signin')
      }
     }
