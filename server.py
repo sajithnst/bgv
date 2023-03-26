@@ -756,6 +756,7 @@ async def update_user(update : UpdateRequest ):
         filter = {
             'user_email': update.user_email,
             'hr_email' : update.hr_email,
+            'status': 'pending'
             }
         update= {
             '$set' : {

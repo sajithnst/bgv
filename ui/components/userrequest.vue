@@ -46,7 +46,6 @@ export default{
           email:email,
         }
         let res = await this.$axios.post(uurl,udata);
-        console.log(res.data)
         let url= "http://127.0.0.1:8000/request/update"
         let update ={
           user_email : email,
@@ -55,7 +54,7 @@ export default{
         }
         let response = await this.$axios.post(url,update)
         if (response.data == true){
-          this.$nuxt.refresh()
+          console.log(response.data)
         }
       },
 
