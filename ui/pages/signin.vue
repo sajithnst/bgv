@@ -1,9 +1,5 @@
 <template>
-    <v-app signin>
-        <v-app-bar app color="indigo darken-3">
-            <v-btn icon @click="home()"><v-icon size="32" color="white">mdi-home</v-icon></v-btn>
-        </v-app-bar>
-        <v-main>
+   
             <v-container class="signinform">
                 <v-form>
                     <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
@@ -27,12 +23,11 @@
                     </v-col>
                 </v-form>
             </v-container>
-        </v-main>
-    </v-app>
 </template>
 <script>
 export default{
     name : 'signinpage',
+    layout : 'signinlayout',
     async mounted(){
         this.$vuetify.theme.dark=false;
     },
@@ -73,9 +68,6 @@ export default{
             }).catch(err => this.error=true);
             }
             
-        },
-        async home(){
-            this.$router.push('/')
         },
     },
 }

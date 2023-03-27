@@ -1,26 +1,12 @@
 <template>
-    <v-app notary>
-        <v-app-bar app color="indigo darken-3"> 
-           <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
-           <v-spacer></v-spacer>
-        </v-app-bar>
-        <v-main>
-            <v-container  class="signin" >
-                <notarylogin/>
-        </v-container>
-        </v-main>
-        <v-footer dark padless>
-    <v-card class="flex" flat tile>
-      <v-card-subtitle class="indigo darken-1">
-     Copyright : Securekloud
-      </v-card-subtitle>
-    </v-card>
-  </v-footer>
-    </v-app>
+    <v-container  class="signin" >
+        <notarylogin/>
+    </v-container>
 </template>
 <script>
 export default{
     name: "notarysignin",
+    layout:'signinlayout',
     async mounted(){
         this.$vuetify.theme.dark=false;
     },
