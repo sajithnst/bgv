@@ -1,5 +1,4 @@
 <template>
- 
             <v-container>
                 <userbanner/>
                 <v-divider class="border-opacity-100" inset color="blue"></v-divider>

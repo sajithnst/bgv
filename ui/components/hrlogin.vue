@@ -12,7 +12,7 @@
         </v-form>
     </v-container>
 </template>
-<script lang="js">
+<script>
 export default{
     name : "hrlogin",
     data : () =>({

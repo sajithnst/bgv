@@ -1,7 +1,3 @@
-from random import choice
-number =['0','1','2','3','4','5','6','7','8','9']
-otp =''
-for i in range(6):
-    otp+=choice(number)
-print(otp)
-
+from segno import make
+qrcode = make('Yellow Submarine')
+qrcode.save('./sajith.surendran@blockedge.io/qrcode.png',scale=12,dark="darkblue")

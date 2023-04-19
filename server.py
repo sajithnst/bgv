@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from random import choice
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
+import datetime
 import os
 import configparser
 from graph import Graph
@@ -804,3 +805,12 @@ async def firstlogin(email:str):
         print(str(e))
         return False
 
+@app.get('/user/qrcode')
+async def get_user_qr(email :str):
+    filter ={
+        'email': email,
+        'status' : 'verified'
+        }
+    if client.bgv.user.count_documents(filter) == 1:
+        return True
+    else : return False
