@@ -1,6 +1,7 @@
 <template>
-   
-            <v-container class="signinform">
+
+            <v-container justify="center" class="signinform">
+              <br><br><br>
                 <v-form>
                     <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
                     <br/><br/>
@@ -9,15 +10,25 @@
                 </v-container>
                     <br/>
                     <v-col>
+                      <v-row>
+                        <div class="text-subtitle-1 text-medium-emphasis ">Email ID</div>
+
+                      </v-row>
+
                         <v-row>
-                            <v-text-field v-model="signindata.email" label="Email ID" :rules="[rules.email,rules.required]"></v-text-field>
+                            <v-text-field v-model="signindata.email" label="Enter the email" :rules="[rules.email,rules.required]"></v-text-field>
                         </v-row>
                         <v-row>
-                            <v-text-field v-model="signindata.password" label="Password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+                          <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
+
                         </v-row>
+                        <v-row>
+                            <v-text-field v-model="signindata.password" label="Enter the Password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+                        </v-row>
+                        <br>
                         <v-row>
                             <v-container class="text-center">
-                                <v-btn text  color="indigo lighten-1" @click="signin()"> Sign In</v-btn> 
+                                <v-btn text  color="indigo lighten-1" @click="signin()"> Sign In</v-btn>
                             </v-container>
                         </v-row>
                     </v-col>
@@ -35,7 +46,7 @@ export default{
         signindata : {
             email : '',
             password :'',
-            firstlogin : null, 
+            firstlogin : null,
 
         },
         error : false,
@@ -52,14 +63,16 @@ export default{
                  this.firstlogin = result.data.firstlogin;
             }).catch(error =>{ console.log(error)});
             if (this.firstlogin == true){
-                this.$storage.setUniversal('Email',this.signindata.email)
+                this.email = this.$storage.setUniversal('Email',this.signindata.email)
+
                 this.$router.push('/onboard')
             }else{
                 let url= 'http://127.0.0.1:8000/login'
                 await this.$axios.post(url, this.signindata).then(res => {
                 if (res.data.status == true){
                     if (res.data.user == 'user'){
-                        this.$storage.setUniversal('Email',this.signindata.email)
+                        this.email = this.$storage.setUniversal('Email',this.signindata.email)
+                        console.log(this.email)
                         this.$router.push('/user')
                     }
                 }else{
@@ -67,7 +80,7 @@ export default{
                 }
             }).catch(err => this.error=true);
             }
-            
+
         },
     },
 }

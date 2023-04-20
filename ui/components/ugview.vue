@@ -17,13 +17,17 @@ export default{
         this.$vuetify.theme.dark =false;
         this.email = this.$storage.getUniversal('user_email')
         let url = "http://127.0.0.1:8000/ug"
+        console.log(this.email)
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
+        console.log(this.data)
 
     },
     data: () =>({
         email:"",
-        data:{},
+        data:{
+
+        },
 
 
     }),

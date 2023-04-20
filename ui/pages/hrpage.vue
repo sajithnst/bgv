@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app color="indigo darken-3"> 
+        <v-app-bar app color="indigo darken-3">
            <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
            <v-spacer></v-spacer>
            <h3 class="white--text">{{ name }}</h3>
@@ -39,6 +39,8 @@ export default{
         },
         async logout() {
             this.$router.push("/hrsignin");
+            this.$storage.removeUniversal('user_email')
+
         },
     },
     components: { Hrapproved }

@@ -1,14 +1,20 @@
 <template>
-    <v-app userprofile>
-        <v-app-bar app  color="indigo darken-4">
-            <v-app-bar-title style="color: ghostwhite;">User Profile</v-app-bar-title>
-            <v-spacer></v-spacer>
-            <v-btn text style="color: ghostwhite;" @click="logout()">Close</v-btn>
-        </v-app-bar>
-        <v-main>
-            <Nuxt/>
-        </v-main>
-        <v-footer
+
+    <v-app>
+    <v-app-bar app color="indigo darken-4" :clipped-left="clipped" fixed>
+      &ensp; &ensp; &ensp;
+      <v-toolbar-title style="color: white;">User Profile</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+        <v-btn icon text color="white" @click="logout()">
+        <v-icon>mdi-logout</v-icon>
+        <v-spacer></v-spacer>
+      </v-btn>
+    </v-app-bar>
+    <v-main>
+      <Nuxt/>
+    </v-main>
+    <v-footer
       color="indigo darken-1"
       dark
     >
@@ -36,26 +42,28 @@
         >
       </v-row>
     </v-footer>
-    </v-app>
+  </v-app>
+
 </template>
-<script>
-export default {
-  name:'profile',
-  data: () => {
+
+  <script >
+  export default {
+    name:'user_profile',
+    async mounted () {
+    this.$vuetify.theme.dark = false
+  },
+  data() {
     return {
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-instagram',
-        'mdi-youtube',
-      ],
+      drawer: false,
     };
   },
-    methods:{
-        async logout (){
-          this.$router.push('/signin')
 
-        }
+
+  methods: {
+    async logout() {
+        this.$router.push("/signin")
     }
-}
+  }
+
+  }
 </script>

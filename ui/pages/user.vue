@@ -2,8 +2,9 @@
       <v-app id="inspire" >
     <v-app-bar app color="indigo darken-2">
         <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
-        <v-toolbar-title style="color: antiquewhite;">{{name}}</v-toolbar-title> 
+        <v-toolbar-title style="color: antiquewhite;">{{name}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn text @click="profile()" color="white" width="150px">profile</v-btn>
         <v-btn text @click="exp()" color="white" width="150px">Experience</v-btn>
         <v-btn text @click="pg()"  color="white" width="100px">PG</v-btn>
         <v-btn icon @click="logout()" color="white"><v-icon>mdi-logout</v-icon></v-btn>
@@ -32,11 +33,11 @@ export default {
         }).catch(error => console.log(error));
 
     },
-   
+
     data :()=>({
-        email :'fasdf',
+        email :'',
         name : '',
-        
+
     }),
     methods:{
         async logout(){
@@ -48,7 +49,10 @@ export default {
         async exp(){
             this.$router.push('/exppage')
         },
-      
+        async profile(){
+          this.$router.push('/profile_user')
+        }
+
     }
 };
 </script>

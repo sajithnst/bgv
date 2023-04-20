@@ -1,18 +1,41 @@
 <template>
     <v-container class="text-center" style="padding: 2%;">
-          <h3 class="text-center" style="font-size: x-large;"> Who needs us ?</h3><br/>
+      <v-text> <h1 style="text-align: center;" class="font-bold text-white text-5xl">Who need us?</h1></v-text>
+      <br>
+          <br><br>
           <v-row>
               <v-col>
+                <v-row justify="center">
+                  <v-img src="https://media.istockphoto.com/id/499383695/photo/group-of-futuristic-office-skyscrapers-on-white-background.jpg?s=612x612&w=0&k=20&c=dRrFQLvXIM3K4Dszj-LvunkRkygoP94R8dPT0ZNcbOI="  height="280px" max-width="340px" />
+                </v-row>
+                <br><br>
+                <v-row justify="center">
                   <v-icon color="indigo darken-2"  >mdi-office-building-outline</v-icon>
                   <v-btn text color="indigo darken-2" width="100px" @click="hr()"> Companies </v-btn>
+                </v-row>
+
               </v-col>
               <v-col>
+                <v-row justify="center">
+                  <v-img src="https://media.istockphoto.com/id/1440206251/vector/testament-and-last-will-documents-signing-notary-and-official-testamentary-banner.jpg?s=612x612&w=0&k=20&c=72Knc193VZH7Qw7YYlfXNvdb5ZWhnEkJImB_XH8WAfA=" height="280px" max-width="340px" />
+                </v-row>
+                <br><br>
+                <v-row justify="center">
                   <v-icon color="indigo darken-2">mdi-certificate-outline</v-icon>
                   <v-btn text color="indigo darken-2" width="100px" @click="notary()"> Notary </v-btn>
+                </v-row>
+
               </v-col>
               <v-col>
+                <v-row justify="center">
+                  <v-img src="https://i.ibb.co/GsHhLK0/15-Best-Digital-Agency-Websites-removebg-preview.png" height="280px" max-width="340px" />
+                </v-row>
+                <br><br>
+                <v-row justify="center">
                   <v-icon color="indigo darken-2"  >mdi-account</v-icon>
                   <v-btn text color="indigo darken-2" width="100px" @click="agencies()"> Agencies</v-btn>
+                </v-row>
+
               </v-col>
           </v-row>
       </v-container>
@@ -24,7 +47,7 @@ export default {
 
     }),
     methods: {
-       
+
        async hr() {
            this.$router.push("/hrsignin");
        },

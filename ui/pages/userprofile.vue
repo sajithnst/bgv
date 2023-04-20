@@ -1,4 +1,5 @@
 <template>
+
             <v-container>
                 <userbanner/>
                 <v-divider class="border-opacity-100" inset color="blue"></v-divider>
@@ -12,11 +13,11 @@
                 <v-divider class="border-opacity-100" inset color="blue"></v-divider>
                 <expview/>
             </v-container>
-   
+
 </template>
 <script>
 export default{
-    name: 'userprofile',
+    name: 'profile',
     layout:'profile',
     async mounted (){
         this.$vuetify.theme.dark =false;
@@ -30,7 +31,7 @@ export default{
         email:"",
     }),
    methods: {
-   
+
    }
 }
 </script>

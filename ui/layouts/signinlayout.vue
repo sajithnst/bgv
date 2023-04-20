@@ -6,21 +6,40 @@
         <v-main>
             <Nuxt/>
         </v-main>
-        <v-footer dark padless>
-        <v-card class="flex" flat tile>
-            <v-card-subtitle class="indigo darken-1">
-            Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}<br/> Author - Sajith Surendran
-            </v-card-subtitle>
-        </v-card>
-  </v-footer>
+        <v-footer
+      color="indigo darken-1"
+      dark
+    >
+      <v-row
+        justify="center"
+        class="my-4 text-center"
+      >
+        <v-col cols="12"
+          >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}<br/> Author - Sajith Surendran</v-col
+        >
+        <v-col cols="12">
+          <v-btn
+            v-for="icon in icons"
+            :key="icon"
+            text
+            dark
+          >
+            <v-icon>{{ icon }}</v-icon>
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          class="align-center"
+          >&copy; 2023 Verify Edge</v-col
+        >
+      </v-row>
+    </v-footer>
     </v-app>
 </template>
 <script>
 export default {
     name:'signin',
-    data :()=>({
 
-    }),
     methods : {
         async home(){
             this.$router.push('/')

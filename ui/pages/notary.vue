@@ -50,7 +50,7 @@ export default{
         this.$vuetify.theme.dark=false;
         let nurl ="http://127.0.0.1:8000/notary"
         this.notary_email = this.$storage.getUniversal('notaryemail')
-  
+
         let nres = await this.$axios.get(nurl,{
           params :{
             email : this.notary_email
@@ -113,6 +113,6 @@ export default{
         this.wallet = nres.data.wallet
       }
     }
-    
+
   }
 </script>

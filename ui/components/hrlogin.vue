@@ -1,11 +1,27 @@
 <template>
-    <v-container class="hrsignin"> 
+    <v-container class="hrsignin">
         <br/><br/>
-        <v-form>    
+        <v-form>
             <h1 class="text-center"> HR Signin </h1>
+            <br><br>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-            <v-text-field label="Official email" v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
-            <v-text-field label="Password" v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+            <v-row>
+              <div class="text-subtitle-1 text-medium-emphasis ">HR Email ID</div>
+
+            </v-row>
+            <v-row>
+              <v-text-field label="Enter the official email" v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
+            </v-row>
+            <v-row>
+              <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
+
+            </v-row>
+            <v-row>
+              <v-text-field label="Enter the password" v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+            </v-row>
+            <br>
+
+
             <v-container class="text-center">
                 <v-btn text @click="hrlogin()" color="indigo darken-2" width="200px">Signin</v-btn>
             </v-container>
