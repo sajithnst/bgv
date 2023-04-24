@@ -1,5 +1,6 @@
 from fastapi import FastAPI,File , UploadFile,Form
 from pydantic import BaseModel
+from typing import Dict
 from random import choice
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
@@ -596,6 +597,7 @@ async def pendinguser():
     except Exception as e:
         print(str(e))
         return False
+
 @app.get('/verifiedusers')
 async def apprpvedusers():
     try:
@@ -814,3 +816,17 @@ async def get_user_qr(email :str):
     if client.bgv.user.count_documents(filter) == 1:
         return True
     else : return False
+
+
+
+@app.post('/user/filter')
+async def user_filter(query : Dict):
+    try:
+        filter = query
+        project = {
+            "_id":0
+        }
+        return list(client.bgv.user.find(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False

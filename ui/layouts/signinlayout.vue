@@ -30,7 +30,7 @@
         <v-col
           cols="12"
           class="align-center"
-          >&copy; 2023 Verify Edge</v-col
+          >&copy; 2023 Verifidge</v-col
         >
       </v-row>
     </v-footer>
