@@ -14,9 +14,9 @@
         :value="profile.email"
         active-color="primary"
       >
-        <v-list-item-title v-text="profile.name"></v-list-item-title>
-        <v-list-item-subtitle v-text="profile.email"></v-list-item-subtitle>
-        <v-list-item-title v-text="profile.status"></v-list-item-title>
+        <v-list-item-title >{{ profile.name }}</v-list-item-title>
+        <v-list-item-subtitle>{{ profile.email }}</v-list-item-subtitle>
+        <v-list-item-title >{{ profile.status }}</v-list-item-title>
         <v-btn icon @click="view(profile.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
       </v-list-item>
     </v-list>

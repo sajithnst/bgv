@@ -1,7 +1,7 @@
 <template>
      <v-container style="width: 50%; " >
             <h1 class="text-h6"> Work Experience</h1>
-            <v-container v-for="data in datas">
+            <v-container v-for="data in datas" :key="data.empid">
             <h3 class="text-h8">{{ data.company }}</h3>
             <h3 class="text-subtitle-1"> Employee ID :{{ data.empid}}</h3>
             <h3 class="text-subtitle-1"> Designation : {{ data.designation }}</h3>

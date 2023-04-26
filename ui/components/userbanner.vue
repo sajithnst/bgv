@@ -1,11 +1,10 @@
 
 <template>
-    <v-container class="text-center">
-        <v-icon size="150px">mdi-account</v-icon>
-        <v-container class="text-center">
-            {{ name }}<br/>
-            {{ email }}
-        </v-container>
+    <v-container>
+            <v-card>
+                <v-card-title>{{ name }}</v-card-title>
+                <v-card-subtitle>{{ email }}</v-card-subtitle>
+            </v-card>
     </v-container>
 </template>
 <script>
@@ -13,6 +12,7 @@ export default {
     name:"userbanner",
     async mounted(){
         this.email = this.$storage.getUniversal('user_email')
+        console.log(this.email)
         let url = "http://127.0.0.1:8000/user"
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.name=res.data.name
