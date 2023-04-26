@@ -72,6 +72,7 @@ export default{
                 if (res.data.status == true){
                     if (res.data.user == 'user'){
                         this.email = this.$storage.setUniversal('Email',this.signindata.email)
+                        this.gmail = this.$storage.setUniversal('login_mail', this.signindata.email)
                         console.log(this.email)
                         this.$router.push('/user')
                     }

@@ -50,7 +50,7 @@ export default {
             this.$router.push('/exppage')
         },
         async profile(){
-          this.$router.push('/profile_user')
+          this.$router.push('/profile_page')
         }
 
     }
