@@ -7,7 +7,6 @@
     </v-app-bar>
     <v-main>
         <v-container class="signupform">
-            <br/>
             <h1 class="text-center" >User Sign Up</h1>
             <br/>
             <v-form v-model="isFormValid">
