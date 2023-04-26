@@ -6,7 +6,7 @@
           <v-row>
               <v-col>
                 <v-row justify="center">
-                  <v-img src="https://media.istockphoto.com/id/499383695/photo/group-of-futuristic-office-skyscrapers-on-white-background.jpg?s=612x612&w=0&k=20&c=dRrFQLvXIM3K4Dszj-LvunkRkygoP94R8dPT0ZNcbOI="  height="280px" max-width="340px" />
+                  <v-img src="https://media.istockphoto.com/id/499383695/photo/group-of-futuristic-office-skyscrapers-on-white-background.jpg?s=612x612&w=0&k=20&c=dRrFQLvXIM3K4Dszj-LvunkRkygoP94R8dPT0ZNcbOI="  height="200px" max-width="200px" />
                 </v-row>
                 <br><br>
                 <v-row justify="center">
@@ -17,7 +17,7 @@
               </v-col>
               <v-col>
                 <v-row justify="center">
-                  <v-img src="https://media.istockphoto.com/id/1440206251/vector/testament-and-last-will-documents-signing-notary-and-official-testamentary-banner.jpg?s=612x612&w=0&k=20&c=72Knc193VZH7Qw7YYlfXNvdb5ZWhnEkJImB_XH8WAfA=" height="280px" max-width="340px" />
+                  <v-img src="https://media.istockphoto.com/id/1440206251/vector/testament-and-last-will-documents-signing-notary-and-official-testamentary-banner.jpg?s=612x612&w=0&k=20&c=72Knc193VZH7Qw7YYlfXNvdb5ZWhnEkJImB_XH8WAfA=" height="200px" max-width="200px" />
                 </v-row>
                 <br><br>
                 <v-row justify="center">
@@ -28,7 +28,7 @@
               </v-col>
               <v-col>
                 <v-row justify="center">
-                  <v-img src="https://i.ibb.co/GsHhLK0/15-Best-Digital-Agency-Websites-removebg-preview.png" height="280px" max-width="340px" />
+                  <v-img src="https://i.ibb.co/GsHhLK0/15-Best-Digital-Agency-Websites-removebg-preview.png" height="200px" max-width="200px" />
                 </v-row>
                 <br><br>
                 <v-row justify="center">
