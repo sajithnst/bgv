@@ -11,21 +11,23 @@
            <h3 class="text-subtitle-1"> School : {{ data.school }} </h3>
            <h3 class="text-subtitle-1"> Board : {{ data.board }}</h3>
            <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
-           <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
+
             </v-col>
             <v-col >
-              <v-container v-if="pending">
-                <v-icon x-large>mdi-av-timer</v-icon>
+              <v-container v-if="pending" class="text-center">
+                <v-icon size="100px" color="yellow">mdi-timer</v-icon>
               </v-container>
-              <v-container v-if="verified">
-                <v-icon x-large>mdi-check-decagram</v-icon>
+              <v-container v-if="verified" class="text-center">
+                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+
 
               </v-container>
-              <br>
-              <br>
-              <v-card-action>
-                <v-btn>Document</v-btn>
-              </v-card-action>
+              <v-container class="text-center">
+                <v-card-action>
+                  <v-btn>Document</v-btn>
+                </v-card-action>
+              </v-container>
+
             </v-col>
           </v-row>
         </v-container>

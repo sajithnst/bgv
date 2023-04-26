@@ -30,6 +30,9 @@
                   <v-row>
                     <userbannerpage/>
                   </v-row>
+                  <v-row>
+                    <profilepersonal/>
+                  </v-row>
                 </v-card>
               </v-container>
 
@@ -53,26 +56,21 @@
           <v-col cols="3">
 
             <v-container fluid>
-              <v-card max-width="450px" height="400px" class="mx-auto bg" elevation="2">
+              <v-card max-width="450px" height="380px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
                   <v-card-title>QR CODE</v-card-title>
                 </v-row>
 
-                  <v-container fill-height fluid>
-                    <v-row>
-                      <v-img src="https://www.pens.com/blog/wp-content/uploads/2012/08/qrcode.8196249.png" width="200px" height="200px"></v-img>
-                    </v-row>
+                <div class="text-center">
+                  <v-container>
 
-                  </v-container>
+                   <v-icon color="black" size="280px">mdi-qrcode</v-icon>
 
+                </v-container>
 
-
-
-
-
-
-
+                </div>
+                <br>
               </v-card>
             </v-container>
 

@@ -10,14 +10,14 @@
               <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
               <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
               <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
-              <h3 class="text-subtitle-1"> Status : {{ pdata.status }}</h3>
+
             </v-col>
             <v-col >
-              <v-container v-if="pending">
-                <v-icon x-large>mdi-av-timer</v-icon>
+              <v-container v-if="pending" class="text-center">
+                <v-icon color="yellow" size="100px">mdi-timer</v-icon>
               </v-container>
-              <v-container v-if="verified">
-                <v-icon x-large>mdi-check-decagram</v-icon>
+              <v-container v-if="verified" class="text-center">
+                <v-icon color="green" size="100px" >mdi-check-decagram</v-icon>
 
               </v-container>
             </v-col>
