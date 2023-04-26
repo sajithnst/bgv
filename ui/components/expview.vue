@@ -25,8 +25,7 @@ export default{
     },
     data: () =>({
         email:"",
-        datas:[
-    ],
+        datas:[],
 
 
     }),
