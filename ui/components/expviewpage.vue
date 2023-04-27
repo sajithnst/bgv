@@ -1,9 +1,7 @@
 <template>
-  <v-container style="width: 80%; " >
-
+  <v-container style="width: 80%;">
          <h1 class="text-h6"> Work Experience</h1>
-         <v-row v-for="data in data_set">
-         <v-container >
+         <v-container v-for="data in data_set" :key="data.empid">
          <h3 class="text-h8">{{ data.company }}</h3>
          <h3 class="text-subtitle-1"> Employee ID :{{ data.empid}}</h3>
          <h3 class="text-subtitle-1"> Designation : {{ data.designation }}</h3>
@@ -12,7 +10,6 @@
          <h3 class="text-subtitle-1"> CTC : {{ data.lpa }}</h3>
          <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
          </v-container>
-        </v-row>
      </v-container>
 </template>
 <script>
