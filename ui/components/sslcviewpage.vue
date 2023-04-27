@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 80%; ">
+  <v-container style="width: 100%; ">
     <v-card>
       <v-card-title>SSLC Details</v-card-title>
       <v-card-content>

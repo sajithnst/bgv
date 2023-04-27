@@ -29,10 +29,9 @@
                   </v-row>
                   <v-row>
                     <userbannerpage/>
-                  </v-row>
-                  <v-row>
                     <profilepersonal/>
                   </v-row>
+
                 </v-card>
               </v-container>
 
@@ -63,11 +62,10 @@
                 </v-row>
 
                 <div class="text-center">
-                  <v-container>
+
 
                    <v-icon color="black" size="280px">mdi-qrcode</v-icon>
 
-                </v-container>
 
                 </div>
                 <br>
@@ -83,6 +81,7 @@
 
 <script>
   export default {
+    layout:'profile',
     data: () => ({
       links: [
         'Dashboard',
