@@ -83,12 +83,7 @@
   export default {
     layout:'profile',
     data: () => ({
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
+
     }),
   }
 </script>

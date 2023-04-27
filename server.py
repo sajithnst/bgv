@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Dict
 from random import choice
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pymongo import MongoClient
 import datetime
 import os
@@ -237,6 +238,11 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
         file.file.close()
 
     return True
+
+@app.get('/getpdf')
+async def getpdf(email: str, regno: str):
+    path = os.path.join(email,regno+".pdf")
+    return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
 
 ## hser certificate input
 

@@ -1,6 +1,12 @@
 <template>
-    <v-container style="width: 50%; ">
-            <h1 class="text-h6">UG Details</h1>
+  <v-container style="width: 100%; ">
+    <v-card>
+      <v-card-title>UG Details</v-card-title>
+      <v-card-content>
+        <v-container>
+          <v-row>
+            <v-col style="padding-left: 4%; ">
+
             <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
             <h3 class="text-subtitle-1"> Marks : {{ data.marks }}</h3>
             <h3 class="text-subtitle-1"> Specialization : {{ data.specialization }}</h3>
@@ -8,7 +14,28 @@
             <h3 class="text-subtitle-1"> University : {{ data.university }}</h3>
             <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
             <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
+            </v-col>
+            <v-col >
+              <v-container v-if="pending" class="text-center">
+                <v-icon size="100px" color="yellow">mdi-timer</v-icon>
+              </v-container>
+              <v-container v-if="verified" class="text-center">
+                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+
+
+              </v-container>
+            </v-col>
+
+          </v-row>
         </v-container>
+      </v-card-content>
+
+
+
+    </v-card>
+
+      </v-container>
+
 </template>
 <script>
 export default{
@@ -19,6 +46,14 @@ export default{
         let url = "http://127.0.0.1:8000/ug"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
+        if (this.data.status == "pending"){
+          this.pending = true
+          this.verified = false
+        }
+        if(this.data.status == "verified"){
+          this.verified = true
+          this.pending = false
+        }
 
     },
     data: () =>({
@@ -26,6 +61,8 @@ export default{
         data:{
 
         },
+        pending:false,
+        verified: false,
 
 
     }),

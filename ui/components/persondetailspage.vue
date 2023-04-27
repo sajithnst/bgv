@@ -19,6 +19,7 @@
               <v-container v-if="verified" class="text-center">
                 <v-icon color="green" size="100px" >mdi-check-decagram</v-icon>
 
+
               </v-container>
             </v-col>
 
