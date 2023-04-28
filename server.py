@@ -422,7 +422,7 @@ def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(..
         file.file.close()
     return True
 
-@app.get('/exp')
+@app.get('/exp/empid')
 async def exp(empid : str ):
     try:
         filter= {
