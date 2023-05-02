@@ -1,12 +1,43 @@
 <template>
-        <v-container style="width: 50%; ">
-            <h1 class="text-h6">Personal Details</h1>
-            <h3 class="text-subtitle-1"> Aadhaar Number : {{ pdata.aadhaar }} </h3>
-            <h3 class="text-subtitle-1"> Mobile number : {{ pdata.mob }}</h3>
-            <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
-            <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
-            <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
-            <h3 class="text-subtitle-1"> Status : {{ pdata.status }}</h3>
+
+
+        <v-container style="width: 100%; ">
+          <v-card>
+            <v-card-title>Personal Details</v-card-title>
+            <v-card-content>
+              <v-container>
+                <v-row>
+                  <v-col style="padding-left: 4%;">
+                    <h3 class="text-subtitle-1"> Aadhaar Number : {{ pdata.aadhaar }} </h3>
+                    <h3 class="text-subtitle-1"> Mobile number : {{ pdata.mob }}</h3>
+                    <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
+                    <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
+                    <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
+                    <h3 class="text-subtitle-1"> Status : {{ pdata.status }}</h3>
+
+                  </v-col>
+                  <v-col >
+                    <v-container v-if="pending" class="text-center">
+                      <v-icon color="yellow" size="100px">mdi-timer</v-icon>
+                    </v-container>
+                    <v-container v-if="verified" class="text-center">
+                      <v-icon color="green" size="100px" >mdi-check-decagram</v-icon>
+
+
+                    </v-container>
+                  </v-col>
+                  <v-container>
+
+                  </v-container>
+
+                </v-row>
+              </v-container>
+            </v-card-content>
+
+
+
+          </v-card>
+
         </v-container>
 </template>
 
@@ -20,11 +51,22 @@ export default{
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
         console.log(this.pdata)
+        if (this.pdata.status == "pending"){
+    this.pending = true
+    this.verified = false
+  }
+  if(this.pdata.status == "verified"){
+    this.verified = true
+    this.pending = false
+  }
+
 
     },
     data: () =>({
         email:"",
         pdata :{},
+        pending: false,
+        verified: false,
     }),
 }
 </script>

@@ -12,6 +12,8 @@ from graph import Graph
 
 client = MongoClient('mongodb://localhost:27017/')
 
+
+
 ##############Graph API interface #############################################################
 config = configparser.ConfigParser()
 config.read(['config.cfg', 'config.dev.cfg'])
@@ -422,16 +424,19 @@ def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(..
         file.file.close()
     return True
 
+
 @app.get('/exp')
-async def exp(empid : str ):
+async def exp(email : str ):
     try:
         filter= {
-            "empid" : empid
+            "email" : email
         }
         project={
             "_id":0
         }
-        return dict(client.bgv.exp.find_one(filter,project))
+        if client.bgv.exp.count_documents(filter) == 0:
+            return None
+        return dict(client.bgv.exp.find(filter,project))
     except Exception as e:
         print(str(e))
         return False

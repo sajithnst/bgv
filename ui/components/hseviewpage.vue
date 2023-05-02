@@ -23,7 +23,7 @@
               </v-container>
               <v-container class="text-center">
                 <v-card-action>
-                  <v-btn @click="doc(data.email, data.regno)">Document</v-btn>
+                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
                 </v-card-action>
               </v-container>
 

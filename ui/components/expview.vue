@@ -6,7 +6,7 @@
           <v-container>
             <v-row>
               <v-col style="padding-left: 4%;">
-                           <v-container v-if="data_s" v-for="data in datas" :key="data.empid">
+                           <v-container v-if="data_s"  v-for="data in datas" :key="data.empid">
             <h3 class="text-h8">{{ data.company }}</h3>
             <h3 class="text-subtitle-1"> Employee ID :{{ data.empid}}</h3>
             <h3 class="text-subtitle-1"> Designation : {{ data.designation }}</h3>
@@ -31,6 +31,7 @@
                 <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
                 <h3 class="text-h8">No Data Found</h3>
               </v-container>
+
 
             </v-row>
 

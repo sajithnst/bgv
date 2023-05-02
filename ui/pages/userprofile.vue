@@ -28,8 +28,8 @@
                     </v-btn>
                   </v-row>
                   <v-row>
-                    <userbannerpage/>
-                    <profilepersonal/>
+                    <userbanner/>
+                    <personprofile/>
                   </v-row>
 
                 </v-card>
@@ -41,7 +41,7 @@
 
 
 
-      <persondetails/>
+      <personaldetails/>
 
       <sslcview/>
 
@@ -55,19 +55,21 @@
           <v-col cols="3">
 
             <v-container fluid>
-              <v-card max-width="450px" height="380px" class="mx-auto bg" elevation="2">
+              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
                   <v-card-title>QR CODE</v-card-title>
                 </v-row>
+                <v-container>
+                  <v-container>
+                    <v-container>
+                      <v-container>
+                        <v-img width="250px" height="250px" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
 
-                <div class="text-center">
-
-
-                   <v-icon color="black" size="280px">mdi-qrcode</v-icon>
-
-
-                </div>
+                      </v-container>
+                    </v-container>
+                  </v-container>
+                </v-container>
                 <br>
               </v-card>
             </v-container>

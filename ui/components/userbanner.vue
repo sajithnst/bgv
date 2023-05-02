@@ -1,10 +1,12 @@
 
 <template>
-    <v-container>
-            <v-card>
-                <v-card-title>{{ name }}</v-card-title>
-                <v-card-subtitle>{{ email }}</v-card-subtitle>
-            </v-card>
+    <v-container  style="width: 80%;">
+      <v-card-title>  {{ name }}</v-card-title>
+      <v-card-subtitle>
+
+        {{ email }}
+      </v-card-subtitle>
+
     </v-container>
 </template>
 <script>

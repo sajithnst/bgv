@@ -12,10 +12,10 @@
                   <br><br>
                   <v-row justify="center">
                     <v-col align-self="start" class="d-flex justify-center align-center pa-0" cols="12">
-                      <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="164">
+                      <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="170">
 
                         <input ref="uploader" class="d-none" type="file" accept="image/*" :change="onFileChanged">
-                        <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                        <v-img src="https://cdn.vectorstock.com/i/preview-1x/32/12/default-avatar-profile-icon-vector-39013212.jpg"></v-img>
 
 
                       </v-avatar>
@@ -26,6 +26,7 @@
                         mdi-camera
                       </v-icon>
                     </v-btn>
+
                   </v-row>
                   <v-row>
                     <userbannerpage/>
@@ -55,19 +56,23 @@
           <v-col cols="3">
 
             <v-container fluid>
-              <v-card max-width="450px" height="380px" class="mx-auto bg" elevation="2">
+              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
                   <v-card-title>QR CODE</v-card-title>
                 </v-row>
+                <v-container>
+                  <v-container>
+                    <v-container>
+                      <v-container>
+                        <v-img
+                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
 
-                <div class="text-center">
+                      </v-container>
+                    </v-container>
+                  </v-container>
+                </v-container>
 
-
-                   <v-icon color="black" size="280px">mdi-qrcode</v-icon>
-
-
-                </div>
                 <br>
               </v-card>
             </v-container>

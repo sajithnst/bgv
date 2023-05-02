@@ -23,6 +23,11 @@
 
 
               </v-container>
+              <v-container class="text-center">
+                <v-card-action>
+                  <v-btn @click="doc(data.email, data.regno)">Document</v-btn>
+                </v-card-action>
+              </v-container>
             </v-col>
           </v-row>
         </v-container>
@@ -64,5 +69,26 @@ export default{
 
 
     }),
+    methods:{
+    async doc(email, regno){
+      this.$axios.get("http://127.0.0.1:8000/getpdf",{
+        params:{
+          email: email,
+          regno: regno
+        },
+        responseType: 'arraybuffer'
+      })
+      .then(response => {
+        console.log(response)
+
+        let blob = new Blob([response.data], { type: 'application/pdf'}),
+        url = window.URL.createObjectURL(blob)
+
+        window.open(url)
+      })
+      console.log(regno)
+
+    }
+   }
 }
 </script>
