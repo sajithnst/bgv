@@ -3,7 +3,7 @@
         <v-app-bar app  color="indigo darken-4">
             <v-app-bar-title style="color: ghostwhite;">User Profile</v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-btn text style="color: ghostwhite;" @click="logout()">Close</v-btn>
+            <v-btn text style="color: ghostwhite;width: 100px;" @click="logout()">Close</v-btn>
         </v-app-bar>
         <v-main>
             <Nuxt/>
@@ -53,7 +53,7 @@ export default {
   },
     methods:{
         async logout (){
-          this.$router.push('/signin')
+          this.$router.push('/user')
 
         }
     }
