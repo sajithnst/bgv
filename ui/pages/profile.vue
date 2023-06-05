@@ -50,6 +50,8 @@
 
       <ugviewpage/>
 
+      <pgviewpage/>
+
       <expviewpage/>
 
           </v-col>

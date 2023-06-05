@@ -51,6 +51,9 @@ export default {
         },
         async profile(){
           this.$router.push('/profile')
+        },
+        async pg() {
+          this.$router.push('/pgpage')
         }
 
     }

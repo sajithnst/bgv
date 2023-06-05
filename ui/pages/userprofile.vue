@@ -49,6 +49,8 @@
 
       <ugview/>
 
+      <pgview/>
+
       <expview/>
 
           </v-col>

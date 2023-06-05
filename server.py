@@ -354,7 +354,58 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
     finally:
         file.file.close()
     return True
+######### PG DETAILS ##################
+class PG(BaseModel):
+    regno : str
+    email : str
+    name : str
+    specialization : str
+    college : str
+    marks : int
+    passout : str
+    university : str
+    status : bool = False
 
+@app.post('/pg')
+async def addpg(pg: PG):
+    filter= {
+        'email': pg.email,
+        'regno': pg.regno,
+    }
+    if client.bgv.pg.count_documents(filter) == 0:
+        try:
+            client.bgv.pg.insert_one(dict(pg))
+            return True
+        except Exception as e:
+            print(str(e))
+    else: return False
+
+
+@app.get('/pg')
+async def get_pg(email:str):
+    filter = {'email': email}
+    project = {
+        '_id':0
+    }
+    try:
+        return dict(client.bgv.pg.find_one(filter,project))
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/uploadpgpdf')
+def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+    
+    path = os.path.join(email,regno+".pdf")
+    try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return False
+    finally:
+        file.file.close()
+    return True
 ######### Experience models and API ################################
 
 class Experience(BaseModel):
@@ -652,6 +703,7 @@ async def verify(verify:Verify):
         client.bgv.hse.update_one(filter, update)
         client.bgv.ug.update_one(filter, update)
         client.bgv.exp.update_many(filter, update)
+        client.bgv.pg.update_one(filter, update)
         return True
     except Exception as e:
         print(str(e))
