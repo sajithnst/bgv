@@ -42,6 +42,7 @@
           <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
           <h3 class="text-h8">No Data Found</h3>
         </v-container>
+
       </v-card-content>
 
 
@@ -60,14 +61,15 @@ export default{
       console.log(this.email)
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
+      console.log(this.data)
 
-      if(this.data.email == false){
-        this.data_ = true
-        this.data_s= false
+      if(this.data == false){
+        this.data_ = true,
+        this.data_s = false
       }
-      if(this.data.email = true){
+      else{
+        this.data_s = true,
         this.data_ = false
-        this.data_s = true
       }
 
       this.notary = this.$storage.getUniversal('notaryemail')
