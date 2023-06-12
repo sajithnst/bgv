@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
-        <v-container>
+        <v-container v-if="data_s">
           <v-row>
             <v-col style="padding-left: 4%; ">
               <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
@@ -38,6 +38,10 @@
 
           </v-row>
         </v-container>
+        <v-container v-if="data_" class="text-center">
+          <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
+          <h3 class="text-h8">No Data Found</h3>
+        </v-container>
       </v-card-content>
 
 
@@ -56,6 +60,15 @@ export default{
       console.log(this.email)
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
+
+      if(this.data.email == false){
+        this.data_ = true
+        this.data_s= false
+      }
+      if(this.data.email = true){
+        this.data_ = false
+        this.data_s = true
+      }
 
       this.notary = this.$storage.getUniversal('notaryemail')
         let nurl = "http://127.0.0.1:8000/notary"
@@ -81,6 +94,8 @@ export default{
       },
       pending: false,
       verified: false,
+      data_: false,
+      data_s: false
 
 
   }),
