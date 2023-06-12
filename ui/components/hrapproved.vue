@@ -40,7 +40,7 @@ export default{
         async view(email){
             this.$storage.setUniversal('user_email',email)
             this.$storage.setUniversal('hrlogin',1)
-            this.$router.push('/userprofile')
+            this.$router.push('/companyprofile')
         }
     }
 }

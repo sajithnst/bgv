@@ -4,7 +4,6 @@
         <v-col>
           <v-container class="text-center">
             <h1 class="text-h2 text" style="color: black; margin-top: 25% ;"> VERIFI EDGE</h1><br/><br/>
-            <h1 class="text-h6" style="color: black;">A Web 3.0 Application</h1><br/><br/>
             <h1 class="text-h4" style="color: black;"> Effortless Background Checks </h1>
           </v-container>
 

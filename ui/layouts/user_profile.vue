@@ -6,10 +6,8 @@
       <v-toolbar-title style="color: white;">User Profile</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-        <v-btn icon text color="white" @click="logout()">
-        <v-icon>mdi-logout</v-icon>
-        <v-spacer></v-spacer>
-      </v-btn>
+        <v-btn text style="color: ghostwhite;width: 100px;" @click="logout()">Close</v-btn>
+
     </v-app-bar>
     <v-main>
       <Nuxt/>
@@ -61,7 +59,7 @@
 
   methods: {
     async logout() {
-        this.$router.push("/signin")
+        this.$router.push("/notary")
     }
   }
 

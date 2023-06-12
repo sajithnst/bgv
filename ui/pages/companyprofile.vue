@@ -1,4 +1,5 @@
 <template>
+  <v-app >
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
@@ -35,17 +36,20 @@
           </v-col>
 
           <v-col>
+
+
+
       <personaldetails/>
 
-      <sslcview/>
+      <Csslcview/>
 
-      <hseview/>
+      <Chseview/>
 
-      <ugview/>
+      <Cugview/>
 
-      <pgview/>
+      <Cpgview/>
 
-      <expview/>
+      <Cexpview/>
 
           </v-col>
           <v-col cols="3">
@@ -74,6 +78,8 @@
         </v-row>
       </v-container>
     </v-main>
+  </v-app>
+
 </template>
 <script>
 export default{

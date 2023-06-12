@@ -1,7 +1,7 @@
 <template>
   <v-container style="width: 100%; ">
     <v-card>
-      <v-card-title>PG Details</v-card-title>
+      <v-card-title>UG Details</v-card-title>
       <v-card-content>
         <v-container>
           <v-row>
@@ -28,11 +28,7 @@
                 <v-card-action>
                   <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
                 </v-card-action>
-                <v-container>
 
-                  <v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>
-                </v-container>
               </v-container>
             </v-col>
 
@@ -53,7 +49,7 @@ export default{
     async mounted (){
         this.$vuetify.theme.dark =false;
         this.email = this.$storage.getUniversal('user_email')
-        let url = "http://127.0.0.1:8000/pg"
+        let url = "http://127.0.0.1:8000/ug"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
         if (this.data.status == "pending"){
