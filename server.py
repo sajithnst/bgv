@@ -710,11 +710,6 @@ async def verify(verify:Verify):
             '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
         }
         client.bgv.user.update_one(filter=filter,update=update)
-        client.bgv.sslc.update_one(filter, update)
-        client.bgv.hse.update_one(filter, update)
-        client.bgv.ug.update_one(filter, update)
-        client.bgv.exp.update_many(filter, update)
-        client.bgv.pg.update_one(filter, update)
         return True
     except Exception as e:
         print(str(e))
@@ -734,9 +729,32 @@ async def verifysslc(verify : Verify):
                 'notary_name' : verify.notary_name
             }
         }
+        client.bgv.sslc.update_one(filter=filter,update=update)
     except Exception as e:
         print(str(e))
         return False
+
+@app.post('/verify/hse')
+async def verifysslc(verify:Verify):
+    try:
+        filter = {
+            'email' : verify.user_email,
+            'regno': verify.regno
+        }
+        update = {
+            '$set' : {
+                'status' : verify.status,
+                'notary_email' : verify.notary_email,
+                'notary_name' : verify.notary_name
+            }
+        }
+        client.bgv.hse.find_one_and_update(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 ## API to create view request
 
 class Request(BaseModel):
