@@ -240,6 +240,26 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 
     return True
 
+class SSLCStatus(BaseModel):
+    regno : str 
+    email : str
+    status : str
+@app.post('/sslc/status')
+async def sslc_status( status : SSLCStatus):
+    try :
+        filter = {
+            'regno' : status.regno,
+            'email' : status.email
+        }
+        update ={
+            '$set' : { 'status' : status.status}
+        }
+        client.bgv.sslc.find_one_and_update(filter=filter, update=update)
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 @app.get('/getpdf')
 async def getpdf(email: str, regno: str):
     path = os.path.join(email,regno+".pdf")
