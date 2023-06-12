@@ -49,7 +49,6 @@ class UserModel(BaseModel):
     email : str
     password : str
     firstlogin : bool
-    wallet : int = 0
     status : str = 'pending'
 
 ### create a new user and also create a folder with email as filename
@@ -530,7 +529,6 @@ class HrModel(BaseModel):
     empid :str
     company_mail : str
     password : str
-    wallet : int =0
     firstlogin: bool
 
 @app.post('/hr')
@@ -584,7 +582,6 @@ class NotaryModel(BaseModel):
     name : str
     email : str
     aadhaar :str
-    wallet : int  = 0
     password : str
     firstlogin : bool
 
@@ -685,13 +682,7 @@ class Verify(BaseModel):
 @app.post('/verify')
 async def verify(verify:Verify):
     try:
-        filter = {
-            'email': verify.notary_email,
-        }
-        update={
-            '$inc': {'wallet':verify.charge}
-        }
-        client.bgv.notary.update_one(filter,update)
+       
         filter = {
             'email': verify.user_email,
         }
@@ -835,25 +826,7 @@ async def update_user(update : UpdateRequest ):
         print(str(e))
         return False
 
- ## API to update use wallet
-class Payment(BaseModel):
-    email :str
 
-@app.post('/userwallet')
-async def user_wallet(payment: Payment):
-    filter ={
-        'email': payment.email
-    }
-    update={
-        '$inc':{'wallet':100}
-    }
-    try:
-        client.bgv.user.update_one(filter=filter,update=update)
-        client.bgv.request
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
 
 @app.get('/user/firstlogin')
 async def firstlogin(email:str):

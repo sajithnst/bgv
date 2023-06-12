@@ -22,7 +22,7 @@
                 <br><br>
                 <v-row justify="center">
                   <v-icon color="indigo darken-2">mdi-certificate-outline</v-icon>
-                  <v-btn text color="indigo darken-2" width="100px" @click="notary()"> Notary </v-btn>
+                  <v-btn text color="indigo darken-2" width="100px" @click="notary()"> Admin </v-btn>
                 </v-row>
 
               </v-col>
