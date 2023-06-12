@@ -15,13 +15,13 @@
               :aspect-ratio="16/12" src="https://studentidentify.com/img/illustration-1.png"/>
             </v-col>
           </v-row>
-
-
+      <br/><br/><br/>
       <intro/>
+      <br/><br/>
       <whoneedsus/>
-      <br><br>
+      <br/><br/>
       <howitworks/>
-      <br>
+      <br/><br/>
       <partners/>
 </v-container>
 </template>

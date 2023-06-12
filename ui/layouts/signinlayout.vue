@@ -39,6 +39,16 @@
 <script>
 export default {
     name:'signin',
+    data: () => {
+    return {
+      icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-instagram',
+        'mdi-youtube',
+      ],
+    };
+  },
 
     methods : {
         async home(){
