@@ -13,7 +13,7 @@
             <h3 class="text-subtitle-1"> College : {{ data.college }} </h3>
             <h3 class="text-subtitle-1"> University : {{ data.university }}</h3>
             <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
-            <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
+
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
@@ -30,8 +30,8 @@
                 </v-card-action>
                 <v-container>
 
-                  <v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>
+                  <v-btn icon @click="approve(profile.email)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+                <v-btn icon @click="deny(profile.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                 </v-container>
               </v-container>
             </v-col>

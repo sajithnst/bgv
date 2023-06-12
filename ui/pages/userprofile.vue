@@ -78,7 +78,7 @@
 <script>
 export default{
     name: 'profile',
-    layout:'user_profile',
+    layout:'notary_layout',
     async mounted (){
         this.$vuetify.theme.dark =false;
         this.email = this.$storage.getUniversal('user_email')

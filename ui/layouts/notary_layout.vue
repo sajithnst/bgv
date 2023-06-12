@@ -5,7 +5,7 @@
       &emsp;
       <h2 style="color: ghostwhite;"> Admin</h2>
       <v-spacer></v-spacer>
-      <v-btn icon @click="logout()" color="white"><v-icon size="32">mdi-logout</v-icon></v-btn>
+      <v-btn text style="color: ghostwhite;width: 100px;" @click="logout()" color="white">Close</v-btn>
     </v-app-bar>
         <v-main>
             <Nuxt/>
@@ -27,13 +27,13 @@ export default {
   },
   data: () => {
     return {
-   
+
     };
   },
     methods:{
         async logout (){
           console.log('logout');
-          this.$router.push('/notarysignin');
+          this.$router.push('/notary');
 
         }
     }

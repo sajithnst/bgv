@@ -51,7 +51,7 @@ export default{
       let url = "http://127.0.0.1:8000/hse"
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
-      if (this.data.status == "pending"){
+      if (this.data.status == false){
           this.pending = true
           this.verified = false
         }

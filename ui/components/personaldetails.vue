@@ -24,6 +24,11 @@
                       <v-icon color="green" size="100px" >mdi-check-decagram</v-icon>
 
 
+                    </v-container >
+                    <v-container class="text-center">
+                      <v-container></v-container>
+                      <v-btn icon @click="approve(profile.email)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+                      <v-btn icon @click="deny(profile.email)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                     </v-container>
                   </v-col>
                   <v-container>
@@ -51,14 +56,7 @@ export default{
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
         console.log(this.pdata)
-        if (this.pdata.status == "pending"){
-    this.pending = true
-    this.verified = false
-  }
-  if(this.pdata.status == "verified"){
-    this.verified = true
-    this.pending = false
-  }
+
 
 
     },

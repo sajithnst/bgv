@@ -6,7 +6,7 @@
         <v-container>
           <v-row>
             <v-col style="padding-left: 4%;">
-              <v-container v-if="datas"  v-for="data in data_set" :key="data.empid">
+              <v-container v-if="data"  v-for="data in data_set" :key="data.empid">
                 <h3 class="text-h8">{{ data.company }}</h3>
                 <h3 class="text-subtitle-1"> Employee ID :{{ data.empid}}</h3>
                 <h3 class="text-subtitle-1"> Designation : {{ data.designation }}</h3>
@@ -60,16 +60,16 @@ export default{
      email:"",
      data_set:[],
      data_ : false,
-     datas : false,
+     data : false,
  }),
 
  async mounted(){
   if(this.data_set == 0) {
       this.data_ = true
-      this.datas = false
+      this.data = false
      }
   else{
-    this.datas = true
+    this.data = true
     this.data_ = false
   }
  }
