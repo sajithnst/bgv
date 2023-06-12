@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
-        <v-container>
+        <v-container >
           <v-row>
             <v-col style="padding-left: 4%; ">
 
@@ -38,6 +38,7 @@
 
           </v-row>
         </v-container>
+
       </v-card-content>
 
 
@@ -49,7 +50,7 @@
 </template>
 <script>
 export default{
-    name: 'hse',
+    name: 'pg',
     async mounted (){
         this.$vuetify.theme.dark =false;
         this.email = this.$storage.getUniversal('user_email')
@@ -68,14 +69,24 @@ export default{
     },
     data: () =>({
         email:"",
-        data:{
-
-        },
+        data:{},
+        data_ : false,
+        data_s : false,
         pending:false,
         verified: false,
 
 
     }),
+    async mounted(){
+  if(this.data == 0){
+      this.data_ = true
+      this.data_s = false
+     }
+     if(this.data == 1){
+      this.data_s = true
+      this.data_ = false
+     }
+ },
     methods:{
     async doc(email, regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{

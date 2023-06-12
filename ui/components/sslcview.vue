@@ -27,7 +27,7 @@
                   <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
                 </v-card-action>
                 <v-container>
-                  <v-btn icon @click="approve(profile.email)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+                  <v-btn icon @click="approve(data.regno, data.email)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
                   <v-btn icon @click="deny(profile.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                 </v-container>
               </v-container>
@@ -71,6 +71,8 @@ export default{
         verified: false,
 
 
+
+
     }),
     methods:{
     async doc(email, regno){
@@ -91,7 +93,22 @@ export default{
       })
       console.log(regno)
 
+    },
+    async approve(email, regno){
+      console.log(email, regno)
+      let url = "http://127.0.0.1:8000/sslc/status"
+      let verify={
+        email: email,
+        regno: regno,
+
+
+      }
+      let res = await this.$axios.post(url, verify)
+      console.log(res.data)
+
+
     }
    }
+
 }
 </script>

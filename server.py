@@ -240,6 +240,27 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 
     return True
 
+class SSLCStatus(BaseModel):
+    regno : str 
+    email : str
+    status : str = "verified"
+@app.post('/sslc/status')
+async def sslc_status( status : SSLCStatus):
+    try :
+        filter = {
+            'regno' : status.regno,
+            'email' : status.email
+        }
+        update ={
+            '$set' : { 'status' : status.status}
+        }
+        client.bgv.sslc.find_one_and_update(filter=filter, update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 @app.get('/getpdf')
 async def getpdf(email: str, regno: str):
     path = os.path.join(email,regno+".pdf")
@@ -675,11 +696,10 @@ async def apprpvedusers():
 
 class Verify(BaseModel):
     user_email : str
-    regno : str
     notary_email: str
     notary_name :str
     status : str = "verified"
-@app.post('/verify/user')
+@app.post('/verify/personal')
 async def verify(verify:Verify):
     try:
        
@@ -689,7 +709,12 @@ async def verify(verify:Verify):
         update ={
             '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
         }
-        client.bgv.user.find_one_and_update(filter=filter,update=update)
+        client.bgv.user.update_one(filter=filter,update=update)
+        client.bgv.sslc.update_one(filter, update)
+        client.bgv.hse.update_one(filter, update)
+        client.bgv.ug.update_one(filter, update)
+        client.bgv.exp.update_many(filter, update)
+        client.bgv.pg.update_one(filter, update)
         return True
     except Exception as e:
         print(str(e))
@@ -709,93 +734,9 @@ async def verifysslc(verify : Verify):
                 'notary_name' : verify.notary_name
             }
         }
-        client.bgv.sslc.find_one_and_update(filter=filter,update=update)
-        return True
     except Exception as e:
         print(str(e))
         return False
-
-@app.post('/verify/hse')
-async def verifyhse(verify : Verify):
-    try :
-        filter = {
-            'email' : verify.user_email,
-            'regno': verify.regno
-        }
-        update = {
-            '$set' : {
-                'status' : verify.status,
-                'notary_email' : verify.notary_email,
-                'notary_name' : verify.notary_name
-            }
-        }
-        client.bgv.hse.find_one_and_update(filter=filter,update=update)
-        return True
-    except Exception as e:
-        print ( str(e))
-        return False
-
-@app.post('/verify/ug')
-async def verifyug(verify : Verify):
-    try:
-        filter = {
-            'email' : verify.user_email,
-            'regno': verify.regno
-        }
-        update = {
-            '$set' : {
-                'status' : verify.status,
-                'notary_email' : verify.notary_email,
-                'notary_name' : verify.notary_name
-            }
-        }
-        client.bgv.ug.find_one_and_update(filter=filter,update=update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
-
-@app.post('/verify/pg')
-async def verifypg(verify : Verify) :
-    try:
-        filter = {
-            'email' : verify.user_email,
-            'regno': verify.regno
-        }
-        update = {
-            '$set' : {
-                'status' : verify.status,
-                'notary_email' : verify.notary_email,
-                'notary_name' : verify.notary_name
-            }
-        }
-        client.bgv.pg.find_one_and_update(filter=filter,update=update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
-
-@app.post('/verify/exp')
-async def verifyexp(verify : Verify):
-    try:
-        filter = {
-            'email' : verify.user_email,
-            'regno': verify.regno
-        }
-        update = {
-            '$set' : {
-                'status' : verify.status,
-                'notary_email' : verify.notary_email,
-                'notary_name' : verify.notary_name
-            }
-        }
-        client.bgv.exp.find_one_and_update(filter=filter,update=update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
-
-
 ## API to create view request
 
 class Request(BaseModel):
@@ -963,7 +904,3 @@ async def user_filter(query : Dict):
     except Exception as e:
         print(str(e))
         return False
-
-
-
-
