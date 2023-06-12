@@ -754,7 +754,63 @@ async def verifysslc(verify:Verify):
         print(str(e))
         return False
 
+@app.post('/verify/ug')
+async def verifyug(verify:Verify):
+    try:
+        filter = {
+            'email' : verify.user_email,
+            'regno': verify.regno
+        }
+        update = {
+            '$set' : {
+                'status' : verify.status,
+                'notary_email' : verify.notary_email,
+                'notary_name' : verify.notary_name
+            }
+        }
+        client.bgv.ug.find_one_and_update(filter=filter,update=update)
+    except Exception as e:
+        print(str(e))
+        return False
 
+@app.post('/verify/pg')
+async def verifypg(verify: Verify):
+    try :
+        filter = {
+            'email' : verify.user_email,
+            'regno': verify.regno
+        }
+        update = {
+            '$set' : {
+                'status' : verify.status,
+                'notary_email' : verify.notary_email,
+                'notary_name' : verify.notary_name
+            }
+        }
+        client.bgv.pg.find_one_and_update(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/verify/exp')
+async def verifyexp(verify: Verify):
+    try:
+        filter = {
+            'email' : verify.user_email,
+            'regno': verify.regno
+        }
+        update = {
+            '$set' : {
+                'status' : verify.status,
+                'notary_email' : verify.notary_email,
+                'notary_name' : verify.notary_name
+            }
+        }
+        client.bgv.exp.find_one_and_update(filter=filter,update=update)
+    except Exception as e:
+        print(str(e))
+        return False
 ## API to create view request
 
 class Request(BaseModel):
