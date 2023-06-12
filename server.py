@@ -696,6 +696,7 @@ async def apprpvedusers():
 
 class Verify(BaseModel):
     user_email : str
+    regno: str| None = None
     notary_email: str
     notary_name :str
     status : str = "verified"
@@ -715,11 +716,13 @@ async def verify(verify:Verify):
         print(str(e))
         return False
 
+
+
 @app.post('/verify/sslc')
 async def verifysslc(verify : Verify):
     try:
         filter = {
-            'email' : verify.user_email,
+            'email': verify.user_email,
             'regno': verify.regno
         }
         update = {
@@ -729,13 +732,14 @@ async def verifysslc(verify : Verify):
                 'notary_name' : verify.notary_name
             }
         }
-        client.bgv.sslc.update_one(filter=filter,update=update)
+        client.bgv.sslc.find_one_and_update(filter=filter,update=update)
+        return True
     except Exception as e:
         print(str(e))
         return False
 
 @app.post('/verify/hse')
-async def verifysslc(verify:Verify):
+async def verifyhse(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,
@@ -755,7 +759,7 @@ async def verifysslc(verify:Verify):
         return False
 
 @app.post('/verify/ug')
-async def verifyug(verify:Verify):
+async def verifyug(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,

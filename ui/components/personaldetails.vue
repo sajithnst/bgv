@@ -27,7 +27,7 @@
                     </v-container >
                     <v-container class="text-center">
                       <v-container></v-container>
-                      <v-btn icon @click="approve(profile.email)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+                      <v-btn icon @click="approve(pdata.email, ndata.name)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
                       <v-btn icon @click="deny(profile.email)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                     </v-container>
                   </v-col>
@@ -55,16 +55,32 @@ export default{
         let url = "http://127.0.0.1:8000/user"
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
+
+        this.notary = this.$storage.getUniversal('notaryemail')
+        let nurl = "http://127.0.0.1:8000/notary"
+        let nres = await this.$axios.get(nurl,{params:{email: this.notary}})
+        this.ndata = nres.data
         console.log(this.pdata)
-
-
 
     },
     data: () =>({
         email:"",
         pdata :{},
+        ndata:{},
         pending: false,
         verified: false,
     }),
+    methods:{
+      async approve(email, name){
+        let url = "http://127.0.0.1:8000/verify/personal"
+        let verify={
+          user_email: email,
+          regno: null,
+          notary_email: this.ndata.email,
+          notary_name: name
+        }
+        let res = this.$axios.post(url,verify)
+      }
+    }
 }
 </script>

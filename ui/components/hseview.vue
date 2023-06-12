@@ -27,7 +27,7 @@
                   </v-card-action>
                   <v-container>
 
-                    <v-btn icon @click="approve(profile.email)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+                    <v-btn icon @click="approve(data.email, data.regno, ndata.name)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
                   <v-btn icon @click="deny(profile.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                   </v-container>
                 </v-container>
@@ -57,6 +57,12 @@ export default{
         let url = "http://127.0.0.1:8000/hse"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
+
+        this.notary = this.$storage.getUniversal('notaryemail')
+        let nurl = "http://127.0.0.1:8000/notary"
+        let nres = await this.$axios.get(nurl,{params:{email: this.notary}})
+        this.ndata = nres.data
+
         if (this.data.status == "pending"){
           this.pending = true
           this.verified = false
@@ -71,6 +77,7 @@ export default{
     data: () =>({
         email:"",
         data:{},
+        ndata: {},
         pending: false,
         verified: false,
 
@@ -94,6 +101,17 @@ export default{
         window.open(url)
       })
       console.log(regno)
+
+    },
+    async approve(email, regno, name){
+      let url= "http://127.0.0.1:8000/verify/hse"
+      let verify = {
+        user_email: email,
+        regno: regno,
+        notary_email: this.ndata.email,
+        notary_name: name
+      }
+      let res = this.$axios.post(url, verify)
 
     }
    }
