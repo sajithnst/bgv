@@ -243,7 +243,7 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 class SSLCStatus(BaseModel):
     regno : str 
     email : str
-    status : str
+    status : str = "verified"
 @app.post('/sslc/status')
 async def sslc_status( status : SSLCStatus):
     try :
