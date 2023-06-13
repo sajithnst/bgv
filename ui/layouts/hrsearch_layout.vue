@@ -3,6 +3,9 @@
   <v-app>
   <v-app-bar app color="indigo darken-4" :clipped-left="clipped" fixed>
     &ensp; &ensp; &ensp;
+    <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
+    <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
     <v-toolbar-title style="color: white;">User Profile</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
