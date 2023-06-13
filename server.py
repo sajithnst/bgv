@@ -263,8 +263,12 @@ async def sslc_status( status : SSLCStatus):
 
 @app.get('/getpdf')
 async def getpdf(email: str, regno: str):
-    path = os.path.join(email,regno+".pdf")
-    return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
+    try:
+        path = os.path.join(email,regno+".pdf")
+        return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
+    except Exception as e:
+        print(str(e))
+        return False
 
 ## hser certificate input
 
