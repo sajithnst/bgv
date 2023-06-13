@@ -1,6 +1,6 @@
 <template>
 <v-container>
-    <h2> Hr dashboard</h2>
+  <hrindex/>
 </v-container>
 </template>
 <script>

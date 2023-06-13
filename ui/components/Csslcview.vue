@@ -47,7 +47,7 @@ export default{
     name: 'userprofile',
     async mounted (){
         this.$vuetify.theme.dark =false;
-        this.email = this.$storage.getUniversal('user_email')
+        this.email = this.$storage.getUniversal('search_email');
         let url = "http://127.0.0.1:8000/sslc"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data

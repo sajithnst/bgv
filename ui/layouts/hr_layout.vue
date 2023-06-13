@@ -14,7 +14,8 @@
 </template>
 <script>
 export default{
-    name: "hrpage",
+    name: "hr_layout",
+
     async mounted() {
         this.$vuetify.theme.dark = false;
         this.company_mail = await this.$storage.getUniversal("hrmail");
