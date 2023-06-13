@@ -6,7 +6,7 @@
 <script>
 export default{
 name : "pgpage",
-layout:'profile',
+layout:'profileform_layout',
 async mounted(){
 
 },

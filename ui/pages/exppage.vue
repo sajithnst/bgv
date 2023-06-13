@@ -6,9 +6,9 @@
 <script>
 export default{
     name : "ugpage",
-    layout:'profile',
+    layout:'profileform_layout',
     async mounted(){
-    
+
     },
     data : () =>({
 
