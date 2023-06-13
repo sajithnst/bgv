@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
-        <v-container>
+        <v-container v-if="data_s">
           <v-row>
             <v-col style="padding-left: 4%; ">
               <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
@@ -38,6 +38,10 @@
 
           </v-row>
         </v-container>
+        <v-container v-if="data_" class="text-center">
+          <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
+          <h3 class="text-h8">No Data Found</h3>
+        </v-container>
       </v-card-content>
 
 
@@ -57,6 +61,16 @@ export default{
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
       console.log(this.data)
+
+      if(this.data == false){
+        this.data_ = true,
+        this.data_s = false
+      }
+      else{
+        this.data_s = true,
+        this.data_ = false
+      }
+
       if (this.data.status == false){
           this.pending = true
           this.verified = false
@@ -81,8 +95,9 @@ export default{
       },
       pending: false,
       verified: false,
-      rejected: false
-
+      rejected: false,
+      data_: false,
+      data_s: false
 
   }),
   methods:{

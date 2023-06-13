@@ -57,7 +57,7 @@ export default{
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
 
-        if (this.pdata.status == false){
+        if (this.pdata.status == "pending"){
           this.pending = true
           this.verified = false
           this.rejected = false

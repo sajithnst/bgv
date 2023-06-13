@@ -49,7 +49,7 @@ async mounted (){
   let res = await this.$axios.get(url,{params:{ email :this.email}});
   this.pdata=res.data
   console.log(this.pdata)
-  if (this.pdata.status == false){
+  if (this.pdata.status == "pending"){
           this.pending = true
           this.verified = false
           this.rejected = false

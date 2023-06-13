@@ -1107,7 +1107,7 @@ async def rejectexp(reject: Reject):
         }
         client.bgv.exp.find_one_and_update(filter=filter, update=update)
         return True
-    except Exzception as e:
+    except Exception as e:
         print(str(e))
         return False
     
