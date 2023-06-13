@@ -40,7 +40,7 @@
         </v-container>
         <v-container v-if="data_" class="text-center">
           <v-btn color="indigo darken-4" style="color: white;" @click="addpg()">ADD PG</v-btn>
-          <h3 class="text-h8">No Data Found</h3>
+
         </v-container>
       </v-card-content>
 

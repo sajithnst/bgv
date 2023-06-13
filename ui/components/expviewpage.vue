@@ -28,8 +28,6 @@
 
             </v-col>
             <v-container v-if="data_" class="text-center">
-
-              <h3 class="text-h8">No Data Found</h3>
               <v-btn color="indigo darken-4" style="color: white;" @click="addexp()">Add Experience</v-btn>
             </v-container>
 
