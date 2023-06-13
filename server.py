@@ -241,34 +241,18 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 
     return True
 
-class SSLCStatus(BaseModel):
-    regno : str 
-    email : str
-    status : str = "verified"
-@app.post('/sslc/status')
-async def sslc_status( status : SSLCStatus):
-    try :
-        filter = {
-            'regno' : status.regno,
-            'email' : status.email
-        }
-        update ={
-            '$set' : { 'status' : status.status}
-        }
-        client.bgv.sslc.find_one_and_update(filter=filter, update=update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
+
 
 
 @app.get('/getpdf')
 async def getpdf(email: str, regno: str):
-    try:
-        path = os.path.join(email,regno+".pdf")
-        return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
-    except Exception as e:
-        print(str(e))
+    path = os.path.join(email,regno+".pdf")
+    if os.path.exists(path):
+        try:
+            return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
+        except Exception as e:
+            print(str(e))
+    else:
         return False
 
 ## hser certificate input
@@ -707,18 +691,23 @@ class Verify(BaseModel):
     status : str = "verified"
 @app.post('/verify/personal')
 async def verify(verify:Verify):
-    try:
-       
-        filter = {
-            'email': verify.user_email,
-        }
-        update ={
-            '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
-        }
-        client.bgv.user.update_one(filter=filter,update=update)
-        return True
-    except Exception as e:
-        print(str(e))
+    sslc = await client.bgv.sslc.count_documents({'email':verify.user_email,'status':'pending'})
+    hse = await client.bgv.hse.count_documents({'email':verify.user_email,'status':'pending'})
+    ug = await client.bgv.ug.count_documents({'email' : verify.user_email, 'status' : 'pending'})
+    if sslc+hse+ug == 0:
+        try:
+        
+            filter = {
+                'email': verify.user_email,
+            }
+            update ={
+                '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
+            }
+            client.bgv.user.update_one(filter=filter,update=update)
+            return True
+        except Exception as e:
+            print(str(e))
+    else:
         return False
 
 
