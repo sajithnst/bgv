@@ -53,7 +53,7 @@ export default {
   },
     methods:{
         async logout (){
-          this.$router.push('/user')
+          this.$router.push('/signin')
 
         }
     }

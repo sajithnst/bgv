@@ -1,61 +1,96 @@
 <template>
-      <v-app id="inspire" >
-    <v-app-bar app color="indigo darken-2">
-        <v-btn icon @click="home()" ><v-icon color="white">mdi-home</v-icon></v-btn>
-        <v-toolbar-title style="color: antiquewhite;">{{name}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn text @click="profile()" color="white" width="150px">profile</v-btn>
-        <v-btn text @click="exp()" color="white" width="150px">Experience</v-btn>
-        <v-btn text @click="pg()"  color="white" width="100px">PG</v-btn>
-        <v-btn icon @click="logout()" color="white"><v-icon>mdi-logout</v-icon></v-btn>
-    </v-app-bar>
+  <v-app >
 
-    <v-main>
-      <br/><br/><br/><br/>
+
+    <v-main class="grey lighten-3">
       <v-container>
-        <userwallet/>
-      </v-container>
-      <v-container>
-        <userrequest/>
+        <v-row>
+          <v-col cols="3">
+
+              <v-container fluid>
+                <v-card max-width="450px" class="mx-auto bg" elevation="2">
+                  <br><br>
+                  <v-row justify="center">
+                    <v-col align-self="start" class="d-flex justify-center align-center pa-0" cols="12">
+                      <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="170">
+
+                        <input ref="uploader" class="d-none" type="file" accept="image/*" :change="onFileChanged">
+                        <v-img src="https://cdn.vectorstock.com/i/preview-1x/32/12/default-avatar-profile-icon-vector-39013212.jpg"></v-img>
+
+
+                      </v-avatar>
+
+                    </v-col>
+                    <v-btn @click="onButtonClick" class="upload-btn" x-large icon>
+                      <v-icon>
+                        mdi-camera
+                      </v-icon>
+                    </v-btn>
+
+                  </v-row>
+                  <v-row>
+                    <userbannerpage/>
+                    <profilepersonal/>
+                  </v-row>
+
+                </v-card>
+              </v-container>
+
+          </v-col>
+
+          <v-col>
+
+
+
+      <persondetailspage/>
+
+      <sslcviewpage/>
+
+      <hseviewpage/>
+
+      <ugviewpage/>
+
+      <pgviewpage/>
+
+      <expviewpage/>
+
+          </v-col>
+          <v-col cols="3">
+
+            <v-container fluid>
+              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
+                <br>
+                <v-row justify="center">
+                  <v-card-title>QR CODE</v-card-title>
+                </v-row>
+                <v-container>
+                  <v-container>
+                    <v-container>
+                      <v-container>
+                        <v-img
+                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
+
+                      </v-container>
+                    </v-container>
+                  </v-container>
+                </v-container>
+
+                <br>
+              </v-card>
+            </v-container>
+
+        </v-col>
+        </v-row>
       </v-container>
     </v-main>
-</v-app>
+  </v-app>
 </template>
+
 <script>
-export default {
-    name: 'userpage',
-    async mounted(){
-        this.$vuetify.theme.dark=false;
-        var url ='http://127.0.0.1:8000/user'
-        this.email= await this.$storage.getUniversal('Email');
-        await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
-            this.name = res.data.name
-        }).catch(error => console.log(error));
-
-    },
-
-    data :()=>({
-        email :'',
-        name : '',
+  export default {
+    layout:'profile',
+    data: () => ({
 
     }),
-    methods:{
-        async logout(){
-            this.$router.push('/signin')
-        },
-        async home(){
-            this.$router.push('/');
-        },
-        async exp(){
-            this.$router.push('/exppage')
-        },
-        async profile(){
-          this.$router.push('/profile')
-        },
-        async pg() {
-          this.$router.push('/pgpage')
-        }
-
-    }
-};
+  }
 </script>

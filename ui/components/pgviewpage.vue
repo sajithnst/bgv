@@ -39,7 +39,7 @@
           </v-row>
         </v-container>
         <v-container v-if="data_" class="text-center">
-          <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
+          <v-btn color="indigo darken-4" style="color: white;" @click="addpg()">ADD PG</v-btn>
           <h3 class="text-h8">No Data Found</h3>
         </v-container>
       </v-card-content>
@@ -119,6 +119,9 @@ export default{
       })
       console.log(regno)
 
+    },
+    async addpg(){
+      this.$router.push('/pgpage')
     }
    }
 }

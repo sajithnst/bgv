@@ -28,8 +28,9 @@
 
             </v-col>
             <v-container v-if="data_" class="text-center">
-              <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
+
               <h3 class="text-h8">No Data Found</h3>
+              <v-btn color="indigo darken-4" style="color: white;" @click="addexp()">Add Experience</v-btn>
             </v-container>
 
           </v-row>
@@ -71,6 +72,11 @@ export default{
   else{
     this.data = true
     this.data_ = false
+  }
+ },
+ methods:{
+  async addexp(){
+    this.$router.push('/exppage')
   }
  }
 }
