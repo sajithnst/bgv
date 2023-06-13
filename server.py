@@ -982,3 +982,128 @@ async def user_filter(query : Dict):
     except Exception as e:
         print(str(e))
         return False
+
+############# Rejecting Profiles ##############
+
+class Reject(BaseModel):
+    user_email : str
+    regno: str| None = None
+    notary_email: str
+    notary_name :str
+    status : str = "rejected"
+@app.post('/reject/personal')
+async def reject(reject:Reject):
+    try:
+       
+        filter = {
+            'email': reject.user_email,
+        }
+        update ={
+            '$set':{ 'status': reject.status, 'notary_email': reject.notary_email, 'notary_name':reject.notary_name}
+        }
+        client.bgv.user.update_one(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/reject/sslc')
+async def rejectsslc(reject : Reject):
+    try:
+        filter = {
+            'email': reject.user_email,
+            'regno': reject.regno
+        }
+        update = {
+            '$set' : {
+                'status' : reject.status,
+                'notary_email' : reject.notary_email,
+                'notary_name' : reject.notary_name
+            }
+        }
+        client.bgv.sslc.find_one_and_update(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/reject/hse')
+async def rejecthse(reject: Reject):
+    try:
+        filter={
+            'email': reject.user_email,
+            'regno:': reject.regno
+        }
+        update={
+            'set':{
+                'status': reject.status,
+                'notary_email': reject.notary_email,
+                'notary_regno': reject.notary_regno
+            }
+        }
+        client.bgv.hse.find_one_and_update(filter=filter, update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/reject/ug')
+async def rejectug(reject:Reject):
+    try:
+         filter={
+             'email': reject.user_email,
+             'regno': reject.regno
+         }
+         update={
+             'set':{
+                 'status': reject.status,
+                 'notary_email': reject.notary_email,
+                 'notary_regno': reject.notary_regno
+             }
+         }
+         client.bgv.ug.find_one_and_update(filter=filter, update=update)
+         return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/reject/pg')
+async def rejectug(reject: Reject):
+    try:
+        filter={
+            'email':reject.user_email,
+            'regno': reject.regno
+        }
+        update={
+            'set':{
+                'status': reject.status,
+                'notary_email': reject.notary_email,
+                'notary_regno': reject.notary_regno
+            }
+        }
+        client.bgv.pg.find_one_and_update(filter=filter, update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/reject/exp')
+async def rejectexp(reject: Reject):
+    try:
+        filter={
+            'email': reject.user_email,
+            'regno': reject.regno
+        }
+        update={
+            'set':{
+                'status': reject.status,
+                'notary_email': reject.notary_email,
+                'notary_regno': reject.notary_regno
+            }
+        }
+        client.bgv.exp.find_one_and_update(filter=filter, update=update)
+        return True
+    except Exzception as e:
+        print(str(e))
+        return False
+    

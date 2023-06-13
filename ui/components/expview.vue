@@ -67,11 +67,11 @@ export default{
 
     }),
     async mounted(){
-  if(this.datas == 0){
+  if(this.datas == false){
       this.data_ = true
       this.data_s = false
      }
-     if(this.datas == 1){
+     else{
       this.data_s = true
       this.data_ = false
      }

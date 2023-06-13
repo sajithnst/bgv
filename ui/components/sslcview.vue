@@ -15,13 +15,15 @@
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
-                <v-icon size="100px" color="yellow">mdi-timer</v-icon>
+                <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
               </v-container>
               <v-container v-if="verified" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
-
-
               </v-container>
+              <v-container v-if="rejected" class="text-center">
+                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+              </v-container>
+
               <v-container class="text-center">
                 <v-card-action>
                   <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
@@ -29,7 +31,7 @@
                 <v-container>
 
                   <v-btn icon @click="approve(data.email, data.regno)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                <v-btn icon @click="deny(profile.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
+                <v-btn icon @click="deny(data.email, data.regno)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                 </v-container>
               </v-container>
 
@@ -60,13 +62,20 @@ export default{
         let nres = await this.$axios.get(nurl,{params:{email: this.notary}})
         this.ndata = nres.data
 
-       if (this.data.status == false){
+        if (this.data.status == false){
           this.pending = true
           this.verified = false
+          this.rejected = false
         }
         if(this.data.status == "verified"){
           this.verified = true
           this.pending = false
+          this.rejected = false
+        }
+        if(this.data.status == "rejected"){
+          this.rejected = true
+          this.pending = false
+          this.verified = false
         }
 
    },
@@ -75,8 +84,7 @@ export default{
        data:{},
        pending: false,
        verified: false,
-
-
+       rejected: false
    }),
    methods:{
     async doc(email, regno){
@@ -109,6 +117,18 @@ export default{
       let res = await this.$axios.post(url, vdata)
       console.log(res.data)
 
+    },
+    async deny(email, regno){
+        console.log(email, name)
+        let url = "http://127.0.0.1:8000/verify/sslc"
+        let reject={
+          user_email: email,
+          regno: regno,
+          notary_email: this.ndata.email,
+          notary_name: this.ndata.name,
+          status: "rejected"
+        }
+        let res = this.$axios.post(url,reject)
     }
    }
 }

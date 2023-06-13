@@ -13,22 +13,23 @@
                     <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
                     <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
                     <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
-                    <h3 class="text-subtitle-1"> Status : {{ pdata.status }}</h3>
 
                   </v-col>
                   <v-col >
                     <v-container v-if="pending" class="text-center">
-                      <v-icon color="yellow" size="100px">mdi-timer</v-icon>
+                      <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
                     </v-container>
                     <v-container v-if="verified" class="text-center">
-                      <v-icon color="green" size="100px" >mdi-check-decagram</v-icon>
+                      <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                    </v-container>
+                    <v-container v-if="rejected" class="text-center">
+                      <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                    </v-container>
 
-
-                    </v-container >
                     <v-container class="text-center">
                       <v-container></v-container>
                       <v-btn icon @click="approve(pdata.email, ndata.name)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                      <v-btn icon @click="deny(profile.email)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
+                      <v-btn icon @click="deny(pdata.email, ndata.name)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                     </v-container>
                   </v-col>
                   <v-container>
@@ -56,6 +57,22 @@ export default{
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
 
+        if (this.pdata.status == false){
+          this.pending = true
+          this.verified = false
+          this.rejected = false
+        }
+        if(this.pdata.status == "verified"){
+          this.verified = true
+          this.pending = false
+          this.rejected = false
+        }
+        if(this.pdata.status == "rejected"){
+          this.rejected = true
+          this.pending = false
+          this.verified = false
+        }
+
         this.notary = this.$storage.getUniversal('notaryemail')
         let nurl = "http://127.0.0.1:8000/notary"
         let nres = await this.$axios.get(nurl,{params:{email: this.notary}})
@@ -69,18 +86,29 @@ export default{
         ndata:{},
         pending: false,
         verified: false,
+        rejected: false
     }),
     methods:{
       async approve(email, name){
         let url = "http://127.0.0.1:8000/verify/personal"
         let verify={
           user_email: email,
-          regno: null,
           notary_email: this.ndata.email,
           notary_name: name
         }
         let res = this.$axios.post(url,verify)
-      }
+      },
+      async deny(email, name){
+        console.log(email, name)
+        let url = "http://127.0.0.1:8000/verify/personal"
+        let reject={
+          user_email: email,
+          notary_email: this.ndata.email,
+          notary_name: name,
+          status: "rejected"
+        }
+        let res = this.$axios.post(url,reject)
     }
+  }
 }
 </script>

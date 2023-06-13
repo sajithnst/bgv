@@ -22,6 +22,11 @@
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
+              <v-container v-if="rejected" class="text-center">
+                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+
+              </v-container>
+
               <v-container class="text-center">
                 <v-card-action>
                   <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
@@ -55,10 +60,17 @@ export default{
       if (this.data.status == false){
           this.pending = true
           this.verified = false
+          this.rejected = false
         }
         if(this.data.status == "verified"){
           this.verified = true
           this.pending = false
+          this.rejected = false
+        }
+        if(this.data.status == "rejected"){
+          this.rejected = true
+          this.pending = false
+          this.verified = false
         }
 
   },
@@ -69,6 +81,7 @@ export default{
       },
       pending: false,
       verified: false,
+      rejected: false
 
 
   }),

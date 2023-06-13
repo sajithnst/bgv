@@ -22,6 +22,11 @@
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
+              <v-container v-if="rejected" class="text-center">
+                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+
+              </v-container>
+
               <v-container class="text-center">
                 <v-card-action>
                   <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
@@ -29,7 +34,7 @@
                 <v-container>
 
                   <v-btn icon @click="approve(data.email, data.regno, ndata.name)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                <v-btn icon @click="deny(profile.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
+                <v-btn icon @click="deny(data.email, data.regno, ndata.name)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
                 </v-container>
 
               </v-container>
@@ -82,12 +87,18 @@ export default{
       if (this.data.status == false){
           this.pending = true
           this.verified = false
+          this.rejected = false
         }
         if(this.data.status == "verified"){
           this.verified = true
           this.pending = false
+          this.rejected = false
         }
-
+        if(this.data.status == "rejected"){
+          this.rejected = true
+          this.pending = false
+          this.verified = false
+        }
   },
   data: () =>({
       email:"",
@@ -96,6 +107,7 @@ export default{
       },
       pending: false,
       verified: false,
+      rejected: false,
       data_: false,
       data_s: false
 
@@ -130,6 +142,18 @@ export default{
         notary_name: name
       }
       let res = await this.$axios.post(url, verify)
+    },
+    async deny(email, regno, name){
+        console.log(email, name)
+        let url = "http://127.0.0.1:8000/verify/pg"
+        let reject={
+          user_email: email,
+          regno: regno,
+          notary_email: this.ndata.email,
+          notary_name: name,
+          status: "rejected"
+        }
+        let res = this.$axios.post(url,reject)
     }
    }
 }
