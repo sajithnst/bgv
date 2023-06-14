@@ -979,5 +979,32 @@ async def user_filter(query : Dict):
 
 
 
+#############Super Admin ###########
 
-   
+class Admin(BaseModel):
+      name: str
+      email: str
+      password: str
+
+@app.post("/admin")
+async def add_admin(admin: Admin):
+      try:
+        client.bgv.admin.insert_one(dict(admin))
+        return True
+      except Exception as e:
+        print(str(e))
+      return False
+
+class Adminlogin(BaseModel):
+      email : str
+      password : str
+@app.post('/adminlogin')
+async def admin_login(login:Adminlogin):
+      try:
+        if(client.bgv.admin.count_documents(dict(login))) ==1:
+          return True
+        else:
+          return False
+      except Exception as e:
+        print(str(e))
+        return False
