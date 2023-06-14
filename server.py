@@ -691,9 +691,9 @@ class Verify(BaseModel):
     status : str = "verified"
 @app.post('/verify/personal')
 async def verify(verify:Verify):
-    sslc = await client.bgv.sslc.count_documents({'email':verify.user_email,'status':'pending'})
-    hse = await client.bgv.hse.count_documents({'email':verify.user_email,'status':'pending'})
-    ug = await client.bgv.ug.count_documents({'email' : verify.user_email, 'status' : 'pending'})
+    sslc = client.bgv.sslc.count_documents({'email':verify.user_email,'status':'pending'})
+    hse = client.bgv.hse.count_documents({'email':verify.user_email,'status':'pending'})
+    ug = client.bgv.ug.count_documents({'email' : verify.user_email, 'status' : 'pending'})
     if sslc+hse+ug == 0:
         try:
         
