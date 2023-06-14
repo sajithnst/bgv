@@ -13,7 +13,7 @@
           <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
 
             </v-col>
-            <v-col >
+            <v-col style="margin-top: -5%;">
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
               </v-container>

@@ -15,7 +15,7 @@
                     <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
 
                   </v-col>
-                  <v-col >
+                  <v-col style="margin-top: -7%;"  >
                     <v-container v-if="pending" class="text-center">
                       <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
                     </v-container>
@@ -29,7 +29,9 @@
                     <v-container class="text-center">
                       <v-container></v-container>
                       <v-btn icon @click="approve(pdata.email, ndata.name)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
+
                       <v-btn icon @click="deny(pdata.email, ndata.name)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
+
                     </v-container>
                   </v-col>
                   <v-container>
@@ -39,6 +41,8 @@
                 </v-row>
               </v-container>
             </v-card-content>
+            <!--<v-alert border="top" color="red lighten-1"  dismissible v-if="error"> Still there are some certificate to be verified. So complete it and then verify the personal details</v-alert>
+            <v-alert border="top" color="green lighten-1" dismissible  v-if="success"> Verified </v-alert>-->
 
 
 
@@ -84,6 +88,8 @@ export default{
         email:"",
         pdata :{},
         ndata:{},
+        error: false,
+        success: false,
         pending: false,
         verified: false,
         rejected: false
@@ -97,6 +103,7 @@ export default{
           notary_name: name
         }
         let res = this.$axios.post(url,verify)
+
       },
       async deny(email, name){
         console.log(email, name)

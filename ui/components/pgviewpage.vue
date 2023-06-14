@@ -37,14 +37,19 @@
             </v-col>
 
           </v-row>
-        </v-container>
-        <v-container v-if="data_" class="text-center">
-          <v-btn color="indigo darken-4" style="color: white;" @click="addpg()">ADD PG</v-btn>
 
         </v-container>
+
+        <br>
       </v-card-content>
 
+      <v-card-action >
+        <v-container>
+          <v-btn text icon @click="addpg()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
 
+        </v-container>
+
+      </v-card-action>
 
     </v-card>
 

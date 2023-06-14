@@ -1,6 +1,7 @@
 <template>
   <v-container style="width: 100%;">
     <v-card>
+
       <v-card-title>Work Experience</v-card-title>
       <v-card-content>
         <v-container>
@@ -15,7 +16,6 @@
                 <h3 class="text-subtitle-1"> CTC : {{ data.lpa }}</h3>
                 <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
                 </v-container>
-
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
@@ -24,24 +24,19 @@
               <v-container v-if="verified" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
-
-
             </v-col>
-            <v-container v-if="data_" class="text-center">
-              <v-btn color="indigo darken-4" style="color: white;" @click="addexp()">Add Experience</v-btn>
-            </v-container>
 
           </v-row>
-
-
         </v-container>
+        <v-card-action>
+
+            <v-container>
+              <v-btn icon @click="addexp()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
+            </v-container>
+
+        </v-card-action>
       </v-card-content>
-
-<br/>
-
     </v-card>
-
-
      </v-container>
 </template>
 <script>

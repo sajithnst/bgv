@@ -14,7 +14,7 @@
           <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
 
             </v-col>
-            <v-col >
+            <v-col style="margin-top: -5%;" >
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
               </v-container>
@@ -47,7 +47,7 @@
           <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
           <h3 class="text-h8">No Data Found</h3>
         </v-container>
-
+<br>
       </v-card-content>
 
 
@@ -61,7 +61,7 @@ export default{
   name: 'hse',
   async mounted (){
       this.$vuetify.theme.dark =false;
-      this.email = this.$storage.getUniversal('login_mail')
+      this.email = this.$storage.getUniversal('user_email')
       let url = "http://127.0.0.1:8000/pg"
       console.log(this.email)
       let res = await this.$axios.get(url,{params:{email: this.email}})

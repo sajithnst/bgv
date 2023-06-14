@@ -35,6 +35,9 @@ data: () => {
         console.log('logout');
         this.$router.push('/notarysignin');
 
+      },
+      async home(){
+        this.$router.push('/');
       }
   }
 }

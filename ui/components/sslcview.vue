@@ -13,7 +13,7 @@
            <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
 
             </v-col>
-            <v-col >
+            <v-col style="margin-top: -7%;" >
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
               </v-container>
@@ -39,6 +39,7 @@
           </v-row>
         </v-container>
       </v-card-content>
+      <v-alert border="top" color="red lighten-1" dismissible  v-if="error"> No Documents uploaded</v-alert>
 
 
 
@@ -52,7 +53,7 @@ export default{
    name: 'userprofile',
    async mounted (){
        this.$vuetify.theme.dark =false;
-       this.email = this.$storage.getUniversal('login_mail')
+       this.email = this.$storage.getUniversal('user_email')
        let url = "http://127.0.0.1:8000/sslc"
        let res = await this.$axios.get(url,{params:{email: this.email}})
        this.data= res.data
@@ -83,12 +84,15 @@ export default{
        email:"",
        data:{},
        pending: false,
+       error:false,
        verified: false,
        rejected: false
    }),
    methods:{
     async doc(email, regno){
-      this.$axios.get("http://127.0.0.1:8000/getpdf",{
+      let url = "http://127.0.0.1:8000/getpdf"
+
+      this.$axios.get(url,{
         params:{
           email: email,
           regno: regno
@@ -97,14 +101,18 @@ export default{
       })
       .then(response => {
         console.log(response)
-
-        let blob = new Blob([response.data], { type: 'application/pdf'}),
+        if(response.data == false){
+          this.error == true
+        }
+        else{
+          this.error = false
+          let blob = new Blob([response.data], { type: 'application/pdf'}),
         url = window.URL.createObjectURL(blob)
 
         window.open(url)
+        }
       })
       console.log(regno)
-
     },
     async approve(email, regno){
       let url = "http://127.0.0.1:8000/verify/sslc"

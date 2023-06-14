@@ -35,6 +35,9 @@ export default {
           console.log('logout');
           this.$router.push('/notary');
 
+        },
+        async home(){
+          this.$router.push('/')
         }
     }
 }
