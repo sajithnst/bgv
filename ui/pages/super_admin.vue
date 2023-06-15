@@ -1,24 +1,24 @@
 <template>
-    <container>
+  <container>
     <admin/>
-    </container>
-    </template>
-    <script>
+  </container>
+</template>
+<script>
     export default{
-    name: "admin login",
-    layout:'signinlayout',
-    async mounted(){
-    this.$vuetify.theme.dark=false;
-    },
-    data: () => ({
-    
-    }),
+      name: "admin login",
+      layout:'signinlayout',
+      async mounted(){
+        this.$vuetify.theme.dark=false;
+      },
+      data: () => ({
+
+      }),
     }
-    </script>
-    <style>
-    .signin{
+</script>
+<style>
+  .signin{
     width: 30%;
     margin: 0% auto;
     text-align: center;
-    }
-    </style>
+  }
+</style>

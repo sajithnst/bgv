@@ -1,32 +1,32 @@
 <template>
-<v-container class="hrsignin">
-<br/><br/>
-<v-form>
-<h1 class="text-center"> Admin Signin </h1>
-<br><br>
-<v-alert border="top" color="red lighten-1" dismissible v-if="fail"> Data insertion failed</v-alert>
-<v-row>
-<div class="text-subtitle-1 text-medium-emphasis "> Email ID</div>
-</v-row>
-<v-row>
-<v-text-field label="Enter the email" v-model="email" :rules="[rules.required,rules.email]"></v-text-field>
-</v-row>
-<v-row>
-<div class="text-subtitle-1 text-medium-emphasis ">Password</div>
-</v-row>
-<v-row>
-<v-text-field label="Enter the password" v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
-</v-row>
-<br>
-<v-container class="text-center">
-<v-btn text @click="login()" color="indigo darken-2" width="200px">Signin</v-btn>
-</v-container>
-</v-form>
-</v-container>
+  <v-container class="adminsignin">
+  <br/><br/>
+  <v-form>
+    <h1 class="text-center"> Admin Signin </h1>
+    <br><br>
+    <v-alert border="top" color="red lighten-1" dismissible v-if="fail"> Data insertion failed</v-alert>
+    <v-row>
+      <div class="text-subtitle-1 text-medium-emphasis "> Email ID</div>
+    </v-row>
+    <v-row>
+      <v-text-field label="Enter the email" v-model="email" :rules="[rules.required,rules.email]"></v-text-field>
+    </v-row>
+    <v-row>
+      <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
+    </v-row>
+    <v-row>
+      <v-text-field label="Enter the password" v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+    </v-row>
+    <br>
+    <v-container class="text-center">
+      <v-btn text @click="login()" color="indigo darken-2" width="200px">Signin</v-btn>
+    </v-container>
+  </v-form>
+  </v-container>
 </template>
 <script>
 export default{
-name :"admin login",
+name :"adminlogin",
 data : () => ({
 email: "",
 password: "",

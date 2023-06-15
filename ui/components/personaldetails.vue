@@ -15,7 +15,7 @@
                     <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
 
                   </v-col>
-                  <v-col style="margin-top: -7%;"  >
+                  <v-col style="margin-top: -6%;" >
                     <v-container v-if="pending" class="text-center">
                       <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
                     </v-container>
@@ -34,19 +34,19 @@
 
                     </v-container>
                   </v-col>
-                  <v-container>
-
-                  </v-container>
 
                 </v-row>
               </v-container>
+
+              <v-container>
+                <v-card-title style="text-decoration: underline; color: black;">Note:</v-card-title>
+                <v-card-subtitle style="text-decoration: underline; color:red;">Before approving the personal detail, please check that you have approved the SSLC, HSE, UG details.</v-card-subtitle>
+              </v-container>
+
             </v-card-content>
-            <!--<v-alert border="top" color="red lighten-1"  dismissible v-if="error"> Still there are some certificate to be verified. So complete it and then verify the personal details</v-alert>
-            <v-alert border="top" color="green lighten-1" dismissible  v-if="success"> Verified </v-alert>-->
-
-
 
           </v-card>
+
 
         </v-container>
 </template>
