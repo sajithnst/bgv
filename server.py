@@ -555,6 +555,19 @@ async def add_hr(hr:HrModel):
             return False
     else: 
         return False
+@app.get('/hr')
+async def get_notary(company_mail: str):
+    try :
+        filter = {
+            'company_mail':company_mail
+            }
+        project ={
+            '_id':0,
+        }
+        return dict(client.bgv.hr.find_one(filter,project))
+    except Exception as e:
+        print('Error getting hr'+ str(e))
+        return False
 class Hrprofile(BaseModel):
     company_mail : str
 @app.post('/hrprofile')

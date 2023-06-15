@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
-        <v-container>
+        <v-container v-if="data_s">
           <v-row>
             <v-col style="padding-left: 4%; ">
 
@@ -34,6 +34,10 @@
 
           </v-row>
         </v-container>
+        <v-container v-if="data_" class="text-center">
+          <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
+          <h3 class="text-h8">No Data Found</h3>
+        </v-container>
       </v-card-content>
 
 
@@ -52,6 +56,14 @@ export default{
         let url = "http://127.0.0.1:8000/pg"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
+        if(this.data == false){
+          this.data_ = true,
+          this.data_s = false
+        }
+        else{
+          this.data_s = true,
+          this.data_ = false
+        }
         if (this.data.status == "pending"){
           this.pending = true
           this.verified = false
@@ -69,6 +81,8 @@ export default{
         },
         pending:false,
         verified: false,
+        data_: false,
+        data_s: false
 
 
     }),
