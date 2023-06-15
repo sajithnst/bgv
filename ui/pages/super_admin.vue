@@ -15,10 +15,4 @@
       }),
     }
 </script>
-<style>
-  .signin{
-    width: 30%;
-    margin: 0% auto;
-    text-align: center;
-  }
-</style>
+

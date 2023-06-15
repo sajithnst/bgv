@@ -26,7 +26,7 @@
 </template>
 <script>
 export default{
-name :"adminlogin",
+name :"admin",
 data : () => ({
 email: "",
 password: "",
