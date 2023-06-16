@@ -33,7 +33,8 @@
     <v-container>
       <v-sheet class="text-center" style="margin-left:32%" :elevation="6" :height="200" :width="600">
         <v-container>
-          <v-file-input @change="fileselect" style="width:50%; margin:0 auto; margin-top:9%;" label="File input" variant="solo-filled"></v-file-input>
+          <v-text-title><h2>Upload Csv Files</h2></v-text-title>
+          <v-file-input @change="fileselect" style="width:50%; margin:0 auto; margin-top:4%;" label="File input" variant="solo-filled"></v-file-input>
           <v-btn color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn><br/><br/>
 
         </v-container>

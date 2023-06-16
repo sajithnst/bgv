@@ -15,7 +15,7 @@
                       <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="170">
 
                         <input ref="uploader" class="d-none" type="file" accept="image/*" :change="onFileChanged">
-                        <v-img src="https://cdn.vectorstock.com/i/preview-1x/32/12/default-avatar-profile-icon-vector-39013212.jpg"></v-img>
+                        <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
 
 
                       </v-avatar>
