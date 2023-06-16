@@ -39,8 +39,7 @@
               </v-container>
 
               <v-container>
-                <v-card-title style="text-decoration: underline; color: black;">Note:</v-card-title>
-                <v-card-subtitle style="text-decoration: underline; color:red;">Before approving the personal detail, please check that you have approved the SSLC, HSE, UG details.</v-card-subtitle>
+                <v-card-subtitle style=" color:red;">* Before approving the personal detail, please check that you have approved the SSLC, HSE, UG details.</v-card-subtitle>
               </v-container>
 
             </v-card-content>
