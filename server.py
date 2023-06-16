@@ -1014,7 +1014,7 @@ class Adminlogin(BaseModel):
 @app.post('/adminlogin')
 async def admin_login(login:Adminlogin):
       try:
-        if(client.bgv.admin.count_documents(dict(login))) ==1:
+        if(client.bgv.admin.count_documents(dict(login)) ==1):
           return True
         else:
           return False
