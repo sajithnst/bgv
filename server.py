@@ -1021,3 +1021,19 @@ async def admin_login(login:Adminlogin):
       except Exception as e:
         print(str(e))
         return False
+      
+@app.post('/hr/uploadcsv')
+async def uploadcsv(company_mail: str= Form(),file: UploadFile = File(...) ):
+   if(not os.path.isdir(company_mail)):
+       os.mkdir(company_mail)
+   path = os.path.join(company_mail,file.filename)
+   try:
+        contents = file.file.read()
+        with open(path, 'wb') as f:
+            f.write(contents)
+   except Exception:
+        return False
+   finally:
+        file.file.close()
+   return True
+    

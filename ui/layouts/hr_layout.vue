@@ -19,8 +19,8 @@
             <v-list>
               <v-list-item >
 
-                &emsp;                &emsp;
-                <v-list-item-title style="color:black"><h2>Hello {{name}}</h2></v-list-item-title>
+                &emsp;        &emsp;&emsp;        &emsp;
+                <v-list-item-title style="color:black"><h3> {{name}}</h3></v-list-item-title>
               </v-list-item>
               <v-divider></v-divider>
               <v-list-item @click="profile()">
@@ -29,7 +29,7 @@
                   <v-icon color="black">mdi-account</v-icon>
                 </v-list-item-action>
                 &emsp; &emsp;
-                <v-list-item-title style="color:black">HR Profile</v-list-item-title>
+                <v-list-item-title style="color:black"> Profile</v-list-item-title>
               </v-list-item>
               <v-divider></v-divider>
               <v-list-item @click="user()">
@@ -38,7 +38,7 @@
                   <v-icon color="black">mdi-account</v-icon>
                 </v-list-item-action>
                 &emsp; &emsp;
-                <v-list-item-title style="color:black">Search Profiles</v-list-item-title>
+                <v-list-item-title style="color:black">Search </v-list-item-title>
               </v-list-item>
               <v-divider></v-divider>
               <v-list-item @click="logout()">

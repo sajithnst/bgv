@@ -16,14 +16,14 @@
                       </v-row>
 
                         <v-row>
-                            <v-text-field v-model="signindata.email" label="Enter the email" :rules="[rules.email,rules.required]"></v-text-field>
+                            <v-text-field v-model="signindata.email"  :rules="[rules.email,rules.required]"></v-text-field>
                         </v-row>
                         <v-row>
                           <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
 
                         </v-row>
                         <v-row>
-                            <v-text-field v-model="signindata.password" label="Enter the Password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+                            <v-text-field v-model="signindata.password"  type="password" :rules="[rules.required,rules.min]"></v-text-field>
                         </v-row>
                         <br>
                         <v-row>

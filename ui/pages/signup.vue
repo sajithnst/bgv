@@ -73,7 +73,7 @@ export default{
         otp:'',
         utop:'',
         isFormValid:null,
-        error:false, 
+        error:false,
         sendotp:null,
         rules:{
             required: (v) => !!v || "Required",

@@ -30,6 +30,17 @@
     </v-list>
     </v-card>
     </v-container>
+    <v-container>
+      <v-sheet class="text-center" style="margin-left:32%" :elevation="6" :height="200" :width="600">
+        <v-container>
+          <v-file-input @change="fileselect" style="width:50%; margin:0 auto; margin-top:9%;" label="File input" variant="solo-filled"></v-file-input>
+          <v-btn color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn><br/><br/>
+
+        </v-container>
+      </v-sheet>
+
+    </v-container>
+
   </v-container>
 </template>
 
@@ -41,11 +52,16 @@ export default {
     },
     data:() =>({
         email:"",
+        company_mail:"",
         users:[],
         user_yes: false,
         user_no: false
     }),
     methods:{
+
+      async fileselect(event){
+        this.file=event
+      },
       async search(){
         let url = "http://127.0.0.1:8000/user"
         let user_data =  {params : {'email': this.email}}
@@ -58,9 +74,19 @@ export default {
         }
 
       },
+
       async view(email){
         this.$storage.setUniversal('search_email', email)
         this.$router.push('/companyprofile')
+      },
+      async upload(){
+        this.company_mail = await this.$storage.getUniversal('hrmail')
+        console.log(this.company_mail)
+        let formdata= new FormData()
+            formdata.append('company_mail',this.company_mail)
+            formdata.append('file',this.file)
+            let furl = "http://127.0.0.1:8000/hr/uploadcsv"
+            let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
       }
     }
   }

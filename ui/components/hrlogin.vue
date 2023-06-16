@@ -10,14 +10,14 @@
 
             </v-row>
             <v-row>
-              <v-text-field label="Enter the official email" v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
+              <v-text-field  v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
             </v-row>
             <v-row>
               <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
 
             </v-row>
             <v-row>
-              <v-text-field label="Enter the password" v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+              <v-text-field v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
             </v-row>
             <br>
 

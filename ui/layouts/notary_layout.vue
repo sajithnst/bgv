@@ -19,8 +19,8 @@
         <v-list>
           <v-list-item >
             <v-divider></v-divider>
-            &emsp;
-            <v-list-item-title style="color:black"><h2>Hello Admin</h2></v-list-item-title>
+            &emsp;&emsp;&emsp;
+            <v-list-item-title style="color:black"><h3>Admin</h3></v-list-item-title>
           </v-list-item>
           <v-divider></v-divider>
           <v-list-item @click="profile()">
@@ -29,7 +29,7 @@
               <v-icon color="black">mdi-account</v-icon>
             </v-list-item-action>
             &emsp; &emsp;
-            <v-list-item-title style="color:black">Admin Profile</v-list-item-title>
+            <v-list-item-title style="color:black"> Profile</v-list-item-title>
           </v-list-item>
           <v-divider></v-divider>
           <v-list-item @click="user()">
@@ -80,7 +80,7 @@ export default {
     methods:{
         async logout (){
           console.log('logout');
-          this.$router.push('/notary');
+          this.$router.push('/notarysignin');
 
         },
         async home(){
