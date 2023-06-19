@@ -10,13 +10,13 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon
-            color="blue"
+
             v-on="on"
           >
             <v-icon color="white">mdi-account-circle</v-icon>
           </v-btn>
         </template>
-        <v-list>
+        <v-list color="indigo-darken-3">
           <v-list-item >
             <v-divider></v-divider>
             &emsp;&emsp;&emsp;
