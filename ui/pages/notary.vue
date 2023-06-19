@@ -32,6 +32,7 @@ export default{
         let res = await this.$axios.get(url)
         this.profiles = res.data
     },
+
     data:() =>({
       profiles: [],
       notary_email: null,
