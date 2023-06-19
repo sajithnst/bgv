@@ -17,11 +17,7 @@
               </v-btn>
             </template>
             <v-list color="indigo darken-3">
-          <v-list-item >
-            <v-divider></v-divider>
-            &emsp;&emsp;&emsp;
-            <v-list-item-title style="color:white"><h3>{{name}}</h3></v-list-item-title>
-          </v-list-item>
+
 
           <v-list-item @click="profile()">
             <v-divider></v-divider>

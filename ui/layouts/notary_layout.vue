@@ -16,40 +16,32 @@
             <v-icon color="white">mdi-account-circle</v-icon>
           </v-btn>
         </template>
-        <v-list color="indigo-darken-3">
-          <v-list-item >
-            <v-divider></v-divider>
-            &emsp;&emsp;&emsp;
-            <v-list-item-title style="color:black"><h3>Admin</h3></v-list-item-title>
-          </v-list-item>
-          <v-divider></v-divider>
+        <v-list color="indigo darken-4">
+
           <v-list-item @click="profile()">
             <v-divider></v-divider>
             <v-list-item-action>
-              <v-icon color="black">mdi-account</v-icon>
+              <v-icon color="white">mdi-account</v-icon>
             </v-list-item-action>
             &emsp; &emsp;
-            <v-list-item-title style="color:black"> Profile</v-list-item-title>
+            <v-list-item-title style="color:white"> Profile</v-list-item-title>
           </v-list-item>
-          <v-divider></v-divider>
           <v-list-item @click="user()">
             <v-divider></v-divider>
             <v-list-item-action>
-              <v-icon color="black">mdi-account</v-icon>
+              <v-icon color="white">mdi-account</v-icon>
             </v-list-item-action>
             &emsp; &emsp;
-            <v-list-item-title style="color:black">User Profiles</v-list-item-title>
+            <v-list-item-title style="color:white">User Profiles</v-list-item-title>
           </v-list-item>
-          <v-divider></v-divider>
           <v-list-item @click="logout()">
             <v-divider></v-divider>
             <v-list-item-action>
-              <v-icon color="black">mdi-logout</v-icon>
+              <v-icon color="white">mdi-logout</v-icon>
             </v-list-item-action>
             &emsp; &emsp;
-            <v-list-item-title style="color:black">Logout</v-list-item-title>
+            <v-list-item-title style="color:white">Logout</v-list-item-title>
           </v-list-item>
-          <v-divider></v-divider>
         </v-list>
 
       </v-menu>

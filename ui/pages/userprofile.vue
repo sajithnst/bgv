@@ -60,7 +60,8 @@
                   <v-container>
                     <v-container>
                       <v-container>
-                        <v-img width="250px" height="250px" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
+                        <v-img
+                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
 
                       </v-container>
                     </v-container>
