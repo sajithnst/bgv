@@ -10,20 +10,11 @@
                 </v-container>
                     <br/>
                     <v-col>
-                      <v-row>
-                        <div class="text-subtitle-1 text-medium-emphasis ">Email ID</div>
-
-                      </v-row>
-
                         <v-row>
-                            <v-text-field v-model="signindata.email"  :rules="[rules.email,rules.required]"></v-text-field>
+                            <v-text-field v-model="signindata.email"  :rules="[rules.email,rules.required]" label=" Personal Email "></v-text-field>
                         </v-row>
                         <v-row>
-                          <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
-
-                        </v-row>
-                        <v-row>
-                            <v-text-field v-model="signindata.password"  type="password" :rules="[rules.required,rules.min]"></v-text-field>
+                            <v-text-field v-model="signindata.password"  type="password" :rules="[rules.required,rules.min]" label="Password"></v-text-field>
                         </v-row>
                         <br>
                         <v-row>

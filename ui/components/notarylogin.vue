@@ -2,22 +2,14 @@
     <v-container class="hrsignin">
         <br/><br/>
         <v-form>
-            <h1 class="text-center"> Notary Signin </h1>
+            <h1 class="text-center"> Admin Signin </h1>
             <br><br>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
             <v-row>
-              <div class="text-subtitle-1 text-medium-emphasis ">Notary Email ID</div>
-
+              <v-text-field v-model="email" :rules="[rules.required,rules.email]" label ="Admin Email "></v-text-field>
             </v-row>
             <v-row>
-              <v-text-field v-model="email" :rules="[rules.required,rules.email]"></v-text-field>
-            </v-row>
-            <v-row>
-              <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
-
-            </v-row>
-            <v-row>
-              <v-text-field  v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+              <v-text-field  v-model="password" type="password" :rules="[rules.required,rules.min]" label="Password"></v-text-field>
             </v-row>
             <br>
             <v-container class="text-center">

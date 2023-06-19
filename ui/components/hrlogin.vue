@@ -2,22 +2,18 @@
     <v-container class="hrsignin">
         <br/><br/>
         <v-form>
-            <h1 class="text-center"> HR Signin </h1>
+            <h1 class="text-center"> Company Signin </h1>
             <br><br>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
             <v-row>
-              <div class="text-subtitle-1 text-medium-emphasis ">HR Email ID</div>
-
             </v-row>
             <v-row>
-              <v-text-field  v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
+              <v-text-field  v-model="company_mail" :rules="[rules.required,rules.email]" label ="Company Email"></v-text-field>
             </v-row>
             <v-row>
-              <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
-
             </v-row>
             <v-row>
-              <v-text-field v-model="password" type="password" :rules="[rules.required,rules.min]"></v-text-field>
+              <v-text-field v-model="password" type="password" :rules="[rules.required,rules.min]" label="Password"></v-text-field>
             </v-row>
             <br>
 
