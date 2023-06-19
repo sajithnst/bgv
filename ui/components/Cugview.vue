@@ -17,12 +17,13 @@
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
-                <v-icon size="100px" color="yellow">mdi-timer</v-icon>
+                <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
               </v-container>
               <v-container v-if="verified" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
-
-
+              </v-container>
+              <v-container v-if="rejected" class="text-center">
+                <v-icon size="100px" color="red">mdi-cancel</v-icon>
               </v-container>
               <v-container class="text-center">
                 <v-card-action>
@@ -52,13 +53,20 @@ export default{
         let url = "http://127.0.0.1:8000/ug"
         let res = await this.$axios.get(url,{params:{email: this.email}})
         this.data= res.data
-        if (this.data.status == "pending"){
+        if (this.data.status == false){
           this.pending = true
           this.verified = false
+          this.rejected = false
         }
         if(this.data.status == "verified"){
           this.verified = true
           this.pending = false
+          this.rejected = false
+        }
+        if(this.data.status == "rejected"){
+          this.rejected = true
+          this.pending = false
+          this.verified = false
         }
 
     },
@@ -69,6 +77,7 @@ export default{
         },
         pending:false,
         verified: false,
+        rejected: false
 
 
     }),
