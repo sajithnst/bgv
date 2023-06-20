@@ -1156,3 +1156,56 @@ async def uploadcsv(company_mail: str= Form(),file: UploadFile = File(...) ):
         file.file.close()
    return True
     
+############### CompanyRegistration ################################
+class CompanyRegistrationData(BaseModel):
+       company_name:str
+       company_reg : str
+       company_mail : str
+       mob : str
+       gst : str
+
+@app.post('/company')
+async def add_company( data : CompanyRegistrationData ):
+      try:
+        client.bgv.company.insert_one(dict(data))
+        return True
+      except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/uploadgstn')
+async def uploadgstn(company_mail : str = Form(), file: UploadFile = File(...)):
+      if(not os.path.isdir(company_mail)):
+         os.mkdir(company_mail)
+      path = os.path.join(company_mail, file.filename)
+      try:
+         contents = file.file.read()
+         with open(path, 'wb') as f:
+          f.write(contents)
+      except Exception:
+       return False
+      finally:
+         file.file.close()
+
+      return True
+
+#####################NotayRegistration################
+
+class NotaryRegistrationData(BaseModel):
+
+   
+    name:str
+    email : str
+    password : str
+    mob : str
+    aadhaar: str
+    pan : str
+
+@app.post('/notary/register')
+async def add_notary( data : NotaryRegistrationData ):
+      try:
+        client.bgv.notary.insert_one(dict(data))
+        return True
+      except Exception as e:
+        print(str(e))
+        return False
