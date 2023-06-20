@@ -23,6 +23,8 @@
               </v-container>
               <v-container v-if="rejected" class="text-center">
                 <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <br>
+                <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
               </v-container>
 
               <v-container class="text-center">
@@ -101,6 +103,9 @@ export default{
       })
       console.log(regno)
 
+    },
+    async edit(){
+      this.$router.push('/ug_edit')
     }
    }
 }

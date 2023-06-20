@@ -24,6 +24,8 @@
               </v-container>
               <v-container v-if="rejected" class="text-center">
                 <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <br>
+                <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
 
               </v-container>
 
@@ -127,6 +129,9 @@ export default{
     },
     async addpg(){
       this.$router.push('/pgpage')
+    },
+    async edit(){
+      this.$router.push('/pg_edit')
     }
    }
 }

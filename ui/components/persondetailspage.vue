@@ -20,7 +20,9 @@
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
               <v-container v-if="rejected" class="text-center">
-                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <v-icon size="90px" color="red">mdi-cancel</v-icon>
+                <br>
+                <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
               </v-container>
 
             </v-col>
@@ -74,5 +76,10 @@ data: () =>({
   verified: false,
   rejected: false
 }),
+methods:{
+  async edit(){
+    this.$router.push("/personal_edit")
+  }
+}
 }
 </script>

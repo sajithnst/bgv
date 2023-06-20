@@ -177,6 +177,7 @@ async def update( data : PersonalData ):
         'pan': data.pan,
         'passport': data.passport,
         'personal': data.personal,
+        'status': "pending"
         }
     }
 
@@ -200,6 +201,28 @@ class SSLC(BaseModel):
     name : str
     board : str
     status : bool = False
+@app.post('/sslcupdate')
+async def update( sslc : SSLC ):
+    filt = {
+        'email' : sslc.email
+    }
+    update={
+        '$set':{
+        'regno': sslc.regno,
+        'marks':sslc.marks,
+        'school' : sslc.school,
+        'passout': sslc.passout,
+        'board': sslc.board,
+        'status': sslc.status,
+        }
+    }
+
+    try: 
+        client.bgv.sslc.find_one_and_update(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 @app.post('/sslc')
 async def sslcinput(sslc : SSLC):
@@ -267,6 +290,29 @@ class HSE (BaseModel):
     board : str
     status : bool = False
 
+@app.post('/hseupdate')
+async def update( hse : HSE ):
+    filt = {
+        'email' : hse.email
+    }
+    update={
+        '$set':{
+        'regno': hse.regno,
+        'marks':hse.marks,
+        'school' : hse.school,
+        'passout': hse.passout,
+        'board': hse.board,
+        'status': hse.status,
+        }
+    }
+
+    try: 
+        client.bgv.hse.find_one_and_update(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
+
 @app.post('/hse')
 async def hseinput(hse : HSE):
     filter = {
@@ -323,6 +369,30 @@ class UG(BaseModel):
     university : str
     status : bool = False
 
+@app.post('/ugupdate')
+async def update( ug : UG ):
+    filt = {
+        'email' : ug.email
+    }
+    update={
+        '$set':{
+        'regno': ug.regno,
+        'marks':ug.marks,
+        'specialization' : ug.specialization,
+        'college': ug.college,
+        'passout': ug.passout,
+        'university': ug.university,
+        'status': ug.status,
+        }
+    }
+
+    try: 
+        client.bgv.ug.find_one_and_update(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
+
 @app.post('/ug')
 async def addug(ug: UG):
     filter= {
@@ -374,6 +444,30 @@ class PG(BaseModel):
     passout : str
     university : str
     status : bool = False
+
+@app.post('/pgupdate')
+async def update( pg : PG ):
+    filt = {
+        'email' : pg.email
+    }
+    update={
+        '$set':{
+        'regno': pg.regno,
+        'marks':pg.marks,
+        'specialization' : pg.specialization,
+        'college': pg.college,
+        'passout': pg.passout,
+        'university': pg.university,
+        'status': pg.status,
+        }
+    }
+
+    try: 
+        client.bgv.pg.find_one_and_update(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 @app.post('/pg')
 async def addpg(pg: PG):
@@ -431,7 +525,32 @@ class Experience(BaseModel):
     status : bool = False
 
 #### API to add experience  #########################
+@app.post('/expupdate')
+async def update( exp : Experience ):
+    filt = {
+        'email' : exp.email
+    }
+    update={
+        '$set':{
+        'empid': exp.empid,
+        'company':exp.company,
+        'hr_mail': exp.hr_mail,
+        'start_date': exp.start_date,
+        'end_date': exp.end_date,
+        'designation': exp.designation,
+        'lpa': exp.lpa,
+        'reporting_manager': exp.reporting_manager,
+        'status': exp.status
+        }
+    }
 
+    try: 
+        client.bgv.exp.find_one_and_update(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
+    
 @app.post('/exp')
 async def add_exp(exp :Experience):
     filter = {
