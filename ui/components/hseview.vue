@@ -11,11 +11,13 @@
             <h3 class="text-subtitle-1"> School : {{ data.school }} </h3>
             <h3 class="text-subtitle-1"> Board : {{ data.board }}</h3>
             <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
-
+            <br>
+          <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
+              <h6 v-if="data.edited_on" class="text-subtitle-3"> Edited on : {{ data.edited_on }}</h6>
               </v-col>
               <v-col >
                 <v-container v-if="pending" class="text-center">
-                  <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
+                  <v-icon size="100px" color="yellow" ></v-icon>
                 </v-container>
                 <v-container v-if="verified" class="text-center">
                   <v-icon size="100px" color="green">mdi-check-decagram</v-icon>

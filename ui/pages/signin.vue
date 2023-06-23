@@ -3,10 +3,11 @@
             <v-container justify="center" class="signinform">
               <br><br><br>
                 <v-form>
+                  <h1 class="text-center"> User Login </h1>
+
                     <v-alert v-model="error" type="error" dismissible> Login Failed</v-alert>
-                    <br/><br/>
+
                     <v-container class="text-center">
-                    <img class="mr-3" :src="require('../assets/blockedge-logo.svg')" height="40"/>
                 </v-container>
                     <br/>
                     <v-col>
@@ -35,6 +36,10 @@ export default{
         this.$vuetify.theme.dark=false;
     },
     data: () =>({
+      return:{
+        email:'',
+        password:'',
+      },
         signindata : {
             email : '',
             password :'',
@@ -50,33 +55,23 @@ export default{
     }),
     methods :{
         async signin(){
-            let userurl ='http://127.0.0.1:8000/user'
-            await this.$axios.get(userurl,{params:{email : this.signindata.email}}).then(result =>{
-                 this.firstlogin = result.data.firstlogin;
-            }).catch(error =>{ console.log(error)});
-            if (this.firstlogin == true){
-                this.email = this.$storage.setUniversal('Email',this.signindata.email)
-
-                this.$router.push('/onboard')
-            }else{
                 let url= 'http://127.0.0.1:8000/login'
-                await this.$axios.post(url, this.signindata).then(res => {
-                if (res.data.status == true){
-                    if (res.data.user == 'user'){
+                let res = await this.$axios.get(url, {params:{'email':this.signindata.email, 'password': this.signindata.password}})
+                if (res.data == true){
+
                         this.email = this.$storage.setUniversal('Email',this.signindata.email)
                         this.gmail = this.$storage.setUniversal('login_mail', this.signindata.email)
                         console.log(this.email)
                         this.$router.push('/user')
-                    }
+
                 }else{
                     this.error = true;
                 }
-            }).catch(err => this.error=true);
             }
 
         },
-    },
-}
+    }
+
 </script>
 <style>
 .v-btn{

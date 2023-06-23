@@ -16,7 +16,7 @@
                 <v-container class="text-center">
                     <v-btn text color="indigo  lighten-2"  @click="submit()">submit</v-btn>
                 </v-container>
-        
+
         </v-form>
     </v-container>
 </template>
@@ -53,7 +53,7 @@ export default {
     }),
     methods:{
         async submit(){
-            let url = "http://127.0.0.1:8000/userupdate";
+            let url = "http://127.0.0.1:8000/personal";
             let pdata= {
                 empid : this.empid,
                 doj : this.doj,
@@ -68,7 +68,7 @@ export default {
             }
             let result = await this.$axios.post(url, pdata);
             if (result.data == true){
-                this.$router.push('/sslcpage')
+                this.$router.push('/user')
             }else{
                 this.fail=true;
             }
