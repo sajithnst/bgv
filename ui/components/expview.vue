@@ -16,16 +16,16 @@
           <h6 v-if="data.edited_on" class="text-subtitle-3"> Edited on : {{ data.edited_on }}</h6>
 
             </v-col>
-            <v-col style="margin-top: -5%;" >
+            <v-col>
               <v-container v-if="pending" class="text-center">
-                <v-icon size="100px" color="yellow" ></v-icon>
+                <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
               <v-container v-if="verified" class="text-center">
-                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
               <v-container v-if="rejected" class="text-center">
-                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <v-icon size="150px" color="red">mdi-cancel</v-icon>
 
               </v-container>
               <br>
