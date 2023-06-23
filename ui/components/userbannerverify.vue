@@ -14,12 +14,10 @@
     </v-row>
     <v-row >
       <v-container class="text-center">
-        <v-btn icon @click="approve(data.email)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-      <v-btn icon @click="deny(data.email)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
+        <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email)">Approve</v-btn>&emsp;
+      <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email)">Reject</v-btn>
       </v-container>
-
     </v-row>
-
   </v-container>
 
 </template>

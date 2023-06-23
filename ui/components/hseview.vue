@@ -17,40 +17,26 @@
               </v-col>
               <v-col >
                 <v-container v-if="pending" class="text-center">
-                  <v-icon size="100px" color="yellow" ></v-icon>
+                  <v-icon size="150px" color="yellow" ></v-icon>
                 </v-container>
                 <v-container v-if="verified" class="text-center">
-                  <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                  <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
                 </v-container>
                 <v-container v-if="rejected" class="text-center">
-                  <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                  <v-icon size="150px" color="red">mdi-cancel</v-icon>
                 </v-container>
-
-                <v-container class="text-center">
-                  <v-card-action>
-                    <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
-                  </v-card-action>
-                  <v-container>
-
-                    <v-btn icon @click="approve(data.email, data.regno, ndata.name)"><v-icon size="40px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-                  <v-btn icon @click="deny(data.email, data.regno, ndata.name)"><v-icon size="40px" color="error">mdi-account-remove-outline</v-icon></v-btn>
-                  </v-container>
-                </v-container>
-
-
-
               </v-col>
-
-
             </v-row>
           </v-container>
         </v-card-content>
-
-
-
+        <v-row>
+          <v-container class="text-center">
+            <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email, data.regno, ndata.name)">Approve</v-btn>&emsp;
+            <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.regno, ndata.name)">Reject</v-btn>&emsp;
+            <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+          </v-container>
+        </v-row>
       </v-card>
-
-
         </v-container>
 </template>
 <script>
