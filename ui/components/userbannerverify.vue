@@ -3,7 +3,7 @@
   <v-container  style="width: 100%;">
     <v-row>
       <v-container v-if="pending" class="text-center">
-        <v-icon size="180px" color="yellow" >mdi-timer</v-icon>
+        <v-icon size="180px" color="yellow" ></v-icon>
       </v-container>
       <v-container v-if="verified" class="text-center">
         <v-icon size="180px" color="green">mdi-check-decagram</v-icon>
