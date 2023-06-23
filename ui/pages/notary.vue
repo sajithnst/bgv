@@ -1,80 +1,99 @@
 <template>
   <v-container>
-        <h2 class="text-center" style="color: darkblue;"> Profiles</h2><br /><br/>
-    <v-card
-      class="mx-auto pa-2"
-      style="width: 80%;"
-    >
-      <v-list density="compact">
-        <v-list-item
-          v-for="profile in profiles"
-          :key="profile.email"
-          :value="profile.email"
-          active-color="primary"
+    <br>
+      <v-container class="text-center">
+        <v-row>
+          <v-col>
+            <v-card>
+              <v-card-title>PENDING PROFILES</v-card-title>
+              <v-card-actions>
+                <v-btn
+                  text
+                  color="indigo darken-4"
+                  @click="reveal = true"
+                >
+                  Show
+                </v-btn>
+              </v-card-actions>
+              <v-expand-transition>
+                <v-card
+                  v-if="reveal"
+                  class="transition-fast-in-fast-out v-card--reveal"
+                  style="height: 100%;"
+                >
+                  <notaryusers/>
+                  <v-card-actions class="pt-0">
+                    <v-btn
+                      text
+                      color="indigo darken-4"
+                      @click="reveal = false"
+                    >
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+
+              </v-expand-transition>
+            </v-card>
+
+          </v-col>
+          <v-col>
+            <v-card>
+              <v-card-title>COMPLETED PROFILE</v-card-title>
+            <v-card-actions>
+              <v-btn
+                text
+                color="indigo darken-4"
+                @click="approve = true"
+              >
+                Show
+              </v-btn>
+            </v-card-actions>
+            <v-expand-transition>
+              <v-card
+          v-if="approve"
+          class="transition-fast-in-fast-out v-card--reveal"
+          style="height: 100%;"
         >
-          <v-list-item-title v-text="profile.name"></v-list-item-title>
-          <v-list-item-subtitle v-text="profile.email"></v-list-item-subtitle>
-          <v-btn icon @click="view(profile.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
-          <!--<v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-          <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
-        </v-list-item>
-      </v-list>
-      </v-card>
-    </v-container>
+
+            <notaryapproved/>
+
+
+          <v-card-actions class="pt-0">
+            <v-btn
+              text
+              color="indigo darken-4"
+              @click="approve = false"
+            >
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+            </v-expand-transition>
+          </v-card>
+          </v-col>
+
+        </v-row>
+
+      </v-container>
+
+
+
+  </v-container>
 </template>
-
 <script>
-export default{
-    name :"mailmodel",
-    layout: "notary_layout",
-    async mounted(){
-        this.$vuetify.theme.dark=false;
-        let url = "http://127.0.0.1:8000/pendinguser"
-        let res = await this.$axios.get(url)
-        this.profiles = res.data
-    },
-
-    data:() =>({
-      profiles: [],
-      notary_email: null,
-      notary_name: null,
-      wallet:0,
-
-
+export default {
+  name :"notary",
+  layout: "notary_layout",
+  async mounted(){
+    this.$vuetify.theme.dark =false;
+  },
+  data: () => ({
+      reveal: false,
+      approve: false,
     }),
-    methods:{
-      async home(){
-        this.$router.push("/");
-      },
 
-      async view(email){
-        this.$storage.setUniversal('user_email',email)
-        this.$storage.setUniversal('hrlogin',0)
-        this.$router.push("/userprofile");
-      },
-     // async approve(email){
-     // let url = "http://127.0.0.1:8000/verify"
-     // let verify ={
-     //  user_email: email,
-     //   notary_email : this.notary_email,
-     //   notary_name: this.notary_name
-     // }
-     //   let res = await this.$axios.post(url,verify)
-     //   console.log(res.data)
-     // },
-     // async deny(email){
-     //   let url = "http://127.0.0.1:8000/verify"
-     //   let verify ={
-     //     user_email: email,
-     //     notary_email : this.notary_email,
-     //     notary_name: this.notary_name,
-     //     status: 'rejected'
-     //   }
-      //  let res = await this.$axios.post(url,verify)
-      //  console.log(res.data)
-      //},
-
-    }
-
-  }
+}
 </script>
+
+

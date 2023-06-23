@@ -112,7 +112,10 @@ export default{
       })
       console.log(regno)
     },
+
     async approve(email, regno){
+
+      this.render = false;
       let url = "http://127.0.0.1:8000/verify/sslc"
       let vdata={
         user_email: email,
@@ -122,6 +125,8 @@ export default{
       }
       let res = await this.$axios.post(url, vdata)
       console.log(res.data)
+      window.location.reload()
+
 
     },
     async deny(email, regno){
@@ -135,6 +140,8 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
+        window.location.reload()
+
     }
    }
 }

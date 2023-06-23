@@ -76,7 +76,7 @@ export default {
 
         },
         async home(){
-          this.$router.push('/')
+          this.$router.push('/notary')
         },
         async profile(){
         this.$router.push('/notary_profile')
