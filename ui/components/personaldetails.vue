@@ -30,12 +30,13 @@
                     </v-container>
                   </v-col>
                 </v-row>
-                <v-card-subtitle style=" color:red;">* before approving the personal detail, please check that you have approved the SSLC, HSE, UG details.</v-card-subtitle>
               </v-container>
               <v-row>
-                <v-container class="text-center">
+                <v-container>
+                  <br>
+                  &emsp;&emsp;
 
-                  <v-btn color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;&emsp;
+                  <v-btn color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
 
                   <v-btn color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
 
@@ -103,6 +104,7 @@ export default{
           notary_name: name
         }
         let res = this.$axios.post(url,verify)
+        window.location.reload()
 
       },
       async deny(email, name){
@@ -115,6 +117,8 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
+        window.location.reload()
+
     }
   }
 }

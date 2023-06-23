@@ -30,7 +30,9 @@
           </v-container>
         </v-card-content>
         <v-row>
-          <v-container class="text-center">
+          <v-container>
+            <br>
+            &emsp;&emsp;
             <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email, data.regno, ndata.name)">Approve</v-btn>&emsp;
             <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.regno, ndata.name)">Reject</v-btn>&emsp;
             <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
@@ -109,6 +111,7 @@ export default{
         notary_name: name
       }
       let res = this.$axios.post(url, verify)
+      window.location.reload()
 
     },
     async deny(email, regno, name){
@@ -122,6 +125,8 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
+        window.location.reload()
+
     }
    }
 }

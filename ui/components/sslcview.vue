@@ -31,7 +31,9 @@
           </v-row>
         </v-container>
         <v-row>
-          <v-container class="text-center">
+          <v-container>
+            <br>
+            &emsp;&emsp;
             <v-btn color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.regno)">Approve</v-btn>&emsp;
           <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.regno)">Reject</v-btn>&emsp;
           <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
