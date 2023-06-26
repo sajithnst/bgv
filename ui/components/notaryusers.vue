@@ -1,10 +1,5 @@
 <template>
-  <v-container>
-        <h2 class="text-center" style="color: darkblue;"> Pending </h2><br /><br/>
-    <v-card
-      class="mx-auto pa-2"
-      style="width: 80%;"
-    >
+  <v-container >
       <v-list density="compact">
         <v-list-item
           v-for="profile in profiles"
@@ -19,7 +14,7 @@
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
       </v-list>
-      </v-card>
+
     </v-container>
 </template>
 
@@ -31,11 +26,13 @@ export default{
         this.$vuetify.theme.dark=false;
         let url = "http://127.0.0.1:8000/pendinguser"
         let res = await this.$axios.get(url)
-        this.profiles = res.data
+        this.profiles = res.data.list
+        this.count = res.data.count
     },
 
     data:() =>({
       profiles: [],
+      count:{},
       notary_email: null,
       notary_name: null,
       wallet:0,
@@ -50,7 +47,7 @@ export default{
       async view(email){
         this.$storage.setUniversal('user_email',email)
         this.$storage.setUniversal('hrlogin',0)
-        this.$router.push("/userprofile");
+        this.$router.push("/userprofile")
       },
      // async approve(email){
      // let url = "http://127.0.0.1:8000/verify"

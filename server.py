@@ -947,13 +947,15 @@ async def hrlogin(login : HRLogin):
 async def pendinguser():
     filter ={
         'status' : 'pending',
-        'firstlogin':{'$ne':True},
     }
     project ={
         '_id':0,
         }
+    
     try:
-        return list(client.bgv.user.find(filter,project))
+        count = client.bgv.user.count_documents(filter)
+        return {"count":count, "list": list(client.bgv.user.find(filter,project))}
+        
     except Exception as e:
         print(str(e))
         return False
