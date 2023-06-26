@@ -1,5 +1,6 @@
 <template>
   <v-container >
+    <v-container v-if="show">
       <v-list density="compact">
         <v-list-item
           v-for="profile in profiles"
@@ -14,6 +15,10 @@
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
       </v-list>
+    </v-container>
+    <v-container v-if="hide">
+      <h2 class="text-center" style="color: darkblue;"> No profiles </h2><br /><br/>
+    </v-container>
 
     </v-container>
 </template>
@@ -28,6 +33,15 @@ export default{
         let res = await this.$axios.get(url)
         this.profiles = res.data.list
         this.count = res.data.count
+
+        if(this.profiles == false){
+          this.hide = true
+          this.show = false
+        }
+        else{
+          this.show = true
+          this.hide = false
+        }
     },
 
     data:() =>({
@@ -36,7 +50,8 @@ export default{
       notary_email: null,
       notary_name: null,
       wallet:0,
-
+      show: false,
+      hide: false
 
     }),
     methods:{

@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-container v-if="show">
-      <h2 class="text-center" style="color: darkblue;"> Completed </h2><br /><br/>
     <v-card
       class="mx-auto pa-2"
       style="width: 80%;"
