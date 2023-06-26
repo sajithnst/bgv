@@ -1,6 +1,7 @@
 <template>
   <v-container>
-        <h2 class="text-center" style="color: darkblue;"> Completed </h2><br /><br/>
+    <v-container v-if="show">
+      <h2 class="text-center" style="color: darkblue;"> Completed </h2><br /><br/>
     <v-card
       class="mx-auto pa-2"
       style="width: 80%;"
@@ -21,6 +22,11 @@
       </v-list>
       </v-card>
     </v-container>
+    <v-container v-if="hide">
+      <h2 class="text-center" style="color: darkblue;">No Profiles </h2><br /><br/>
+    </v-container>
+
+    </v-container>
 </template>
 
 <script>
@@ -31,8 +37,16 @@ export default{
         this.$vuetify.theme.dark=false;
         let url = "http://127.0.0.1:8000/verifiedusers"
         let res = await this.$axios.get(url)
-        this.profiles = res.data
+        this.profiles = res.data.list
 
+        if(this.profiles == false){
+          this.hide = true
+          this.show = false
+        }
+        else{
+          this.show = true
+          this.hide = false
+        }
     },
 
     data:() =>({
@@ -40,8 +54,8 @@ export default{
       notary_email: null,
       notary_name: null,
       wallet:0,
-
-
+      show: false,
+      hide:false
     }),
     methods:{
       async home(){

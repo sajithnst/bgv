@@ -1,11 +1,19 @@
 <template>
   <v-container>
     <br>
-      <v-container class="text-center">
+      <v-container>
         <v-row>
           <v-col>
+            <v-card height="180.5px">
+              <v-card-title>Total Profiles</v-card-title>
+              <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ counts }}</h1></v-card-title>
+            </v-card>
+          </v-col>
+          <v-col>
             <v-card>
+
               <v-card-title>PENDING PROFILES</v-card-title>
+              <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count }}</h1></v-card-title>
               <v-card-actions>
                 <v-btn
                   text
@@ -25,7 +33,7 @@
                   <v-card-actions class="pt-0">
                     <v-btn
                       text
-                      color="indigo darken-4"
+                      color="red"
                       @click="reveal = false"
                     >
                       Close
@@ -40,6 +48,7 @@
           <v-col>
             <v-card>
               <v-card-title>COMPLETED PROFILE</v-card-title>
+              <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count1 }}</h1></v-card-title>
             <v-card-actions>
               <v-btn
                 text
@@ -62,7 +71,7 @@
           <v-card-actions class="pt-0">
             <v-btn
               text
-              color="indigo darken-4"
+              color="red"
               @click="approve = false"
             >
               Close
@@ -87,13 +96,28 @@ export default {
   layout: "notary_layout",
   async mounted(){
     this.$vuetify.theme.dark =false;
+    let url = "http://127.0.0.1:8000/pendinguser"
+        let res = await this.$axios.get(url)
+        this.profiles = res.data.list
+        this.count = res.data.count
+
+    let surl = "http://127.0.0.1:8000/verifiedusers"
+    let sres = await this.$axios.get(surl)
+    this.count1 = sres.data.count1
+
+    let turl = "http://127.0.0.1:8000/totalprofile"
+    let tres = await this.$axios.get(turl)
+    this.counts = tres.data.counts
+
   },
   data: () => ({
       reveal: false,
       approve: false,
+      count:{},
+      count1:{},
+      counts:{}
     }),
 
 }
 </script>
-
 

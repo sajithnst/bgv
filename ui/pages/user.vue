@@ -30,7 +30,6 @@
                   </v-row>
                   <v-row>
                     <userbannerpage/>
-                    <profilepersonal/>
                   </v-row>
 
                 </v-card>
@@ -58,22 +57,16 @@
           <v-col cols="3">
 
             <v-container fluid>
-              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
+              <v-card max-width="350px" height="365px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>USER</v-card-title>
+                  <v-card-title>Company Details</v-card-title>
                 </v-row>
+                <br>
                 <v-container>
-                  <v-container>
-                    <v-container>
-                      <v-container>
-
-                      </v-container>
-                    </v-container>
-                  </v-container>
+                  <profilepersonal/>
                 </v-container>
 
-                <br>
               </v-card>
             </v-container>
 

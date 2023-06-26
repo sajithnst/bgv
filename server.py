@@ -85,6 +85,16 @@ async def get_user(email : str):
     else : 
         return False
 
+@app.get('/totalprofile')
+async def total_user():
+    try:
+
+        counts = client.bgv.user.count_documents({})
+        return {'counts': counts}
+    except Exception as e:
+        print(str(e))
+        return False
+
 
 @app.get('/usereducation')
 async def get_usercertificates(email:str):
@@ -969,10 +979,13 @@ async def apprpvedusers():
         project ={
             '_id':0
             }
-        return list(client.bgv.user.find(filter,project))
+        count1 = client.bgv.user.count_documents(filter)
+        return {"count1": count1, "list":list(client.bgv.user.find(filter,project))}
     except Exception as e:
         print(str(e))
         return False
+
+
 
 
 

@@ -26,14 +26,6 @@
             &emsp; &emsp;
             <v-list-item-title style="color:white"> Profile</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="user()">
-            <v-divider></v-divider>
-            <v-list-item-action>
-              <v-icon color="white">mdi-account</v-icon>
-            </v-list-item-action>
-            &emsp; &emsp;
-            <v-list-item-title style="color:white">User Profiles</v-list-item-title>
-          </v-list-item>
           <v-list-item @click="logout()">
             <v-divider></v-divider>
             <v-list-item-action>
