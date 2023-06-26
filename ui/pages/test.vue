@@ -30,6 +30,7 @@
                   </v-row>
                   <v-row>
                     <userbannerpage/>
+                    <profilepersonal/>
                   </v-row>
 
                 </v-card>
@@ -42,31 +43,32 @@
 
 
       <persondetailspage/>
-
       <sslcviewpage/>
 
-      <hseviewpage/>
 
-      <ugviewpage/>
-
-      <pgviewpage/>
-
-      <expviewpage/>
 
           </v-col>
           <v-col cols="3">
 
             <v-container fluid>
-              <v-card max-width="350px" height="365px" class="mx-auto bg" elevation="2">
+              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>Company Details</v-card-title>
+                  <v-card-title>QR CODE</v-card-title>
                 </v-row>
-                <br>
                 <v-container>
-                  <profilepersonal/>
+                  <v-container>
+                    <v-container>
+                      <v-container>
+                        <v-img
+                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
+
+                      </v-container>
+                    </v-container>
+                  </v-container>
                 </v-container>
 
+                <br>
               </v-card>
             </v-container>
 

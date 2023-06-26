@@ -54,20 +54,14 @@
               <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>QR CODE</v-card-title>
+                  <v-card-title>Profile Verfication</v-card-title>
                 </v-row>
                 <v-container>
-                  <v-container>
-                    <v-container>
                       <v-container>
-                        <v-img
-                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
-
+                        <userbannerverify/>
                       </v-container>
-                    </v-container>
-                  </v-container>
                 </v-container>
-                <br>
+
               </v-card>
             </v-container>
 

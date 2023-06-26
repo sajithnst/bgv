@@ -5,7 +5,7 @@ from random import choice
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pymongo import MongoClient
-import datetime
+from datetime import datetime
 import os
 import configparser
 from graph import Graph
@@ -85,6 +85,16 @@ async def get_user(email : str):
     else : 
         return False
 
+@app.get('/totalprofile')
+async def total_user():
+    try:
+
+        counts = client.bgv.user.count_documents({})
+        return {'counts': counts}
+    except Exception as e:
+        print(str(e))
+        return False
+
 
 @app.get('/usereducation')
 async def get_usercertificates(email:str):
@@ -159,8 +169,66 @@ class PersonalData(BaseModel):
     pan : str
     passport : str
     personal : bool = True
+    submitted_on : str =  datetime.now()
+    edited_on : str =  datetime.now()
 
-@app.post('/userupdate')
+
+@app.get('/personal')
+async def get_personal(email : str):
+    filter = {
+        'email': email
+    }
+    project = {
+        '_id': 0,
+    }
+    if client.bgv.personal.count_documents(filter) == 1:
+        return dict(client.bgv.personal.find_one(filter,project))
+    else : 
+        return False
+
+@app.post('/personal')
+async def add_personal( data : PersonalData ):
+    filt = {
+        'email' : data.email,
+        'empid': data.empid,
+        'doj': data.doj,
+        'company_name':data.company_name,
+        'designation' : data.designation,
+        'company_mail': data.company_mail,
+        'mob': data.mob,
+        'aadhaar': data.aadhaar,
+        'pan': data.pan,
+        'passport': data.passport,
+        'personal': data.personal,
+        'status': "pending",
+        'submitted_on': data.submitted_on
+    }
+    update={
+        '$set':{
+        'empid': data.empid,
+        'doj': data.doj,
+        'company_name':data.company_name,
+        'designation' : data.designation,
+        'company_mail': data.company_mail,
+        'mob': data.mob,
+        'aadhaar': data.aadhaar,
+        'pan': data.pan,
+        'passport': data.passport,
+        'personal': data.personal,
+        'status': "pending",
+        'submitted_on': data.submitted_on
+
+        }
+    }
+
+    try: 
+        client.bgv.personal.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
+
+@app.post('/personal/update')
 async def update( data : PersonalData ):
     filt = {
         'email' : data.email
@@ -177,12 +245,13 @@ async def update( data : PersonalData ):
         'pan': data.pan,
         'passport': data.passport,
         'personal': data.personal,
-        'status': "pending"
+        'status': "pending",
+        'edited_on': data.edited_on,
         }
     }
 
     try: 
-        client.bgv.user.find_one_and_update(filt, update)
+        client.bgv.personal.find_one_and_update(filt, update)
         return True
     except Exception as e:
         print (str(e))
@@ -201,6 +270,8 @@ class SSLC(BaseModel):
     name : str
     board : str
     status : bool = False
+    submitted_on: str= datetime.now()
+    edited_on: str=datetime.now()
 @app.post('/sslcupdate')
 async def update( sslc : SSLC ):
     filt = {
@@ -214,6 +285,7 @@ async def update( sslc : SSLC ):
         'passout': sslc.passout,
         'board': sslc.board,
         'status': sslc.status,
+        'edited_on': sslc.edited_on
         }
     }
 
@@ -223,30 +295,52 @@ async def update( sslc : SSLC ):
     except Exception as e:
         print (str(e))
         return False
-
+    
 @app.post('/sslc')
 async def sslcinput(sslc : SSLC):
-    filter = {
+    filt = {
+        'email' : sslc.email,
         'regno': sslc.regno,
-        'email': sslc.email,
+        'marks':sslc.marks,
+        'school' : sslc.school,
+        'passout': sslc.passout,
+        'board': sslc.board,
+        'status': sslc.status,
+        'submitted_on': sslc.submitted_on
     }
-    if client.bgv.sslc.count_documents(filter) == 0:
-        try:
-            client.bgv.sslc.insert_one(dict(sslc))
-            return True
-        except Exception as e:
-            print (str(e))
-    else: return False
+    update={
+        '$set':{
+        'regno': sslc.regno,
+        'marks':sslc.marks,
+        'school' : sslc.school,
+        'passout': sslc.passout,
+        'board': sslc.board,
+        'status': sslc.status,
+        'submitted_on': sslc.submitted_on
+
+        }
+    }
+
+    try: 
+        client.bgv.sslc.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 @app.get('/sslc')
-async def get_sslc(email: str):
-    filter = {'email': email}
-    project = { '_id':0}
-    try:
-        return client.bgv.sslc.find_one(filter,project)
-    except Exception  as e:
-        print(str(e))
+async def get_sslc(email : str):
+    filter = {
+        'email': email
+    }
+    project = {
+        '_id': 0,
+    }
+    if client.bgv.sslc.count_documents(filter) == 1:
+        return dict(client.bgv.sslc.find_one(filter,project))
+    else : 
         return False
+
 
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
@@ -289,6 +383,8 @@ class HSE (BaseModel):
     school : str
     board : str
     status : bool = False
+    submitted_on: str= datetime.now()
+    edited_on: str=datetime.now()
 
 @app.post('/hseupdate')
 async def update( hse : HSE ):
@@ -303,6 +399,7 @@ async def update( hse : HSE ):
         'passout': hse.passout,
         'board': hse.board,
         'status': hse.status,
+        'edited_on': hse.edited_on
         }
     }
 
@@ -315,19 +412,33 @@ async def update( hse : HSE ):
 
 @app.post('/hse')
 async def hseinput(hse : HSE):
-    filter = {
-        'email': hse.email,
+    filt = {
+        'email' : hse.email,
         'regno': hse.regno,
+        'marks':hse.marks,
+        'school' : hse.school,
+        'passout': hse.passout,
+        'board': hse.board,
+        'status': hse.status,
+        'submitted_on': hse.submitted_on
     }
-    if client.bgv.hse.count_documents(filter) == 0:
-        try:
-            client.bgv.hse.insert_one(dict(hse))
-            return True
-        except Exception as e:
-            print (str(e))
-    else: 
+    update={
+        '$set':{
+        'regno': hse.regno,
+        'marks':hse.marks,
+        'school' : hse.school,
+        'passout': hse.passout,
+        'board': hse.board,
+        'status': hse.status,
+        'submitted_on': hse.submitted_on
+        }
+    }
+    try: 
+        client.bgv.hse.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
         return False
-    
 @app.get('/hse')
 async def get_hse(email:str):
     filter = {
@@ -368,6 +479,8 @@ class UG(BaseModel):
     passout : str
     university : str
     status : bool = False
+    submitted_on: str= datetime.now()
+    edited_on: str=datetime.now()
 
 @app.post('/ugupdate')
 async def update( ug : UG ):
@@ -383,6 +496,7 @@ async def update( ug : UG ):
         'passout': ug.passout,
         'university': ug.university,
         'status': ug.status,
+        'edited_on': ug.edited_on
         }
     }
 
@@ -395,17 +509,35 @@ async def update( ug : UG ):
 
 @app.post('/ug')
 async def addug(ug: UG):
-    filter= {
-        'email': ug.email,
+    filt = {
+        'email' : ug.email,
         'regno': ug.regno,
+        'marks':ug.marks,
+        'specialization' : ug.specialization,
+        'college': ug.college,
+        'passout': ug.passout,
+        'university': ug.university,
+        'status': ug.status,
+        'submitted_on': ug.submitted_on
     }
-    if client.bgv.ug.count_documents(filter) == 0:
-        try:
-            client.bgv.ug.insert_one(dict(ug))
-            return True
-        except Exception as e:
-            print(str(e))
-    else: return False
+    update={
+        '$set':{
+        'regno': ug.regno,
+        'marks':ug.marks,
+        'specialization' : ug.specialization,
+        'college': ug.college,
+        'passout': ug.passout,
+        'university': ug.university,
+        'status': ug.status,
+        'submitted_on': ug.submitted_on
+        }
+    }
+    try: 
+        client.bgv.ug.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 
 @app.get('/ug')
@@ -444,6 +576,8 @@ class PG(BaseModel):
     passout : str
     university : str
     status : bool = False
+    submitted_on: str= datetime.now()
+    edited_on: str=datetime.now()
 
 @app.post('/pgupdate')
 async def update( pg : PG ):
@@ -459,6 +593,7 @@ async def update( pg : PG ):
         'passout': pg.passout,
         'university': pg.university,
         'status': pg.status,
+        'edited_on': pg.edited_on
         }
     }
 
@@ -471,17 +606,35 @@ async def update( pg : PG ):
 
 @app.post('/pg')
 async def addpg(pg: PG):
-    filter= {
-        'email': pg.email,
+    filt = {
+        'email' : pg.email,
         'regno': pg.regno,
+        'marks':pg.marks,
+        'specialization' : pg.specialization,
+        'college': pg.college,
+        'passout': pg.passout,
+        'university': pg.university,
+        'status': pg.status,
+        'submitted_on': pg.submitted_on
     }
-    if client.bgv.pg.count_documents(filter) == 0:
-        try:
-            client.bgv.pg.insert_one(dict(pg))
-            return True
-        except Exception as e:
-            print(str(e))
-    else: return False
+    update={
+        '$set':{
+        'regno': pg.regno,
+        'marks':pg.marks,
+        'specialization' : pg.specialization,
+        'college': pg.college,
+        'passout': pg.passout,
+        'university': pg.university,
+        'status': pg.status,
+        'submitted_on': pg.submitted_on
+        }
+    }
+    try: 
+        client.bgv.pg.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 
 @app.get('/pg')
@@ -523,6 +676,8 @@ class Experience(BaseModel):
     lpa : str
     reporting_manager : str
     status : bool = False
+    submitted_on: str= datetime.now()
+    edited_on: str=datetime.now()
 
 #### API to add experience  #########################
 @app.post('/expupdate')
@@ -540,7 +695,8 @@ async def update( exp : Experience ):
         'designation': exp.designation,
         'lpa': exp.lpa,
         'reporting_manager': exp.reporting_manager,
-        'status': exp.status
+        'status': exp.status,
+        'edited_on': exp.edited_on
         }
     }
 
@@ -553,41 +709,53 @@ async def update( exp : Experience ):
     
 @app.post('/exp')
 async def add_exp(exp :Experience):
-    filter = {
-        'email': exp.email,
+    filt = {
+        'email' : exp.email,
         'empid': exp.empid,
+        'company':exp.company,
+        'hr_mail': exp.hr_mail,
+        'start_date': exp.start_date,
+        'end_date': exp.end_date,
+        'designation': exp.designation,
+        'lpa': exp.lpa,
+        'reporting_manager': exp.reporting_manager,
+        'status': exp.status,
+        'submitted_on': exp.submitted_on
     }
-    if client.bgv.exp.count_documents(filter) == 0: 
-        try :
-             client.bgv.exp.insert_one(dict(exp))
-             filter2= {
-                'email' : exp.email
-             }
-             update = {
-                '$set' : { 'firstlogin' : False}
-             }
-             client.bgv.user.find_one_and_update(filter2,update)
-             return True
-        except Exception as e:
-            print(str(e))
-    else : return False
+    update={
+        '$set':{
+        'empid': exp.empid,
+        'company':exp.company,
+        'hr_mail': exp.hr_mail,
+        'start_date': exp.start_date,
+        'end_date': exp.end_date,
+        'designation': exp.designation,
+        'lpa': exp.lpa,
+        'reporting_manager': exp.reporting_manager,
+        'status': exp.status,
+        'submitted_on': exp.submitted_on
+        }
+    }
+    try: 
+        client.bgv.exp.insert_one(filt, update)
+        return True
+    except Exception as e:
+        print (str(e))
+        return False
 
 @app.get('/exp')
 async def get_exp(email:str):
-    filter = {
-        'email':email
-    }
-    project ={
+    filter = {'email': email}
+    project = {
         '_id':0
     }
     try:
-
-        if client.bgv.exp.count_documents(filter) == 0:
-            return None
-        return list(client.bgv.exp.find(filter,project))
+        return dict(client.bgv.exp.find_one(filter,project))
     except Exception as e:
         print(str(e))
         return False
+
+
 
 @app.post('/uploadexppdf')
 def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(...)):
@@ -758,18 +926,19 @@ async def notary_login(login:NLogin):
 #################################################################################################
 
 ##################################### Login API #################################################
-class Login(BaseModel):
-    email :str
-    password : str
 
-@app.post("/login")
-async def login(login : Login):
-    filter = dict(login)
+
+@app.get("/login")
+async def login(email : str, password : str):
+    filter = {
+        'email': email,
+        'password': password
+    }
 
     if client.bgv.user.count_documents(filter) ==1:
-        return {'status': True,'user': 'user'}
+        return True 
     else:
-        return {'status': False, 'user' : 'Check login creadentials'}
+        return False
 
 class HRLogin(BaseModel):
     company_mail :str
@@ -788,13 +957,15 @@ async def hrlogin(login : HRLogin):
 async def pendinguser():
     filter ={
         'status' : 'pending',
-        'firstlogin':{'$ne':True},
     }
     project ={
         '_id':0,
         }
+    
     try:
-        return list(client.bgv.user.find(filter,project))
+        count = client.bgv.user.count_documents(filter)
+        return {"count":count, "list": list(client.bgv.user.find(filter,project))}
+        
     except Exception as e:
         print(str(e))
         return False
@@ -808,10 +979,13 @@ async def apprpvedusers():
         project ={
             '_id':0
             }
-        return list(client.bgv.user.find(filter,project))
+        count1 = client.bgv.user.count_documents(filter)
+        return {"count1": count1, "list":list(client.bgv.user.find(filter,project))}
     except Exception as e:
         print(str(e))
         return False
+
+
 
 
 
@@ -821,19 +995,27 @@ class Verify(BaseModel):
     notary_email: str
     notary_name :str
     status : str = "verified"
-@app.post('/verify/personal')
+    approved_on: str= datetime.now()
+
+@app.post('/verify/user')
 async def verify(verify:Verify):
+    personal = client.bgv.personal.count_documents({'email' : verify.user_email, 'status' : False})
+
     sslc = client.bgv.sslc.count_documents({'email':verify.user_email,'status':False})
     hse = client.bgv.hse.count_documents({'email':verify.user_email,'status':False})
     ug = client.bgv.ug.count_documents({'email' : verify.user_email, 'status' : False})
-    if sslc+hse+ug == 0:
+    pg = client.bgv.pg.count_documents({'email' : verify.user_email, 'status' : False})
+    exp = client.bgv.exp.count_documents({'email' : verify.user_email, 'status' : False})
+
+
+    if sslc+hse+ug+pg+exp+personal == 0:
         try:
         
             filter = {
                 'email': verify.user_email,
             }
             update ={
-                '$set':{ 'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
+                '$set':{ 'approved_on':verify.approved_on,'status': verify.status, 'notary_email': verify.notary_email, 'notary_name':verify.notary_name}
             }
             client.bgv.user.update_one(filter=filter,update=update)
             return True
@@ -842,6 +1024,24 @@ async def verify(verify:Verify):
     else:
         return False
 
+@app.post('/verify/personaldetails')
+async def verify(verify : Verify):
+    try:
+        filter = {
+            'email': verify.user_email,
+        }
+        update = {
+            '$set' : {
+                'status' : verify.status,
+                'notary_email' : verify.notary_email,
+                'notary_name' : verify.notary_name
+            }
+        }
+        client.bgv.personal.find_one_and_update(filter=filter,update=update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
 
 
 @app.post('/verify/sslc')
@@ -1156,3 +1356,56 @@ async def uploadcsv(company_mail: str= Form(),file: UploadFile = File(...) ):
         file.file.close()
    return True
     
+############### CompanyRegistration ################################
+class CompanyRegistrationData(BaseModel):
+       company_name:str
+       company_reg : str
+       company_mail : str
+       mob : str
+       gst : str
+
+@app.post('/company')
+async def add_company( data : CompanyRegistrationData ):
+      try:
+        client.bgv.company.insert_one(dict(data))
+        return True
+      except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/uploadgstn')
+async def uploadgstn(company_mail : str = Form(), file: UploadFile = File(...)):
+      if(not os.path.isdir(company_mail)):
+         os.mkdir(company_mail)
+      path = os.path.join(company_mail, file.filename)
+      try:
+         contents = file.file.read()
+         with open(path, 'wb') as f:
+          f.write(contents)
+      except Exception:
+       return False
+      finally:
+         file.file.close()
+
+      return True
+
+#####################NotayRegistration################
+
+class NotaryRegistrationData(BaseModel):
+
+   
+    name:str
+    email : str
+    password : str
+    mob : str
+    aadhaar: str
+    pan : str
+
+@app.post('/notary/register')
+async def add_notary( data : NotaryRegistrationData ):
+      try:
+        client.bgv.notary.insert_one(dict(data))
+        return True
+      except Exception as e:
+        print(str(e))
+        return False

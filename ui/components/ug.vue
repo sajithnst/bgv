@@ -18,6 +18,8 @@
 </template>
 <script>
 export default{
+  watch: {
+  },
     name: "ug",
     async mounted(){
         var url ='http://127.0.0.1:8000/user'
@@ -32,7 +34,7 @@ export default{
         email : null,
         fail:null,
         name : null,
-        specialization : null, 
+        specialization : null,
         college:null,
         marks:null,
         passout: null,
@@ -67,7 +69,7 @@ export default{
             let furl="http://127.0.0.1:8000/uploadugpdf"
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
             if (result.data == res.data){
-                this.$router.push('/exppage')
+                this.$router.push('/user')
             }else{
                 this.fail= true
             }

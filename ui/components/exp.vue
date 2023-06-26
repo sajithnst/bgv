@@ -3,8 +3,8 @@
         <v-form>
             <h3 class="text-center"> Last Experience Details</h3>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-            <v-text-field label="Employee ID" 
-            v-model="empid" 
+            <v-text-field label="Employee ID"
+            v-model="empid"
             :rules="[rules.required]"></v-text-field>
             <v-text-field label="Company Name" v-model="company" :rules="[rules.required]"></v-text-field>
             <v-text-field label="HR Email" v-model="hr_mail" :rules="[rules.required]"></v-text-field>
@@ -61,7 +61,7 @@ export default{
         let edata = {
             empid : this.empid,
             name: this.name,
-            email : this.email, 
+            email : this.email,
             company : this.company,
             hr_mail : this.hr_mail,
             start_date : this.start_date,
@@ -78,7 +78,7 @@ export default{
             formdata.append('file',this.file)
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
             if (result.data === res.data){
-                this.$router.push('/signin')
+                this.$router.push('/user')
             }else{
                 this.fail= true
             }
@@ -87,7 +87,7 @@ export default{
      async skip(){
         let url ="http://127.0.0.1:8000/user/firstlogin"
         let response = await this.$axios.get(url,{params:{email:this.email}})
-        this.$router.push('/signin')
+        this.$router.push('/user')
      }
     }
 }

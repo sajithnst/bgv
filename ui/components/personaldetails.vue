@@ -13,34 +13,36 @@
                     <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
                     <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
                     <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
+                    <br>
+          <h6 class="text-subtitle-3"> Submitted on : {{ pdata.submitted_on }}</h6>
+              <h6 v-if="pdata.edited_on" class="text-subtitle-3"> Edited on : {{ pdata.edited_on }}</h6>
 
                   </v-col>
-                  <v-col style="margin-top: -6%;" >
+                  <v-col >
                     <v-container v-if="pending" class="text-center">
-                      <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
+                      <v-icon size="150px" color="yellow" ></v-icon>
                     </v-container>
                     <v-container v-if="verified" class="text-center">
-                      <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                      <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
                     </v-container>
                     <v-container v-if="rejected" class="text-center">
-                      <v-icon size="100px" color="red">mdi-cancel</v-icon>
-                    </v-container>
-
-                    <v-container class="text-center">
-                      <v-container></v-container>
-                      <v-btn icon @click="approve(pdata.email, ndata.name)"><v-icon size="50px" color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
-
-                      <v-btn icon @click="deny(pdata.email, ndata.name)"><v-icon size="50px" color="error">mdi-account-remove-outline</v-icon></v-btn>
-
+                      <v-icon size="150px" color="red">mdi-cancel</v-icon>
                     </v-container>
                   </v-col>
-
                 </v-row>
               </v-container>
+              <v-row>
+                <v-container>
+                  <br>
+                  &emsp;&emsp;
 
-              <v-container>
-                <v-card-subtitle style=" color:red;">* before approving the personal detail, please check that you have approved the SSLC, HSE, UG details.</v-card-subtitle>
-              </v-container>
+                  <v-btn color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
+
+                  <v-btn color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
+
+                </v-container>
+              </v-row>
+
 
             </v-card-content>
 
@@ -56,7 +58,7 @@ export default{
     async mounted (){
         this.$vuetify.theme.dark =false;
         this.email = this.$storage.getUniversal('user_email')
-        let url = "http://127.0.0.1:8000/user"
+        let url = "http://127.0.0.1:8000/personal"
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.pdata=res.data
 
@@ -95,18 +97,19 @@ export default{
     }),
     methods:{
       async approve(email, name){
-        let url = "http://127.0.0.1:8000/verify/personal"
+        let url = "http://127.0.0.1:8000/verify/personaldetails"
         let verify={
           user_email: email,
           notary_email: this.ndata.email,
           notary_name: name
         }
         let res = this.$axios.post(url,verify)
+        window.location.reload()
 
       },
       async deny(email, name){
         console.log(email, name)
-        let url = "http://127.0.0.1:8000/verify/personal"
+        let url = "http://127.0.0.1:8000/verify/personaldetails"
         let reject={
           user_email: email,
           notary_email: this.ndata.email,
@@ -114,6 +117,8 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
+        window.location.reload()
+
     }
   }
 }

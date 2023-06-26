@@ -27,13 +27,13 @@ export default{
 
     },
     data:() =>({
-        regno : null, 
+        regno : null,
         marks : null,
         email: null,
         passout: null,
         school : null,
         fail: null,
-        school : null, 
+        school : null,
         board : null,
         rules : {
             required: (v) => !!v || "Required",
@@ -64,7 +64,7 @@ export default{
             let furl = "http://127.0.0.1:8000/uploadhsepdf"
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
             if (result.data === res.data){
-                this.$router.push('/ugpage')
+                this.$router.push('/user')
             }
             else{
                 this.fail = true

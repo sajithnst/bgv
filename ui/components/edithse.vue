@@ -53,7 +53,8 @@ export default{
               marks: this.marks,
               passout: this.passout,
               school: this.school,
-              board : this.board
+              board : this.board,
+
 
           }
           let result = await this.$axios.post(url,hdata);

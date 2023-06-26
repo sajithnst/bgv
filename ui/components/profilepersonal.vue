@@ -27,7 +27,7 @@ name: 'userprofile',
 async mounted (){
   this.$vuetify.theme.dark =false;
   this.email = this.$storage.getUniversal('login_mail')
-  let url = "http://127.0.0.1:8000/user"
+  let url = "http://127.0.0.1:8000/personal"
   let res = await this.$axios.get(url,{params:{ email :this.email}});
   this.pdata=res.data
   console.log(this.pdata)
