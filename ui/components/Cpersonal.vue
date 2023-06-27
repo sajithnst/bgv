@@ -13,6 +13,9 @@
               <h3 class="text-subtitle-1"> PAN Number : {{ pdata.pan }}</h3>
               <h3 class="text-subtitle-1"> Company Name : {{ pdata.company_name }}</h3>
               <h3 class="text-subtitle-1"> Designation : {{ pdata.designation }}</h3>
+              <br>
+          <h6 class="text-subtitle-3"> Submitted on : {{ pdata.submitted_on }}</h6>
+          <h6 v-if="pdata.approved_on" class="text-subtitle-3"> Approved on : {{ pdata.approved_on }}</h6>
 
             </v-col>
             <v-col >

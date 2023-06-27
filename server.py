@@ -1032,6 +1032,7 @@ async def verify(verify : Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name
@@ -1053,6 +1054,7 @@ async def verifysslc(verify : Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name
@@ -1073,6 +1075,7 @@ async def verifyhse(verify: Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name
@@ -1093,6 +1096,7 @@ async def verifyug(verify: Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name
@@ -1112,6 +1116,7 @@ async def verifypg(verify: Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name
@@ -1132,6 +1137,7 @@ async def verifyexp(verify: Verify):
         }
         update = {
             '$set' : {
+                'approved_on':verify.approved_on,
                 'status' : verify.status,
                 'notary_email' : verify.notary_email,
                 'notary_name' : verify.notary_name

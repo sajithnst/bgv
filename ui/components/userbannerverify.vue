@@ -6,16 +6,19 @@
         <v-icon size="180px" color="yellow" ></v-icon>
       </v-container>
       <v-container v-if="verified" class="text-center">
-        <v-icon size="180px" color="green">mdi-check-decagram</v-icon>
+        <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
       </v-container>
       <v-container v-if="rejected" class="text-center">
-        <v-icon size="180px" color="red">mdi-cancel</v-icon>
+        <v-icon size="150px" color="red">mdi-cancel</v-icon>
       </v-container>
     </v-row>
-    <v-row >
-      <v-container class="text-center">
-        <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email)">Approve</v-btn>&emsp;
-      <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email)">Reject</v-btn>
+    <v-row>
+      <v-container class="text-center" fluid>
+        <v-responsive :aspect-ratio="16 / 9">
+          <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email)">Approve</v-btn>&emsp;
+          <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email)">Reject</v-btn>
+        </v-responsive>
+
       </v-container>
     </v-row>
   </v-container>

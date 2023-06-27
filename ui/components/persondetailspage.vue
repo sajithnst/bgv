@@ -13,6 +13,8 @@
               <br>
               <h6 class="text-subtitle-3"> Submitted on : {{ pdata.submitted_on }}</h6>
               <h6 v-if="pdata.edited_on" class="text-subtitle-3"> Edited on : {{ pdata.edited_on }}</h6>
+              <h6 v-if="pdata.approved_on" class="text-subtitle-3"> Approved on : {{ pdata.approved_on }}</h6>
+
 
 
 

@@ -58,7 +58,10 @@
                 </v-row>
                 <v-container>
                       <v-container>
-                        <userbannerverify/>
+                        <v-responsive :aspect-ratio="16 / 9">
+                          <userbannerverify/>
+                        </v-responsive>
+
                       </v-container>
                 </v-container>
 
