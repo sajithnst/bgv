@@ -10,8 +10,6 @@
               <h3 class="text-subtitle-1">{{ pdata.name }}</h3>
               <h3 class="text-title-1">Email</h3>
               <h3 class="text-subtitle-1">{{ pdata.email }}</h3>
-              <h3 class="text-title-1">Aadhar Number</h3>
-              <h3 class="text-subtitle-1">{{ pdata.aadhaar }}</h3>
 
             </v-col>
 
