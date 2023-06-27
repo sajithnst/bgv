@@ -18,8 +18,6 @@
 </template>
 <script>
 export default{
-  watch: {
-  },
     name: "ug",
     async mounted(){
         var url ='http://127.0.0.1:8000/user'
