@@ -17,13 +17,13 @@
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
-                <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
+                <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
               <v-container v-if="verified" class="text-center">
-                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
               </v-container>
               <v-container v-if="rejected" class="text-center">
-                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <v-icon size="150px" color="red">mdi-cancel</v-icon>
               </v-container>
 
             </v-col>
@@ -48,7 +48,7 @@ name: 'userprofile',
 async mounted (){
   this.$vuetify.theme.dark =false;
   this.email = this.$storage.getUniversal('search_email')
-  let url = "http://127.0.0.1:8000/user"
+  let url = "http://127.0.0.1:8000/personal"
   let res = await this.$axios.get(url,{params:{ email :this.email}});
   this.pdata=res.data
 

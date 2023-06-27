@@ -17,20 +17,15 @@
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
-                <v-icon size="100px" color="yellow" >mdi-timer</v-icon>
+                <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
               <v-container v-if="verified" class="text-center">
-                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
               </v-container>
               <v-container v-if="rejected" class="text-center">
-                <v-icon size="100px" color="red">mdi-cancel</v-icon>
+                <v-icon size="150px" color="red">mdi-cancel</v-icon>
               </v-container>
-              <v-container class="text-center">
-                <v-card-action>
-                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
-                </v-card-action>
-
-              </v-container>
+              <br>
             </v-col>
 
           </v-row>
@@ -40,6 +35,13 @@
           <h3 class="text-h8">No Data Found</h3>
         </v-container>
       </v-card-content>
+      <v-row>
+        <v-container>
+          &emsp; &emsp;
+          <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+
+        </v-container>
+      </v-row>
 
 
 
