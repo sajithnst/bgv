@@ -1369,6 +1369,7 @@ class CompanyRegistrationData(BaseModel):
        company_mail : str
        mob : str
        gst : str
+       status : str = 'pending'
 
 @app.post('/company')
 async def add_company( data : CompanyRegistrationData ):
@@ -1406,7 +1407,8 @@ class NotaryRegistrationData(BaseModel):
     mob : str
     aadhaar: str
     pan : str
-
+    status : str = 'pending'
+    
 @app.post('/notary/register')
 async def add_notary( data : NotaryRegistrationData ):
       try:

@@ -33,8 +33,8 @@
         rules:{
             required: (v) => !!v || "Required",
             mob: (v) => v.match(/^[0-9]{10}$/) || "check your mobile number",
-            company_reg : (v) => v.match(/^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/) || "Check the register number for errors",
-            gst : (v) => v.match(/^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/) || "Check the GSTN number for errors",
+            company_reg : (v) => v.match(/^\d{21}$/) || "Check the register number for errors",
+            gst : (v) => v.match(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/) || "Check the GSTN number for errors",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             alphnum: (v) => v.match(/^[A-Za-z0-9\s]+$/) || "No special Characters",
