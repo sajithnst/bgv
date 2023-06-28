@@ -1,10 +1,7 @@
 <template>
   <v-container>
     <v-container v-if="show">
-    <v-card
-      class="mx-auto pa-2"
-      style="width: 80%;"
-    >
+
       <v-list density="compact">
         <v-list-item
           v-for="profile in profiles"
@@ -19,7 +16,7 @@
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
       </v-list>
-      </v-card>
+
     </v-container>
     <v-container v-if="hide">
       <h2 class="text-center" style="color: darkblue;">No Profiles </h2><br /><br/>

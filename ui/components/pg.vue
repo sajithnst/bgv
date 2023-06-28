@@ -67,7 +67,7 @@ export default{
           let furl="http://127.0.0.1:8000/uploadpgpdf"
           let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
           if (result.data == res.data){
-              this.$router.push('/exppage')
+              this.$router.push('/user')
           }else{
               this.fail= true
           }
