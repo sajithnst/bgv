@@ -1,6 +1,6 @@
 from fastapi import FastAPI,File , UploadFile,Form
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, Optional
 from random import choice
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -991,7 +991,7 @@ async def apprpvedusers():
 
 class Verify(BaseModel):
     user_email : str
-    regno: str| None = None
+    regno: Optional[str] = None
     notary_email: str
     notary_name :str
     status : str = "verified"
