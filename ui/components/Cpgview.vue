@@ -16,7 +16,7 @@
             <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
             <br>
           <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
-          <h6 v-if="data.approved_on" class="text-subtitle-3"> Approved on : {{ data.approved_on }}</h6>
+          <h6 v-if="data.approved_on, verified" class="text-subtitle-3"> Approved on : {{ data.approved_on }}</h6>
             </v-col>
             <v-col >
               <v-container v-if="pending" class="text-center">
