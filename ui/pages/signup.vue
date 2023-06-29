@@ -87,7 +87,7 @@ export default{
             this.$router.push('/')
         },
         async submit(){
-            let url = "http://127.0.0.1:8000/otp"
+            let url = "http://3.84.79.77:8000/otp"
             let mdata = { params :{email : this.user.email}}
             await this.$axios.get(url,mdata).then(res => {
                 this.otp = res.data

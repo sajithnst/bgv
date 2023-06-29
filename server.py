@@ -14,19 +14,7 @@ client = MongoClient('mongodb://localhost:27017/')
 
 
 
-##############Graph API interface #############################################################
-config = configparser.ConfigParser()
-config.read(['config.cfg', 'config.dev.cfg'])
-azure_settings = config['azure']
-graph: Graph = Graph(azure_settings)
-# For testing the working of the  graph api integration
-def greet_user(graph: Graph):
-    user = graph.get_user()
-    print('Hello,', user['displayName'])
-    # For Work/school accounts, email is in mail property
-    # Personal accounts, email is in userPrincipalName
-    print('Email:', user['mail'] or user['userPrincipalName'], '\n')
-greet_user(graph)
+
 
 ##############################################################################################
 
@@ -125,17 +113,7 @@ async def user_exp(email: str):
         return list(client.bgv.exp.find(filter,project))
 
 #### generating otp for email verification
-@app.get('/otp')
-async def otp(email: str):
-    number =['0','1','2','3','4','5','6','7','8','9']
-    otp =''
-    for i in range(6):
-        otp+=choice(number)
 
-    subject = "OTP for New Account Created"
-    msg = f" Hi \n The OTP your email verification is {otp} in the verifychain application\n\n "
-    graph.send_mail(subject,msg,email)
-    return otp
 
 ####  comparing OTP with existing user account
 
