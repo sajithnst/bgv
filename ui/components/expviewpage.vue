@@ -1,6 +1,17 @@
 <template>
   <v-container style="width: 100%; ">
-    <v-card>
+    <v-container>
+      <v-switch
+      v-model="expshow"
+      hide-details
+      inset
+      label="I am Fresher"
+      >
+
+      </v-switch>
+    </v-container>
+
+    <v-card v-if="!expshow">
       <v-card-title>Experience Details</v-card-title>
       <v-card-content>
         <v-container v-if="data_s">
@@ -97,8 +108,8 @@ export default{
        verified: false,
        rejected: false,
        data_s: false,
-       data_: false
-
+       data_: false,
+       expshow: false
 
    }),
    methods:{

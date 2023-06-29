@@ -30,6 +30,8 @@
                   </v-row>
                   <v-row>
                     <userbannerpage/>
+                    <profilepersonal/>
+
                   </v-row>
 
                 </v-card>
@@ -60,11 +62,11 @@
               <v-card max-width="350px" height="365px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>Company Details</v-card-title>
+                  <v-card-title>Profile Submission</v-card-title>
                 </v-row>
                 <br>
-                <v-container>
-                  <profilepersonal/>
+                <v-container class="text-center">
+                  <v-btn color="indigo darken-4" style="color:white;">Submit Profile</v-btn>
                 </v-container>
 
               </v-card>

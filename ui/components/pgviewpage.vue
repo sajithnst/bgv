@@ -1,6 +1,15 @@
 <template>
   <v-container style="width: 100%; ">
-    <v-card>
+    <v-container>
+      <v-switch
+      v-model="pgshow"
+      hide-details inset
+      label="Not Applicable"
+      >
+
+      </v-switch>
+    </v-container>
+    <v-card v-if="!pgshow">
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
         <v-container v-if="data_s">
@@ -108,7 +117,8 @@ export default{
       verified: false,
       rejected: false,
       data_: false,
-      data_s: false
+      data_s: false,
+      pgshow: false
 
   }),
   methods:{
