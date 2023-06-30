@@ -48,10 +48,10 @@ export default {
   name:'notary_layout',
   async mounted(){
     let nurl ="http://127.0.0.1:8000/notary"
-        this.notary_email = this.$storage.getUniversal('notaryemail')
+        this.email = this.$storage.getUniversal('notaryemail')
         let nres = await this.$axios.get(nurl,{
           params :{
-            email : this.notary_email
+            email : this.email
           }
         });
         this.notary_name = nres.data.name
@@ -59,10 +59,16 @@ export default {
   data: () => {
     return {
       drawer: false,
+      email:""
     };
   },
     methods:{
         async logout (){
+          let url = "http://127.0.0.1:8000/notary/last_login"
+          let ndata={
+            email:this.email
+          }
+          let nres =  await this.$axios.post(url, ndata)
           console.log('logout');
           this.$router.push('/notarysignin');
 

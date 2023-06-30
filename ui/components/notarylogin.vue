@@ -33,18 +33,20 @@ export default{
     }),
     methods: {
         async login(){
-            let url = "http://127.0.0.1:8000/notarylogin"
+            let url = "http://127.0.0.1:8000/notary/login"
             let nlogin = {
                 email: this.email,
                 password: this.password
             }
-            let res = await this.$axios.post(url,nlogin);
+            let res = await this.$axios.get(url,{params:{'email': this.email, 'password': this.password}});
             if(res.data == true){
                 this.$storage.setUniversal('notaryemail',this.email)
                 this.$router.push("/notary");
             }else{
                 this.fail= true
             }
+            let nurl = "http://127.0.0.1:8000/notary/logindate"
+            let nres =  await this.$axios.post(nurl, nlogin)
 
         }
     }

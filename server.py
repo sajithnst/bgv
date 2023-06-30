@@ -889,7 +889,22 @@ async def add_notary(notary:NotaryModel):
 
 class NLogin(BaseModel):
     email : str
-    password : str
+    password : str| None=None
+    login_date: str = datetime.now()
+    last_login: str = datetime.now()
+
+@app.get("/notary/login")
+async def login(email : str, password : str):
+    filter = {
+        'email': email,
+        'password': password
+    }
+
+    if client.bgv.notary.count_documents(filter) ==1:
+        return True 
+    else:
+        return False
+    
 @app.post('/notarylogin')
 async def notary_login(login:NLogin):
     try:
@@ -900,6 +915,43 @@ async def notary_login(login:NLogin):
     except Exception as e:
         print(str(e))
         return False
+
+@app.post('/notary/logindate')
+async def notary_logindate(login:NLogin):
+    filter={
+        'email': login.email
+    }
+    update={
+        '$set':{
+            'login_date':login.login_date,
+        }
+    }
+    try:
+        client.bgv.notary.update_one(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/notary/last_login')
+async def notary_lastlogin(login:NLogin):
+    filter={
+        'email': login.email
+    }
+    update={
+        '$set':{
+                  'last_login': login.last_login
+        }
+  
+    }
+    try:
+        client.bgv.notary.update_one(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 
 #################################################################################################
 

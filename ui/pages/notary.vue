@@ -3,6 +3,18 @@
     <br>
       <v-container>
         <v-row>
+          <v-container class="text-center">
+            <v-row>
+              <v-spacer/>
+              <h4> Current Login: {{ pdata.login_date }}</h4>
+              <v-spacer/>
+            </v-row>
+            <v-row>
+              <v-spacer/>
+              <h4 v-if="pdata.last_login"> Last Login: {{ pdata.last_login }}</h4>
+              <v-spacer/>
+            </v-row>
+          </v-container>
           <v-col>
             <v-card height="180.5px">
               <v-card-title>Total Profiles</v-card-title>
@@ -109,13 +121,22 @@ export default {
     let tres = await this.$axios.get(turl)
     this.counts = tres.data.counts
 
+
+    this.$vuetify.theme.dark =false;
+    this.email = this.$storage.getUniversal('notaryemail')
+    let nurl = "http://127.0.0.1:8000/notary"
+    let nres = await this.$axios.get(nurl,{params:{ email :this.email}});
+    this.pdata = nres.data
+    console.log(this.pdata)
+
   },
   data: () => ({
       reveal: false,
       approve: false,
       count:{},
       count1:{},
-      counts:{}
+      counts:{},
+      pdata:{}
     }),
 
 }

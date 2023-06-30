@@ -54,12 +54,12 @@
               <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>Profile Verfication</v-card-title>
+                  <v-card-title>Last Visited</v-card-title>
                 </v-row>
                 <v-container>
                       <v-container>
                         <v-responsive :aspect-ratio="16 / 9">
-                          <userbannerverify/>
+
                         </v-responsive>
 
                       </v-container>
