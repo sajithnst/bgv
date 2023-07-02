@@ -7,6 +7,7 @@
                 <v-text-field label="Company Name " v-model="company" :rules="[rules.required]"></v-text-field>
                 <v-text-field label="Company Registration Number " v-model="company_reg" :rules="[rules.required,rules.company_reg]"></v-text-field>
                 <v-text-field label="Company Email" v-model="company_mail" :rules="[rules.required,rules.email]"></v-text-field>
+                <v-text-field label="Enter the password" v-model="password" type="password" :rules="[rules.required,rules.password]"></v-text-field>
                 <v-text-field label="Phone Number" v-model="mob" :rules="[rules.required,rules.mob]"></v-text-field>
                 <v-text-field label="GSTN Number" v-model="gst" :rules="[rules.required,rules.gst]"></v-text-field>
                 <v-file-input @change="fileselect" label="Upload GSTN Certificate File" :rules="[rules.required]"></v-file-input>
@@ -19,7 +20,7 @@
   </template>
   <script>
   export default {
-    name: 'personaldata',
+    name: 'Companydata',
     async mounted(){
         this.email =  this.$storage.getUniversal('Email');
         console.log(this.email);
@@ -28,6 +29,7 @@
         company :"",
         company_reg: "",
         company_mail:"",
+        password: "",
         mob:"",
         gst:"",
         rules:{
@@ -36,6 +38,7 @@
             company_reg : (v) => v.match(/^\d{21}$/) || "Check the register number for errors",
             gst : (v) => v.match(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/) || "Check the GSTN number for errors",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
+            password: (v) =>  v.length > 8 || "Minimun 8 Characters is required",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             alphnum: (v) => v.match(/^[A-Za-z0-9\s]+$/) || "No special Characters",
             date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"
@@ -47,13 +50,12 @@
       this.file=event
     },
         async submit(){
-            let url = "http://127.0.0.1:8000/company";
+            let url = "http://127.0.0.1:8000/hr";
             let pdata= {
-  
-                email:this.email,
-                company_name : this.company,
+                name : this.company,
                 company_reg : this.company_reg,
                 company_mail : this.company_mail,
+                password : this.password,
                 mob : this.mob,
                 gst : this.gst,
             }

@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-    name: 'personaldata',
+    name: 'Notarydata',
     async mounted(){
         this.email =  this.$storage.getUniversal('Email');
         console.log(this.email);
@@ -47,7 +47,7 @@ export default {
     }),
     methods:{
         async submit(){
-            let url = "http://127.0.0.1:8000/notary/register";
+            let url = "http://127.0.0.1:8000/notary";
             let pdata= {
                 name:this.name,
                 email:this.email,

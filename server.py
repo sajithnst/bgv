@@ -801,11 +801,13 @@ async def dataadd(data : Expupdate):
 
 class HrModel(BaseModel):
     name : str
-    empid :str
+    company_reg:str
     company_mail : str
     password : str
-    firstlogin: bool
-
+    mob:str
+    gst:str
+    status:str='pending'
+    
 @app.post('/hr')
 async def add_hr(hr:HrModel):
     filter = {
@@ -848,6 +850,22 @@ async def gethr(hr:Hrprofile):
     except Exception as e:
         print('Error getting hr'+ str(e))
         return False
+    
+@app.post('/uploadgstn')
+async def uploadgstn(company_mail : str = Form(), file: UploadFile = File(...)):
+      if(not os.path.isdir(company_mail)):
+         os.mkdir(company_mail)
+      path = os.path.join(company_mail, file.filename)
+      try:
+         contents = file.file.read()
+         with open(path, 'wb') as f:
+          f.write(contents)
+      except Exception:
+       return False
+      finally:
+         file.file.close()
+
+      return True
 ################################################################################################
 
 ############### API related to Notary ##########################################################
@@ -871,7 +889,9 @@ class NotaryModel(BaseModel):
     email : str
     aadhaar :str
     password : str
-    firstlogin : bool
+    mob:str
+    pan:str
+    status:str='pending'
 
 @app.post('/notary')
 async def add_notary(notary:NotaryModel):
@@ -1369,7 +1389,7 @@ async def user_filter(query : Dict):
 
 class Admin(BaseModel):
       name: str
-      email: str
+      admin_email: str
       password: str
 
 @app.post("/admin")
@@ -1381,8 +1401,21 @@ async def add_admin(admin: Admin):
         print(str(e))
       return False
 
+@app.get('/admin')
+async def get_user(admin_email:str):
+    filter={
+        'admin_email':admin_email
+    }
+    project ={
+        '_id':0,
+    }
+    if client.bgv.admin.count_documents(filter)==1:
+        return dict(client.bgvadmin.find_one(filter,project))
+    else:
+        return False
+
 class Adminlogin(BaseModel):
-      email : str
+      admin_email : str
       password : str
 @app.post('/adminlogin')
 async def admin_login(login:Adminlogin):
@@ -1394,6 +1427,7 @@ async def admin_login(login:Adminlogin):
       except Exception as e:
         print(str(e))
         return False
+      
       
 @app.post('/hr/uploadcsv')
 async def uploadcsv(company_mail: str= Form(),file: UploadFile = File(...) ):
@@ -1411,57 +1445,109 @@ async def uploadcsv(company_mail: str= Form(),file: UploadFile = File(...) ):
    return True
     
 ############### CompanyRegistration ################################
-class CompanyRegistrationData(BaseModel):
-       company_name:str
-       company_reg : str
-       company_mail : str
-       mob : str
-       gst : str
-       status : str = 'pending'
-
-@app.post('/company')
-async def add_company( data : CompanyRegistrationData ):
-      try:
-        client.bgv.company.insert_one(dict(data))
-        return True
-      except Exception as e:
+@app.get('/company/pending')
+async def company_pending():
+    filter={
+        'status':"pending"
+    }
+    project={
+        '_id':0
+    }
+    try:
+        Ccount=client.bgv.hr.count_documents(filter)
+        return {'Ccount':Ccount,'list':list(client.bgv.hr.find(filter,project))}
+    except Exception as e:
         print(str(e))
         return False
-
-@app.post('/uploadgstn')
-async def uploadgstn(company_mail : str = Form(), file: UploadFile = File(...)):
-      if(not os.path.isdir(company_mail)):
-         os.mkdir(company_mail)
-      path = os.path.join(company_mail, file.filename)
-      try:
-         contents = file.file.read()
-         with open(path, 'wb') as f:
-          f.write(contents)
-      except Exception:
-       return False
-      finally:
-         file.file.close()
-
-      return True
-
+    
+@app.get('/company/verified')
+async def company_verified():
+    filter={
+        'status':"verified"
+    }
+    project={
+        '_id':0
+    }
+    try:
+        Gcount=client.bgv.hr.count_documents(filter)
+        return {'Gcount':Gcount,'list':list(client.bgv.hr.find(filter,project))}
+    except Exception as e:
+        print(str(e))
+        return False
 #####################NotayRegistration################
 
-class NotaryRegistrationData(BaseModel):
-
-   
-    name:str
-    email : str
-    password : str
-    mob : str
-    aadhaar: str
-    pan : str
-    status : str = 'pending'
+@app.get('/notary/pending')
+async def notary_pending():
+    filter={
+        'status':"pending"
+    }
+    project={
+        '_id':0
+    }
+    try:
+        Ecount=client.bgv.notary.count_documents(filter)
+        return{'Ecount':Ecount,'list':list(client.bgv.notary.find(filter,project))}
+    except Exception as e:
+        print(str(e))
+        return False
     
-@app.post('/notary/register')
-async def add_notary( data : NotaryRegistrationData ):
-      try:
-        client.bgv.notary.insert_one(dict(data))
+@app.get('/notary/verified')
+async def notary_verified():
+    filter={
+        'status':"verified"
+    }
+    project={
+        '_id':0
+    }
+    try:
+        Fcount=client.bgv.notary.count_documents(filter)
+        return{'Fcount':Fcount,'list':list(client.bgv.notary.find(filter,project))}
+    
+    except Exception as e:
+        print(str(e))
+        return False
+    
+class SuperAdminVerify(BaseModel):
+    company_mail:str|None=None
+    email:str|None=None
+    admin_email:str
+    name:str
+    status:str="verified"
+
+@app.post('/company/verification')
+async def verify_company(data:SuperAdminVerify):
+    filter={
+        'company_mail':data.company_mail
+    }
+    update={
+        '$set':{
+            'admin_email':data.admin_email,
+            'name':data.name,
+            'status':data.status
+        }
+    }
+    try:
+        client.bgv.hr.find_one_and_update(filter,update)
         return True
-      except Exception as e:
+    except Exception as e:
+        print(str(e))
+        return False
+    
+@app.post('/notary/verification')
+async def verify_notary(data:SuperAdminVerify):
+    filter={
+        'email':data.email
+    }
+    update={
+        '$set':{
+            'admin_email':data.admin_email,
+            'name':data.name,
+            'status':data.status
+        }
+    }
+    try:
+        client.bgv.notary.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
         print(str(e))
         return False

@@ -1,11 +1,11 @@
 <template>
     <v-container >
-        <Nreg/>
+        <CompanyRegistrationForm/>
     </v-container>
 </template>
 <script>
 export default {
-name: 'NotReg',
+name: 'CompanyRegistration',
 layout:'datacollection',
 async mounted(){
     this.$vuetify.theme.dark=false;

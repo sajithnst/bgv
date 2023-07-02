@@ -9,7 +9,7 @@
       <div class="text-subtitle-1 text-medium-emphasis "> Email ID</div>
     </v-row>
     <v-row>
-      <v-text-field label="Enter the email" v-model="email" :rules="[rules.required,rules.email]"></v-text-field>
+      <v-text-field label="Enter the email" v-model="admin_email" :rules="[rules.required,rules.email]"></v-text-field>
     </v-row>
     <v-row>
       <div class="text-subtitle-1 text-medium-emphasis ">Password</div>
@@ -28,7 +28,7 @@
 export default{
 name :"admin",
 data : () => ({
-email: "",
+admin_email: "",
 password: "",
 fail: null,
 rules : {
@@ -41,14 +41,14 @@ methods:{
 async login(){
 let url = "http://127.0.0.1:8000/adminlogin";
 let login = {
-email : this.email,
+admin_email : this.admin_email,
 password : this.password,
 }
 let result = await this.$axios.post(url, login);
 console.log(login)
 if (result.data === true) {
-this.$storage.setUniversal('admin_mail',this.email)
-this.$router.push('/');
+this.$storage.setUniversal('admin_mail',this.admin_email)
+this.$router.push('/SuperAdminRequests');
 }else{
 this.fail = true;
 }
