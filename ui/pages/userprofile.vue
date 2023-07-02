@@ -54,13 +54,20 @@
               <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
                 <br>
                 <v-row justify="center">
-                  <v-card-title>Last Visited</v-card-title>
+                  <v-card-title>Profile</v-card-title>
                 </v-row>
                 <v-container>
                       <v-container>
-                        <v-responsive :aspect-ratio="16 / 9">
-
-                        </v-responsive>
+                        <v-list>
+                          <v-list-item>
+                            <v-list-item-title>Current visiting time</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-subtitle>
+                              {{ pdata.notary_last_visited }}
+                            </v-list-item-subtitle>
+                          </v-list-item>
+                        </v-list>
 
                       </v-container>
                 </v-container>
@@ -83,10 +90,17 @@ export default{
         let url = "http://127.0.0.1:8000/user"
         let res = await this.$axios.get(url,{params:{ email :this.email}});
         this.name=res.data.name
+
+        this.email = this.$storage.getUniversal('user_email')
+        let nurl = "http://127.0.0.1:8000/user"
+        let nres = await this.$axios.get(nurl,{params:{ email :this.email}});
+        this.pdata = nres.data
+        console.log(this.pdata)
     },
     data: () =>({
         name : "Sajith Surendran",
         email:"",
+        pdata:{}
     }),
    methods: {
 

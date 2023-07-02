@@ -892,6 +892,24 @@ class NLogin(BaseModel):
     password : str| None=None
     login_date: str = datetime.now()
     last_login: str = datetime.now()
+    notary_last_visited: str = datetime.now()
+
+@app.post('/notary/user_lastvisited')
+async def user_lastvisited(data: NLogin):
+    filter={
+        'email': data.email
+    }
+    update={
+        '$set':{
+            'notary_last_visited': data.notary_last_visited
+        }
+    }
+    try:
+        client.bgv.user.update_one(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
 
 @app.get("/notary/login")
 async def login(email : str, password : str):

@@ -1,89 +1,38 @@
 <template>
-  <v-app >
-
-
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col cols="3">
-
-              <v-container fluid>
-                <v-card max-width="450px" class="mx-auto bg" elevation="2">
-                  <br><br>
-                  <v-row justify="center">
-                    <v-col align-self="start" class="d-flex justify-center align-center pa-0" cols="12">
-                      <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="170">
-
-                        <input ref="uploader" class="d-none" type="file" accept="image/*" :change="onFileChanged">
-                        <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-
-
-                      </v-avatar>
-
-                    </v-col>
-                    <v-btn @click="onButtonClick" class="upload-btn" x-large icon>
-                      <v-icon>
-                        mdi-camera
-                      </v-icon>
-                    </v-btn>
-
-                  </v-row>
-                  <v-row>
-                    <userbannerpage/>
-                    <profilepersonal/>
-                  </v-row>
-
-                </v-card>
-              </v-container>
-
-          </v-col>
-
-          <v-col>
-
-
-
-      <persondetailspage/>
-      <sslcviewpage/>
-
-
-
-          </v-col>
-          <v-col cols="3">
-
-            <v-container fluid>
-              <v-card max-width="350px" height="420px" class="mx-auto bg" elevation="2">
-                <br>
-                <v-row justify="center">
-                  <v-card-title>QR CODE</v-card-title>
-                </v-row>
-                <v-container>
-                  <v-container>
-                    <v-container>
-                      <v-container>
-                        <v-img
-                        :aspect-ratio="4/4" src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732__480.png"/>
-
-                      </v-container>
-                    </v-container>
-                  </v-container>
-                </v-container>
-
-                <br>
-              </v-card>
-            </v-container>
-
-        </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <div>
+    <v-card v-for="card in paginatedCards" :key="card.id">
+    </v-card>
+    <v-pagination v-model="currentPage"
+    :total-visible="5"
+    :length="Math.ceil(totalCards / cardsPerPage)"
+    @input="fetchCards" >
+    </v-pagination>
+  </div>
 </template>
-
 <script>
-  export default {
-    layout:'profile',
-    data: () => ({
+export default {
+  data() {
+    return {
+      cards: [],
+      currentPage: 1,
+      cardsPerPage: 10,
+    };
+  },
+  computed: {
+    totalCards() {
+      return this.cards.length;
+    },
+    paginatedCards() {
+      const startIndex = (this.currentPage - 1) * this.cardsPerPage;
+      const endIndex = startIndex + this.cardsPerPage;
+      return this.cards.slice(startIndex, endIndex);
+    },
+  },
+  methods: {
 
-    }),
-  }
-</script>
+  mounted() {
+    this.fetchCards();
+  },
+}
+}
+ </script>

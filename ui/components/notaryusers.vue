@@ -15,6 +15,7 @@
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
       </v-list>
+
     </v-container>
     <v-container v-if="hide">
       <h2 class="text-center" style="color: darkblue;"> No profiles </h2><br /><br/>
@@ -60,6 +61,11 @@ export default{
       },
 
       async view(email){
+        let url="http://127.0.0.1:8000/notary/user_lastvisited"
+        let ndata={
+          email: email
+        }
+        let res = await this.$axios.post(url, ndata)
         this.$storage.setUniversal('user_email',email)
         this.$storage.setUniversal('hrlogin',0)
         this.$router.push("/userprofile")
