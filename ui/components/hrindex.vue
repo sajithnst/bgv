@@ -33,12 +33,16 @@
     <v-container class="text-center" fluid>
       <v-row>
         <v-spacer></v-spacer>
-        <v-sheet class="text-center" :elevation="6" :height="200" :width="600">
+        <v-sheet class="text-center" :elevation="6" :height="300" :width="600">
+          <v-container>
+            <csvdownload/>
+          </v-container>
           <v-container>
             <v-text-title><h2>Employee Data</h2></v-text-title>
             <v-file-input @change="fileselect" style="width:50%; margin:0 auto; margin-top:4%;" label="File input" variant="solo-filled"></v-file-input>
             <v-btn color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn><br/><br/>
           </v-container>
+
         </v-sheet>
         <v-spacer></v-spacer>
       </v-row>

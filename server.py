@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pymongo import MongoClient
 from datetime import datetime
+from typing import Dict , Optional
 import os
 import configparser
 from graph import Graph
@@ -267,13 +268,13 @@ async def update( data : PersonalData ):
 ## sslc certificate input
 
 class SSLC(BaseModel):
-    regno : str
+    sslc_regno : str
     email : str
-    marks : int
-    school : str
-    passout : str
+    sslc_marks : int
+    sslc_school : str
+    sslc_passout : str
     name : str
-    board : str
+    sslc_board : str
     status : bool = False
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
@@ -284,11 +285,11 @@ async def update( sslc : SSLC ):
     }
     update={
         '$set':{
-        'regno': sslc.regno,
-        'marks':sslc.marks,
-        'school' : sslc.school,
-        'passout': sslc.passout,
-        'board': sslc.board,
+        'sslc_regno': sslc.sslc_regno,
+        'sslc_marks':sslc.sslc_marks,
+        'sslc_school' : sslc.sslc_school,
+        'sslc_passout': sslc.sslc_passout,
+        'sslc_board': sslc.sslc_board,
         'status': sslc.status,
         'edited_on': sslc.edited_on
         }
@@ -305,21 +306,21 @@ async def update( sslc : SSLC ):
 async def sslcinput(sslc : SSLC):
     filt = {
         'email' : sslc.email,
-        'regno': sslc.regno,
-        'marks':sslc.marks,
-        'school' : sslc.school,
-        'passout': sslc.passout,
-        'board': sslc.board,
+        'sslc_regno': sslc.sslc_regno,
+        'sslc_marks':sslc.sslc_marks,
+        'sslc_school' : sslc.sslc_school,
+        'sslc_passout': sslc.sslc_passout,
+        'sslc_board': sslc.sslc_board,
         'status': sslc.status,
         'submitted_on': sslc.submitted_on
     }
     update={
         '$set':{
-        'regno': sslc.regno,
-        'marks':sslc.marks,
-        'school' : sslc.school,
-        'passout': sslc.passout,
-        'board': sslc.board,
+        'sslc_regno': sslc.sslc_regno,
+        'sslc_marks':sslc.sslc_marks,
+        'sslc_school' : sslc.sslc_school,
+        'sslc_passout': sslc.sslc_passout,
+        'sslc_board': sslc.sslc_board,
         'status': sslc.status,
         'submitted_on': sslc.submitted_on
 
@@ -349,9 +350,9 @@ async def get_sslc(email : str):
 
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
-def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = File(...)):
     
-    path = os.path.join(email,regno+".pdf")
+    path = os.path.join(email,sslc_regno+".pdf")
     try:
         contents = file.file.read()
         with open(path, 'wb') as f:
@@ -367,11 +368,11 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 
 
 @app.get('/getpdf')
-async def getpdf(email: str, regno: str):
-    path = os.path.join(email,regno+".pdf")
+async def getpdf(email: str, sslc_regno: str):
+    path = os.path.join(email,sslc_regno+".pdf")
     if os.path.exists(path):
         try:
-            return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
+            return FileResponse(path, media_type="application/pdf", filename=sslc_regno+".pdf")
         except Exception as e:
             print(str(e))
     else:
@@ -380,13 +381,13 @@ async def getpdf(email: str, regno: str):
 ## hser certificate input
 
 class HSE (BaseModel):
-    regno: str
+    hse_regno: str
     email : str
-    name : str
-    marks : int
-    passout : str
-    school : str
-    board : str
+    hse_name : str
+    hse_marks : int
+    hse_passout : str
+    hse_school : str
+    hse_board : str
     status : bool = False
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
@@ -398,11 +399,11 @@ async def update( hse : HSE ):
     }
     update={
         '$set':{
-        'regno': hse.regno,
-        'marks':hse.marks,
-        'school' : hse.school,
-        'passout': hse.passout,
-        'board': hse.board,
+        'hse_regno': hse.hse_regno,
+        'hse_marks':hse.hse_marks,
+        'hse_school' : hse.hse_school,
+        'hse_passout': hse.hse_passout,
+        'hse_board': hse.hse_board,
         'status': hse.status,
         'edited_on': hse.edited_on
         }
@@ -419,21 +420,21 @@ async def update( hse : HSE ):
 async def hseinput(hse : HSE):
     filt = {
         'email' : hse.email,
-        'regno': hse.regno,
-        'marks':hse.marks,
-        'school' : hse.school,
-        'passout': hse.passout,
-        'board': hse.board,
+        'hse_regno': hse.hse_regno,
+        'hse_marks':hse.hse_marks,
+        'hse_school' : hse.hse_school,
+        'hse_passout': hse.hse_passout,
+        'hse_board': hse.hse_board,
         'status': hse.status,
         'submitted_on': hse.submitted_on
     }
     update={
         '$set':{
-        'regno': hse.regno,
-        'marks':hse.marks,
-        'school' : hse.school,
-        'passout': hse.passout,
-        'board': hse.board,
+        'hse_regno': hse.hse_regno,
+        'hse_marks':hse.hse_marks,
+        'hse_school' : hse.hse_school,
+        'hse_passout': hse.hse_passout,
+        'hse_board': hse.hse_board,
         'status': hse.status,
         'submitted_on': hse.submitted_on
         }
@@ -459,9 +460,9 @@ async def get_hse(email:str):
         return False
 
 @app.post('/uploadhsepdf')
-def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+def upload(email : str = Form(), hse_regno : str = Form(),file: UploadFile = File(...)):
     
-    path = os.path.join(email,regno+".pdf")
+    path = os.path.join(email,hse_regno+".pdf")
     try:
         contents = file.file.read()
         with open(path, 'wb') as f:
@@ -475,14 +476,14 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
 # --------------- API for uploading UG data --------------------------------
 
 class UG(BaseModel):
-    regno : str
+    ug_regno : str
     email : str
     name : str
-    specialization : str
-    college : str
-    marks : int
-    passout : str
-    university : str
+    ug_specialization : str
+    ug_college : str
+    ug_marks : int
+    ug_passout : str
+    ug_university : str
     status : bool = False
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
@@ -494,12 +495,12 @@ async def update( ug : UG ):
     }
     update={
         '$set':{
-        'regno': ug.regno,
-        'marks':ug.marks,
-        'specialization' : ug.specialization,
-        'college': ug.college,
-        'passout': ug.passout,
-        'university': ug.university,
+        'ug_regno': ug.ug_regno,
+        'ug_marks':ug.ug_marks,
+        'ug_specialization' : ug.ug_specialization,
+        'ug_college': ug.ug_college,
+        'ug_passout': ug.ug_passout,
+        'university': ug.ug_university,
         'status': ug.status,
         'edited_on': ug.edited_on
         }
@@ -516,23 +517,23 @@ async def update( ug : UG ):
 async def addug(ug: UG):
     filt = {
         'email' : ug.email,
-        'regno': ug.regno,
-        'marks':ug.marks,
-        'specialization' : ug.specialization,
-        'college': ug.college,
-        'passout': ug.passout,
-        'university': ug.university,
+        'ug_regno': ug.ug_regno,
+        'ug_marks':ug.ug_marks,
+        'ug_specialization' : ug.ug_specialization,
+        'ug_college': ug.ug_college,
+        'ug_passout': ug.ug_passout,
+        'ug_university': ug.ug_university,
         'status': ug.status,
         'submitted_on': ug.submitted_on
     }
     update={
         '$set':{
-        'regno': ug.regno,
-        'marks':ug.marks,
-        'specialization' : ug.specialization,
-        'college': ug.college,
-        'passout': ug.passout,
-        'university': ug.university,
+        'ug_regno': ug.ug_regno,
+        'ug_marks':ug.ug_marks,
+        'ug_specialization' : ug.ug_specialization,
+        'ug_college': ug.ug_college,
+        'ug_passout': ug.ug_passout,
+        'ug_university': ug.ug_university,
         'status': ug.status,
         'submitted_on': ug.submitted_on
         }
@@ -558,9 +559,9 @@ async def get_ug(email:str):
         return False
 
 @app.post('/uploadugpdf')
-def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File(...)):
     
-    path = os.path.join(email,regno+".pdf")
+    path = os.path.join(email,ug_regno+".pdf")
     try:
         contents = file.file.read()
         with open(path, 'wb') as f:
@@ -572,14 +573,14 @@ def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(..
     return True
 ######### PG DETAILS ##################
 class PG(BaseModel):
-    regno : str
+    pg_regno : str
     email : str
     name : str
-    specialization : str
-    college : str
-    marks : int
-    passout : str
-    university : str
+    pg_specialization : str
+    pg_college : str
+    pg_marks : int
+    pg_passout : str
+    pg_university : str
     status : bool = False
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
@@ -591,12 +592,12 @@ async def update( pg : PG ):
     }
     update={
         '$set':{
-        'regno': pg.regno,
-        'marks':pg.marks,
-        'specialization' : pg.specialization,
-        'college': pg.college,
-        'passout': pg.passout,
-        'university': pg.university,
+        'pg_regno': pg.pg_regno,
+        'pg_marks':pg.pg_marks,
+        'pg_specialization' : pg.pg_specialization,
+        'pg_college': pg.pg_college,
+        'pg_passout': pg.pg_passout,
+        'pg_university': pg.pg_university,
         'status': pg.status,
         'edited_on': pg.edited_on
         }
@@ -613,23 +614,23 @@ async def update( pg : PG ):
 async def addpg(pg: PG):
     filt = {
         'email' : pg.email,
-        'regno': pg.regno,
-        'marks':pg.marks,
-        'specialization' : pg.specialization,
-        'college': pg.college,
-        'passout': pg.passout,
-        'university': pg.university,
+        'pg_regno': pg.pg_regno,
+        'pg_marks':pg.pg_marks,
+        'pg_specialization' : pg.pg_specialization,
+        'pg_college': pg.pg_college,
+        'pg_passout': pg.pg_passout,
+        'pg_university': pg.pg_university,
         'status': pg.status,
         'submitted_on': pg.submitted_on
     }
     update={
         '$set':{
-        'regno': pg.regno,
-        'marks':pg.marks,
-        'specialization' : pg.specialization,
-        'college': pg.college,
-        'passout': pg.passout,
-        'university': pg.university,
+        'pg_regno': pg.pg_regno,
+        'pg_marks':pg.pg_marks,
+        'pg_specialization' : pg.pg_specialization,
+        'pg_college': pg.pg_college,
+        'pg_passout': pg.pg_passout,
+        'pg_university': pg.pg_university,
         'status': pg.status,
         'submitted_on': pg.submitted_on
         }
@@ -655,9 +656,9 @@ async def get_pg(email:str):
         return False
 
 @app.post('/uploadpgpdf')
-def upload(email : str = Form(), regno : str = Form(),file: UploadFile = File(...)):
+def upload(email : str = Form(), pg_regno : str = Form(),file: UploadFile = File(...)):
     
-    path = os.path.join(email,regno+".pdf")
+    path = os.path.join(email,pg_regno+".pdf")
     try:
         contents = file.file.read()
         with open(path, 'wb') as f:
@@ -936,7 +937,7 @@ async def add_notary(notary:NotaryModel):
 
 class NLogin(BaseModel):
     email : str
-    password : str| None=None
+    password : Optional[str] = None
     login_date: str = datetime.now()
     last_login: str = datetime.now()
     notary_last_visited: str = datetime.now()
@@ -1086,7 +1087,10 @@ async def apprpvedusers():
 
 class Verify(BaseModel):
     user_email : str
-    regno: Optional[str] = None
+    sslc_regno: Optional[str] = None
+    hse_regno: Optional[str] = None
+    ug_regno: Optional[str] = None
+    pg_regno: Optional[str] = None
     notary_email: str
     notary_name :str
     status : str = "verified"
@@ -1145,7 +1149,7 @@ async def verifysslc(verify : Verify):
     try:
         filter = {
             'email': verify.user_email,
-            'regno': verify.regno
+            'sslc_regno': verify.sslc_regno
         }
         update = {
             '$set' : {
@@ -1166,7 +1170,7 @@ async def verifyhse(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,
-            'regno': verify.regno
+            'hse_regno': verify.hse_regno
         }
         update = {
             '$set' : {
@@ -1187,7 +1191,7 @@ async def verifyug(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,
-            'regno': verify.regno
+            'ug_regno': verify.ug_regno
         }
         update = {
             '$set' : {
@@ -1207,7 +1211,7 @@ async def verifypg(verify: Verify):
     try :
         filter = {
             'email' : verify.user_email,
-            'regno': verify.regno
+            'pg_regno': verify.pg_regno
         }
         update = {
             '$set' : {
@@ -1228,7 +1232,6 @@ async def verifyexp(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,
-            'regno': verify.regno
         }
         update = {
             '$set' : {
@@ -1535,8 +1538,8 @@ async def notary_verified():
         return False
     
 class SuperAdminVerify(BaseModel):
-    company_mail:str|None=None
-    email:str|None=None
+    company_mail:Optional[str] = None
+    email:Optional[str] = None
     admin_email:str
     name:str
     status:str="verified"
