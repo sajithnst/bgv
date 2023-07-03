@@ -54,7 +54,7 @@
   <script>
   export default{
   name: 'companyprofile',
-  layout:"SuperAdmin_layout"
+  layout:"SuperAdmin_layout",
     
   async mounted (){
     this.$vuetify.theme.dark =false;

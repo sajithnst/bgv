@@ -54,7 +54,7 @@
   <script>
   export default{
   name: 'notaryprofile',
-  layout:"SuperAdmin_layout"
+  layout:"SuperAdmin_layout",
   async mounted (){
     this.$vuetify.theme.dark =false;
     this.email = this.$storage.getUniversal('notaryemail')
