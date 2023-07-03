@@ -2,7 +2,7 @@
 
 
     <v-container style="width: 80%; ">
-  
+
           <v-container>
             <v-row>
               <v-col style="padding-left: 4%;">
@@ -27,11 +27,11 @@
                     </v-container>
                     <v-container v-if="rejected" class="text-center">
                       <v-icon size="150px" color="red">mdi-cancel</v-icon>
-    
+
                     </v-container>
                   </v-col>
               </v-row>
-          
+
           <v-row>
                 <v-container>
                   <br>
@@ -43,22 +43,22 @@
 
                 </v-container>
               </v-row>
-  
-         
+
+
           </v-container>
           </v-container>
-  
-  
-    
+
+
+
   </template>
-  
+
   <script>
   export default{
   name: 'notaryprofile',
   layout:"SuperAdmin_layout",
   async mounted (){
     this.$vuetify.theme.dark =false;
-    this.email = this.$storage.getUniversal('notaryemail')
+    this.email = this.$storage.getUniversal('notary_email')
     let url = "http://127.0.0.1:8000/notary"
     let res = await this.$axios.get(url,{params:{ email :this.email}});
     this.pdata=res.data
@@ -85,9 +85,9 @@
         let nres = await this.$axios.get(nurl,{params:{admin_email: this.admin_email}})
         this.ndata = nres.data
         console.log(this.ndata)
-  
-  
-  
+
+
+
   },
   data: () =>({
     email:"",
@@ -99,8 +99,8 @@
     pending: false,
     verified: false,
     rejected: false
-  
-  
+
+
   }),
   methods:{
     async approve(email,name){
@@ -128,4 +128,3 @@
   }
   }
   </script>
-  

@@ -4,24 +4,23 @@
         <v-list density="compact">
           <v-list-item
             v-for="info in infos"
-            :key="info.email"
-            :value="info.email"
+            :key="info.company_mail"
             active-color="primary"
           >
             <v-list-item-title v-text="info.name"></v-list-item-title>
             <v-list-item-subtitle v-text="info.company_mail"></v-list-item-subtitle>
             <v-btn icon @click="view(info.company_mail)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
-            
+
           </v-list-item>
         </v-list>
       </v-container>
       <v-container v-if="hide">
         <h2 class="text-center" style="color: darkblue;"> No Requests </h2><br /><br/>
       </v-container>
-  
+
       </v-container>
   </template>
-  
+
   <script>
   export default{
       name :"companyrequests",
@@ -32,7 +31,7 @@
           let res = await this.$axios.get(url)
           this.infos = res.data.list
           this.count = res.data.count
-  
+
           if(this.infos == false){
             this.hide = true
             this.show = false
@@ -42,28 +41,27 @@
             this.hide = false
           }
       },
-  
+
       data:() =>({
         infos: [],
         count:{},
         show: false,
         hide: false
-  
+
       }),
       methods:{
         async home(){
           this.$router.push("/");
         },
-  
+
         async view(company_mail){
           this.$storage.setUniversal('company_email',company_mail)
-          
+
           this.$router.push("/companyyprofile")
         },
 
-  
+
       }
-  
+
     }
   </script>
-  
