@@ -572,6 +572,44 @@ def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File
         file.file.close()
     return True
 ######### PG DETAILS ##################
+class updation(BaseModel):
+    email: str 
+    status: str="pending"
+
+@app.post('/user/pgupdation')
+async def add_pgupdation(pg: updation):
+    filter={
+        'email': pg.email,
+    }
+    update={
+        '$set':{
+            'status': pg.status
+        }
+    }
+    try:
+        client.bgv.user.find_one_and_update(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/user/expupdation')
+async def add_expupdation(exp: updation):
+    filter={
+        'email': exp.email,
+    }
+    update={
+        '$set':{
+            'status': exp.status
+        }
+    }
+    try:
+        client.bgv.user.find_one_and_update(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
 class PG(BaseModel):
     pg_regno : str
     email : str
