@@ -1635,3 +1635,21 @@ async def inprogress_hse(data:InProgress):
     except Exception as e:
         print(str(e))
         return False
+    
+
+@app.post('/ug/inprogress')
+async def inprogress_ug(data:InProgress):
+    filter={
+        'email':data.email
+    }
+    update={
+        '$set':{
+            'status':data.status
+      }
+    }
+    try:
+        client.bgv.ug.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
