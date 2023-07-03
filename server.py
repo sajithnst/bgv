@@ -1671,3 +1671,22 @@ async def inprogress_pg(data:InProgress):
     except Exception as e:
         print(str(e))
         return False
+    
+
+   
+@app.post('/exp/inprogress')
+async def inprogress_exp(data:InProgress):
+    filter={
+        'email':data.email
+    }
+    update={
+        '$set':{
+            'status':data.status
+      }
+    }
+    try:
+        client.bgv.exp.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
