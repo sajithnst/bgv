@@ -823,7 +823,7 @@ async def add_hr(hr:HrModel):
     else: 
         return False
 @app.get('/hr')
-async def get_notary(company_mail: str):
+async def get_hr(company_mail: str):
     try :
         filter = {
             'company_mail':company_mail
@@ -1410,7 +1410,7 @@ async def get_user(admin_email:str):
         '_id':0,
     }
     if client.bgv.admin.count_documents(filter)==1:
-        return dict(client.bgvadmin.find_one(filter,project))
+        return dict(client.bgv.admin.find_one(filter,project))
     else:
         return False
 
