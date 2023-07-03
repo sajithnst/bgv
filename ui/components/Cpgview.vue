@@ -7,12 +7,12 @@
           <v-row>
             <v-col style="padding-left: 4%; ">
 
-            <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
-            <h3 class="text-subtitle-1"> Marks : {{ data.marks }}</h3>
-            <h3 class="text-subtitle-1"> Specialization : {{ data.specialization }}</h3>
-            <h3 class="text-subtitle-1"> College : {{ data.college }} </h3>
-            <h3 class="text-subtitle-1"> University : {{ data.university }}</h3>
-            <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
+            <h3 class="text-subtitle-1"> Register Number :{{ data.pg_regno}}</h3>
+            <h3 class="text-subtitle-1"> Marks : {{ data.pg_marks }}</h3>
+            <h3 class="text-subtitle-1"> Specialization : {{ data.pg_specialization }}</h3>
+            <h3 class="text-subtitle-1"> College : {{ data.pg_college }} </h3>
+            <h3 class="text-subtitle-1"> University : {{ data.pg_university }}</h3>
+            <h3 class="text-subtitle-1"> Year of Completion : {{ data.pg_passout }}</h3>
             <h3 class="text-subtitle-1"> Status : {{ data.status }}</h3>
             <br>
           <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
@@ -41,7 +41,7 @@
       <v-row>
         <v-container>
           &emsp; &emsp;
-          <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+          <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
 
         </v-container>
       </v-row>
@@ -101,11 +101,11 @@ export default{
 
     }),
     methods:{
-    async doc(email, regno){
+    async doc(email, pg_regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: regno
+          pg_regno: pg_regno
         },
         responseType: 'arraybuffer'
       })
@@ -117,7 +117,7 @@ export default{
 
         window.open(url)
       })
-      console.log(regno)
+      console.log(pg_regno)
 
     }
    }

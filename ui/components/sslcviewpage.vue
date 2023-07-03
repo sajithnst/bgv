@@ -6,11 +6,11 @@
         <v-container v-if="data_s">
           <v-row>
             <v-col style="padding-left: 4%;">
-              <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
-           <h3 class="text-subtitle-1"> Marks : {{ data.marks }}</h3>
-           <h3 class="text-subtitle-1"> School : {{ data.school }} </h3>
-           <h3 class="text-subtitle-1"> Board : {{ data.board }}</h3>
-           <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
+              <h3 class="text-subtitle-1"> Register Number :{{ data.sslc_regno}}</h3>
+           <h3 class="text-subtitle-1"> Marks : {{ data.sslc_marks }}</h3>
+           <h3 class="text-subtitle-1"> School : {{ data.sslc_school }} </h3>
+           <h3 class="text-subtitle-1"> Board : {{ data.sslc_board }}</h3>
+           <h3 class="text-subtitle-1"> Year of Completion : {{ data.sslc_passout }}</h3>
            <br>
            <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
            <h6 v-if="data.edited_on" class="text-subtitle-3"> Edited on : {{ data.edited_on }}</h6>
@@ -33,7 +33,7 @@
 
               <v-container class="text-center">
                 <v-card-action>
-                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
                 </v-card-action>
               </v-container>
 
@@ -101,11 +101,11 @@ export default{
 
    }),
    methods:{
-    async doc(email, regno){
+    async doc(email, sslc_regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: regno
+          sslc_regno: sslc_regno
         },
         responseType: 'arraybuffer'
       })
@@ -117,7 +117,7 @@ export default{
 
         window.open(url)
       })
-      console.log(regno)
+      console.log(sslc_regno)
 
     },
     async edit(){

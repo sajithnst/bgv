@@ -3,11 +3,11 @@
         <v-form >
             <h4 class="text-center"> HSE Details</h4>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-            <v-text-field label="Registration Number" v-model="regno" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Marks in Percents" v-model="marks" :rules="[rules.required,rules.percents]"></v-text-field>
+            <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Marks in Percents" v-model="hse_marks" :rules="[rules.required,rules.percents]"></v-text-field>
             <v-text-field label="Year of Completion" v-model="passout" :rules="[rules.required]" ></v-text-field>
-            <v-text-field label="School" v-model="school" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Board" v-model="board" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="School" v-model="hse_school" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Board" v-model="hse_board" :rules="[rules.required]"></v-text-field>
             <v-file-input @change="fileselect"  label = "Upload PDF Files"  :rules="[rules.required]"></v-file-input>
             <v-container class="text-center">
             <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
@@ -27,14 +27,14 @@ export default{
 
     },
     data:() =>({
-        regno : null,
-        marks : null,
+        hse_regno : null,
+        hse_marks : null,
         email: null,
         passout: null,
-        school : null,
+        hse_school : null,
         fail: null,
-        school : null,
-        board : null,
+        hse_school : null,
+        hse_board : null,
         rules : {
             required: (v) => !!v || "Required",
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
@@ -47,19 +47,19 @@ export default{
         async submit(){
             let url= "http://127.0.0.1:8000/hse"
             let hdata = {
-                regno : this.regno,
+                hse_regno : this.hse_regno,
                 email : this.email,
                 name : this.name,
-                marks: this.marks,
+                hse_marks: this.hse_marks,
                 passout: this.passout,
-                school: this.school,
-                board : this.board
+                hse_school: this.hse_school,
+                hse_board : this.hse_board
 
             }
             let result = await this.$axios.post(url,hdata);
             let formdata = new FormData()
             formdata.append('email',this.email)
-            formdata.append('regno',this.regno)
+            formdata.append('hse_regno',this.hse_regno)
             formdata.append('file',this.file)
             let furl = "http://127.0.0.1:8000/uploadhsepdf"
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});

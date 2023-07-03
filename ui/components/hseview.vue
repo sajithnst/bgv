@@ -6,11 +6,11 @@
           <v-container>
             <v-row>
               <v-col style="padding-left: 4%;">
-                <h3 class="text-subtitle-1"> Register Number :{{ data.regno}}</h3>
-            <h3 class="text-subtitle-1"> Marks : {{ data.marks }}</h3>
-            <h3 class="text-subtitle-1"> School : {{ data.school }} </h3>
-            <h3 class="text-subtitle-1"> Board : {{ data.board }}</h3>
-            <h3 class="text-subtitle-1"> Year of Completion : {{ data.passout }}</h3>
+                <h3 class="text-subtitle-1"> Register Number :{{ data.hse_regno}}</h3>
+            <h3 class="text-subtitle-1"> Marks : {{ data.hse_marks }}</h3>
+            <h3 class="text-subtitle-1"> School : {{ data.hse_school }} </h3>
+            <h3 class="text-subtitle-1"> Board : {{ data.hse_board }}</h3>
+            <h3 class="text-subtitle-1"> Year of Completion : {{ data.hse_passout }}</h3>
             <br>
           <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
               <h6 v-if="data.edited_on" class="text-subtitle-3"> Edited on : {{ data.edited_on }}</h6>
@@ -35,9 +35,9 @@
           <v-container>
             <br>
             &emsp;&emsp;
-            <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email, data.regno, ndata.name)">Approve</v-btn>&emsp;
-            <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.regno, ndata.name)">Reject</v-btn>&emsp;
-            <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+            <v-btn color="indigo darken-4" style="color:white;" @click="approve(data.email, data.hse_regno, ndata.name)">Approve</v-btn>&emsp;
+            <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.hse_regno, ndata.name)">Reject</v-btn>&emsp;
+            <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.hse_regno)">Document</v-btn>
           </v-container>
         </v-row>
       </v-card>
@@ -85,11 +85,11 @@ export default{
         rejected: false
     }),
     methods:{
-    async doc(email, regno){
+    async doc(email, hse_regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: regno
+          hse_regno: hse_regno
         },
         responseType: 'arraybuffer'
       })
@@ -101,14 +101,14 @@ export default{
 
         window.open(url)
       })
-      console.log(regno)
+      console.log(hse_regno)
 
     },
-    async approve(email, regno, name){
+    async approve(email, hse_regno, name){
       let url= "http://127.0.0.1:8000/verify/hse"
       let verify = {
         user_email: email,
-        regno: regno,
+        hse_regno: hse_regno,
         notary_email: this.ndata.email,
         notary_name: name
       }
@@ -116,12 +116,12 @@ export default{
       window.location.reload()
 
     },
-    async deny(email, regno, name){
+    async deny(email, hse_regno, name){
         console.log(email, name)
         let url = "http://127.0.0.1:8000/verify/hse"
         let reject={
           user_email: email,
-          regno: regno,
+          hse_regno: hse_regno,
           notary_email: this.ndata.email,
           notary_name: name,
           status: "rejected"
