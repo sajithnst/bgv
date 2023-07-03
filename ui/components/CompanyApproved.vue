@@ -13,8 +13,8 @@
             active-color="primary"
           >
             <v-list-item-title v-text="info.name"></v-list-item-title>
-            <v-list-item-subtitle v-text="info.email"></v-list-item-subtitle>
-            <v-btn icon @click="view(info.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
+            <v-list-item-subtitle v-text="info.company_mail"></v-list-item-subtitle>
+            <v-btn icon @click="view(info.company_mail)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
 
           </v-list-item>
         </v-list>
@@ -58,10 +58,10 @@
           this.$router.push("/");
         },
   
-        async view(email){
-            this.$storage.setUniversal('company_email',email)
+        async view(company_mail){
+            this.$storage.setUniversal('company_email',company_mail)
           
-          this.$router.push("/")
+          this.$router.push("/companyyprofile")
         },
     
       }
