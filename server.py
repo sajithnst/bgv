@@ -1601,3 +1601,20 @@ async def inprogress_personal(data:InProgress):
     except Exception as e:
         print(str(e))
         return False
+    
+@app.post('/sslc/inprogress')
+async def inprogress_sslc(data:InProgress):
+    filter={
+        'email':data.email
+    }
+    update={
+        '$set':{
+            'status':data.status
+      }
+    }
+    try:
+        client.bgv.sslc.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
