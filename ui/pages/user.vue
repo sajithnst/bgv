@@ -52,8 +52,15 @@
                   <v-card-title>Profile Submission</v-card-title>
                 </v-row>
                 <br>
-                <v-container class="text-center">
+                <v-container class="text-center" >
                   <v-btn color="indigo darken-4" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
+
+                </v-container>
+                <v-container v-if="success" class="text-center">
+                  <v-card-subtitle>You have submitted the profile</v-card-subtitle>
+                </v-container>
+                <v-container v-if="fail" class="text-center">
+                  <v-card-subtitle  style="color:red">*Check whether you have entered the details</v-card-subtitle>
                 </v-container>
 
               </v-card>
@@ -76,7 +83,9 @@
       this.data= res.data
     },
     data: () => ({
-      data:{}
+      data:{},
+      success: false,
+      fail: false
     }),
     methods:{
       async submit(email){
@@ -86,7 +95,16 @@
           email: email,
         }
         let nres = await this.$axios.post(nurl,ndata)
-        console.log(nres.data)
+        this.pdata = nres.data
+        if(this.pdata == true){
+          this.success = true
+          this.fail = false
+        }
+        else{
+          this.success = false
+          this.fail = true
+        }
+
 
       }
     }

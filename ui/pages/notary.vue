@@ -2,19 +2,29 @@
   <v-container>
     <br>
       <v-container>
+
         <v-row>
-          <v-container class="text-center">
-            <v-row>
-              <v-spacer/>
-              <h4> Current Login: {{ pdata.login_date }}</h4>
-              <v-spacer/>
-            </v-row>
-            <v-row>
-              <v-spacer/>
-              <h4 v-if="pdata.last_login"> Last Login: {{ pdata.last_login }}</h4>
-              <v-spacer/>
-            </v-row>
-          </v-container>
+          <v-col>
+            <v-card width="99%">
+              <v-container>
+                <h4>&ensp; Current Login: &ensp; &ensp;{{ pdata.login_date }}</h4>
+
+              </v-container>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="97%">
+              <v-container>
+                <h4 v-if="pdata.last_login">&ensp; Last Login: &ensp;&ensp;{{ pdata.last_login }}</h4>
+
+              </v-container>
+
+            </v-card>
+          </v-col>
+          <v-spacer/>
+        </v-row>
+
+        <v-row>
           <v-col>
             <v-card height="180.5px">
               <v-card-title>Total Profiles</v-card-title>
