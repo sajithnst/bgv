@@ -1579,3 +1579,25 @@ async def verify_notary(data:SuperAdminVerify):
         print(str(e))
         return False
     
+
+#####################InProgress###################
+class Inprogress(BaseModel):
+    email:str
+    status:str="InProgress"
+
+@app.post('/personal/inprogress')
+async def inprogress_personal(data:InProgress):
+    filter={
+        'email':data.email
+    }
+    update={
+        '$set':{
+            'status':data.status
+      }
+    }
+    try:
+        client.bgv.personal.find_one_and_update(filter,update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
