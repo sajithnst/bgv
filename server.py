@@ -32,11 +32,38 @@ async def get():
     return True
 ######### API related to users #################################################################
 
+class SubmitModel(BaseModel):
+    email: str
+    status: str='pending'
+
+@app.post('/user/submit')
+async def verify(submit:SubmitModel):
+    personal = client.bgv.personal.count_documents({'email' : submit.email})
+    sslc = client.bgv.sslc.count_documents({'email':submit.email})
+    hse = client.bgv.hse.count_documents({'email':submit.email})
+    ug = client.bgv.ug.count_documents({'email' : submit.email})
+   
+    if personal == 0 and sslc == 0 and hse == 0 and ug == 0:
+        return False
+    else:
+        try:
+            filter = {
+                'email': submit.email,
+            }
+            update ={
+                '$set':{'status': submit.status}
+            }
+            client.bgv.user.update_one(filter=filter,update=update)
+            return True
+        except Exception as e:
+            print(str(e))
+
+
+
 class UserModel(BaseModel):
     name : str
     email : str
     password : str
-    firstlogin : bool
     status : str = 'pending'
 
 ### create a new user and also create a folder with email as filename
@@ -1551,3 +1578,4 @@ async def verify_notary(data:SuperAdminVerify):
     except Exception as e:
         print(str(e))
         return False
+    
