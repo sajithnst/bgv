@@ -96,14 +96,14 @@
                 <v-btn
                   text
                   color="indigo darken-4"
-                  @click="reveal = true"
+                  @click="reveal1 = true"
                 >
                   Show
                 </v-btn>
               </v-card-actions>
               <v-expand-transition>
                 <v-card
-                  v-if="reveal"
+                  v-if="reveal1"
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%;"
                 >
@@ -112,7 +112,7 @@
                     <v-btn
                       text
                       color="red"
-                      @click="reveal = false"
+                      @click="reveal1 = false"
                     >
                       Close
                     </v-btn>
@@ -131,14 +131,14 @@
               <v-btn
                 text
                 color="indigo darken-4"
-                @click="approve = true"
+                @click="approve1 = true"
               >
                 Show
               </v-btn>
             </v-card-actions>
             <v-expand-transition>
               <v-card
-          v-if="approve"
+          v-if="approve1"
           class="transition-fast-in-fast-out v-card--reveal"
           style="height: 100%;"
         >
@@ -150,7 +150,7 @@
             <v-btn
               text
               color="red"
-              @click="approve = false"
+              @click="approve1 = false"
             >
               Close
             </v-btn>
@@ -196,6 +196,8 @@ export default {
   data: () => ({
       reveal: false,
       approve: false,
+      reveal1: false,
+      approve1: false,
       count:{},
       count1:{},
       counts:{}

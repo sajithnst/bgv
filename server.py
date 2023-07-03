@@ -1581,7 +1581,7 @@ async def verify_notary(data:SuperAdminVerify):
     
 
 #####################InProgress###################
-class Inprogress(BaseModel):
+class InProgress(BaseModel):
     email:str
     status:str="InProgress"
 

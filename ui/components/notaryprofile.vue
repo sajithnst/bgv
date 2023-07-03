@@ -27,6 +27,7 @@
                     </v-container>
                     <v-container v-if="rejected" class="text-center">
                       <v-icon size="150px" color="red">mdi-cancel</v-icon>
+    
                     </v-container>
                   </v-col>
               </v-row>
@@ -63,7 +64,7 @@
     this.pdata=res.data
     console.log(this.pdata)
 
-    if (this.pdata.status == "pending"){
+        if (this.pdata.status == "pending"){
           this.pending = true
           this.verified = false
           this.rejected = false
