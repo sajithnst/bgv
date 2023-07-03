@@ -5,7 +5,7 @@
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
             <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Marks in Percents" v-model="hse_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-            <v-text-field label="Year of Completion" v-model="passout" :rules="[rules.required]" ></v-text-field>
+            <v-text-field label="Year of Completion" v-model="hse_passout" :rules="[rules.required]" ></v-text-field>
             <v-text-field label="School" v-model="hse_school" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Board" v-model="hse_board" :rules="[rules.required]"></v-text-field>
             <v-file-input @change="fileselect"  label = "Upload PDF Files"  :rules="[rules.required]"></v-file-input>
@@ -30,7 +30,7 @@ export default{
         hse_regno : null,
         hse_marks : null,
         email: null,
-        passout: null,
+        hse_passout: null,
         hse_school : null,
         fail: null,
         hse_school : null,
@@ -49,9 +49,8 @@ export default{
             let hdata = {
                 hse_regno : this.hse_regno,
                 email : this.email,
-                name : this.name,
                 hse_marks: this.hse_marks,
-                passout: this.passout,
+                hse_passout: this.hse_passout,
                 hse_school: this.hse_school,
                 hse_board : this.hse_board
 

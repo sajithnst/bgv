@@ -44,7 +44,7 @@ async def verify(submit:SubmitModel):
     hse = client.bgv.hse.count_documents({'email':submit.email})
     ug = client.bgv.ug.count_documents({'email' : submit.email})
    
-    if personal == 0 and sslc == 0 and hse == 0 and ug == 0:
+    if personal == 0 or sslc == 0 or hse == 0 or ug == 0:
         return False
     else:
         try:
@@ -383,7 +383,6 @@ async def getpdf(email: str, sslc_regno: str):
 class HSE (BaseModel):
     hse_regno: str
     email : str
-    hse_name : str
     hse_marks : int
     hse_passout : str
     hse_school : str
