@@ -99,6 +99,12 @@ export default{
     }),
     methods:{
       async approve(email, name){
+        let nurl = "http://127.0.0.1:8000/personal/inprogress"
+        let ndata={
+          'email': this.email,
+        }
+        let nres = await this.$axios.post(nurl,ndata)
+        
         let url = "http://127.0.0.1:8000/verify/personaldetails"
         let verify={
           user_email: email,
