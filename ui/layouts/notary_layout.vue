@@ -3,8 +3,7 @@
 
     <v-app-bar app color="indigo darken-4">
       <v-btn icon @click="home()" color="white"><v-icon size="32">mdi-home</v-icon></v-btn>
-
-      &emsp; &emsp;
+      <v-spacer/>
       <h2 style="color: ghostwhite;"> Admin</h2>
       <v-spacer></v-spacer>
       <v-menu offset-y>

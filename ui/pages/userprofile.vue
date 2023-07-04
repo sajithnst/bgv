@@ -67,6 +67,14 @@
                               {{ pdata.notary_last_visited }}
                             </v-list-item-subtitle>
                           </v-list-item>
+                          <v-list-item>
+                            <v-list-item-title>Last visiting time</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-subtitle>
+                              {{ pdata.notary_last_visited }}
+                            </v-list-item-subtitle>
+                          </v-list-item>
                         </v-list>
 
                       </v-container>
