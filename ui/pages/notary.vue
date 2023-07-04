@@ -87,7 +87,8 @@
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%;"
                 >
-                  <notary_inprogress/>
+                  <notaryinprogress/>
+
                   <v-card-actions class="pt-0">
                     <v-btn
                       text
@@ -159,6 +160,11 @@ export default {
         this.profiles = res.data.list
         this.count = res.data.count
 
+        let rurl = "http://127.0.0.1:8000/inprogressuser"
+    let rres = await this.$axios.get(rurl)
+    this.count2 = rres.data.count
+
+
     let surl = "http://127.0.0.1:8000/verifiedusers"
     let sres = await this.$axios.get(surl)
     this.count1 = sres.data.count1
@@ -167,10 +173,7 @@ export default {
     let tres = await this.$axios.get(turl)
     this.counts = tres.data.counts
 
-    let rurl = "http://127.0.0.1:8000/inprogressuser"
-    let rres = await this.$axios.get(rurl)
-    this.count2 = rres.data.count
-
+   
 
     this.$vuetify.theme.dark =false;
     this.email = this.$storage.getUniversal('notaryemail')

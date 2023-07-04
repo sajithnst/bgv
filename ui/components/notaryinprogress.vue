@@ -24,7 +24,7 @@
   
   <script>
   export default{
-      name :"notary_inprogress",
+      name :"notaryinprogress",
       async mounted(){
           this.$vuetify.theme.dark=false;
           let url = "http://127.0.0.1:8000/inprogressuser"
