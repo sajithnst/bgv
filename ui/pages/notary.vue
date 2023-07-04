@@ -69,6 +69,42 @@
           </v-col>
           <v-col>
             <v-card>
+
+              <v-card-title>INPROGRESS PROFILES</v-card-title>
+              <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count2 }}</h1></v-card-title>
+              <v-card-actions>
+                <v-btn
+                  text
+                  color="indigo darken-4"
+                  @click="reveal = true"
+                >
+                  Show
+                </v-btn>
+              </v-card-actions>
+              <v-expand-transition>
+                <v-card
+                  v-if="reveal"
+                  class="transition-fast-in-fast-out v-card--reveal"
+                  style="height: 100%;"
+                >
+                  <notary_inprogress/>
+                  <v-card-actions class="pt-0">
+                    <v-btn
+                      text
+                      color="red"
+                      @click="reveal = false"
+                    >
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+
+              </v-expand-transition>
+            </v-card>
+
+          </v-col>
+          <v-col>
+            <v-card>
               <v-card-title>COMPLETED PROFILE</v-card-title>
               <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count1 }}</h1></v-card-title>
             <v-card-actions>
@@ -131,6 +167,10 @@ export default {
     let tres = await this.$axios.get(turl)
     this.counts = tres.data.counts
 
+    let rurl = "http://127.0.0.1:8000/inprogressuser"
+    let rres = await this.$axios.get(rurl)
+    this.count2 = rres.data.count
+
 
     this.$vuetify.theme.dark =false;
     this.email = this.$storage.getUniversal('notaryemail')
@@ -145,6 +185,7 @@ export default {
       approve: false,
       count:{},
       count1:{},
+      count2:{},
       counts:{},
       pdata:{}
     }),

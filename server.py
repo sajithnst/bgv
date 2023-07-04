@@ -1639,7 +1639,7 @@ async def inprogress_personal(data:InProgress):
       }
     }
     try:
-        client.bgv.personal.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
     except Exception as e:
         print(str(e))
@@ -1656,7 +1656,7 @@ async def inprogress_sslc(data:InProgress):
       }
     }
     try:
-        client.bgv.sslc.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
     except Exception as e:
         print(str(e))
@@ -1673,7 +1673,7 @@ async def inprogress_hse(data:InProgress):
       }
     }
     try:
-        client.bgv.hse.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
     except Exception as e:
         print(str(e))
@@ -1691,7 +1691,7 @@ async def inprogress_ug(data:InProgress):
       }
     }
     try:
-        client.bgv.ug.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
     except Exception as e:
         print(str(e))
@@ -1709,7 +1709,7 @@ async def inprogress_pg(data:InProgress):
       }
     }
     try:
-        client.bgv.pg.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
     except Exception as e:
         print(str(e))
@@ -1728,8 +1728,55 @@ async def inprogress_exp(data:InProgress):
       }
     }
     try:
-        client.bgv.exp.find_one_and_update(filter,update)
+        client.bgv.user.find_one_and_update(filter,update)
         return True
+    except Exception as e:
+        print(str(e))
+        return False
+    
+
+class UserVerified(BaseModel):
+    email: str
+    status: str='verified'
+
+@app.post('/user/4verified')
+async def verify(submit:UserVerified):
+    personal = client.bgv.personal.count_documents({'email' : submit.email, 'status': False})
+    sslc = client.bgv.sslc.count_documents({'email':submit.email,'status':False})
+    hse = client.bgv.hse.count_documents({'email':submit.email,'status': False})
+    ug = client.bgv.ug.count_documents({'email' : submit.email,'status':False})
+   
+    if personal == 0 and sslc == 0 and hse == 0 and ug == 0:
+        return False
+    else:
+        try:
+            filter = {
+                'email': submit.email,
+            }
+            update ={
+                '$set':{'status': submit.status}
+            }
+            
+            client.bgv.user.update_one(filter=filter,update=update)
+            return True
+
+        except Exception as e:
+            print(str(e))
+            return False
+
+@app.get('/inprogressuser')
+async def inprogressuser():
+    filter ={
+        'status' : 'InProgress',
+    }
+    project ={
+        '_id':0,
+        }
+    
+    try:
+        count = client.bgv.user.count_documents(filter)
+        return {"count":count, "list": list(client.bgv.user.find(filter,project))}
+        
     except Exception as e:
         print(str(e))
         return False
