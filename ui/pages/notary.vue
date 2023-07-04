@@ -76,14 +76,14 @@
                 <v-btn
                   text
                   color="indigo darken-4"
-                  @click="reveal = true"
+                  @click="reveal2 = true"
                 >
                   Show
                 </v-btn>
               </v-card-actions>
               <v-expand-transition>
                 <v-card
-                  v-if="reveal"
+                  v-if="reveal2"
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%;"
                 >
@@ -92,7 +92,7 @@
                     <v-btn
                       text
                       color="red"
-                      @click="reveal = false"
+                      @click="reveal2 = false"
                     >
                       Close
                     </v-btn>
@@ -182,6 +182,7 @@ export default {
   },
   data: () => ({
       reveal: false,
+      reveal2:false,
       approve: false,
       count:{},
       count1:{},
