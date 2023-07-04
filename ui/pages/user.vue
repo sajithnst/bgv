@@ -53,7 +53,7 @@
                 </v-row>
                 <br>
                 <v-container class="text-center" >
-                  <v-btn color="indigo darken-4" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
+                  <v-btn color="indigo darken-4" v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
@@ -81,11 +81,22 @@
       let url = "http://127.0.0.1:8000/user"
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
+      console.log(this.data)
+      if(this.data.submit_button == false){
+        this.show = false
+      }
+      else{
+        this.show = true
+      }
+
+
     },
     data: () => ({
       data:{},
       success: false,
-      fail: false
+      fail: false,
+      show: false,
+      
     }),
     methods:{
       async submit(email){

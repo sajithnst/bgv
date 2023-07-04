@@ -36,6 +36,7 @@ async def get():
 class SubmitModel(BaseModel):
     email: str
     status: str='pending'
+    submit_button: bool = False 
 
 @app.post('/user/submit')
 async def verify(submit:SubmitModel):
@@ -52,7 +53,7 @@ async def verify(submit:SubmitModel):
                 'email': submit.email,
             }
             update ={
-                '$set':{'status': submit.status}
+                '$set':{'status': submit.status, 'submit_button': submit.submit_button}
             }
             client.bgv.user.update_one(filter=filter,update=update)
             return True
@@ -65,7 +66,7 @@ class UserModel(BaseModel):
     name : str
     email : str
     password : str
-    status : str = 'pending'
+    submit_button: bool = True 
 
 ### create a new user and also create a folder with email as filename
 @app.post('/user')
@@ -574,6 +575,8 @@ def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File
 class updation(BaseModel):
     email: str 
     status: str="pending"
+    submit_button: bool = True 
+
 
 @app.post('/user/pgupdation')
 async def add_pgupdation(pg: updation):
@@ -582,7 +585,7 @@ async def add_pgupdation(pg: updation):
     }
     update={
         '$set':{
-            'status': pg.status
+            'status': pg.status, 'submit_button': pg.submit_button
         }
     }
     try:
@@ -599,7 +602,7 @@ async def add_expupdation(exp: updation):
     }
     update={
         '$set':{
-            'status': exp.status
+            'status': exp.status, 'submit_button': exp.submit_button
         }
     }
     try:
