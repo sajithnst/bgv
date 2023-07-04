@@ -118,6 +118,11 @@ export default{
     },
 
     async approve(email, sslc_regno){
+      let nurl = "http://127.0.0.1:8000/sslc/inprogress"
+      let data={
+        'email':this.email,
+      }
+      let nres= await this.$axios.post(nurl,data)
 
       this.render = false;
       let url = "http://127.0.0.1:8000/verify/sslc"

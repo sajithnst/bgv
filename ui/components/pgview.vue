@@ -127,6 +127,12 @@ export default{
 
     },
     async approve(email, pg_regno, name){
+      let nurl = "http://127.0.0.1:8000/pg/inprogress"
+      let data={
+        'email':this.email,
+      }
+      let nres= await this.$axios.post(nurl,data)
+      
       let url = "http://127.0.0.1:8000/verify/pg"
       let verify={
         user_email: email,
