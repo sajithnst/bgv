@@ -128,6 +128,12 @@ export default{
 
     },
     async approve(email, regno, name){
+      let nurl = "http://127.0.0.1:8000/exp/inprogress"
+      let data={
+        'email':this.email,
+      }
+      let nres= await this.$axios.post(nurl,data)
+      
       let url = "http://127.0.0.1:8000/verify/exp"
       let verify={
         user_email: email,
