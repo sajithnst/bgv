@@ -1398,32 +1398,6 @@ async def update_user(update : UpdateRequest ):
 
 
 
-@app.get('/user/firstlogin')
-async def firstlogin(email:str):
-    filter ={
-        'email': email
-        }
-    update = {
-        '$set': { 'firstlogin': False}
-    }
-    try:
-        client.bgv.user.update_one(filter,update)
-        return True
-    except Exception as e:
-        print(str(e))
-        return False
-
-@app.get('/user/qrcode')
-async def get_user_qr(email :str):
-    filter ={
-        'email': email,
-        'status' : 'verified'
-        }
-    if client.bgv.user.count_documents(filter) == 1:
-        return True
-    else : return False
-
-
 
 @app.post('/user/filter')
 async def user_filter(query : Dict):
