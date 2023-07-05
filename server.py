@@ -1780,32 +1780,43 @@ async def inprogress_exp(data:InProgress):
 
 class UserVerified(BaseModel):
     email: str
-    status: str='verified'
+    status: str="verified"
 
-@app.post('/user/4verified')
-async def verify(submit:UserVerified):
-    personal = client.bgv.personal.count_documents({'email' : submit.email, 'status': False})
-    sslc = client.bgv.sslc.count_documents({'email':submit.email,'status':False})
-    hse = client.bgv.hse.count_documents({'email':submit.email,'status': False})
-    ug = client.bgv.ug.count_documents({'email' : submit.email,'status':False})
-   
-    if personal == 0 and sslc == 0 and hse == 0 and ug == 0:
-        return False
-    else:
+@app.post('/inprogress_verified')
+async def inprogress_verified(user: UserVerified):
+    filter={
+        'email': user.email, 
+        'status': "verified"
+    }
+    project={
+        '_id':0
+    }
+    
+    personal = client.bgv.personal.count_documents(filter)
+    sslc = client.bgv.sslc.count_documents(filter)
+    hse = client.bgv.hse.count_documents(filter)
+    ug = client.bgv.ug.count_documents(filter)
+
+
+    if personal > 0 and sslc > 0 and hse > 0 and ug > 0:
         try:
-            filter = {
-                'email': submit.email,
+            nfilter={
+                'email': user.email,
             }
-            update ={
-                '$set':{'status': submit.status}
+            update = {
+                '$set':{
+                    'status': user.status
+                }
             }
-            
-            client.bgv.user.update_one(filter=filter,update=update)
-            return True
-
+            client.bgv.user.update_one(nfilter,update)
+            return client.bgv.personal.find_one(filter, project)
+        
         except Exception as e:
             print(str(e))
-            return False
+            return False 
+    else:
+        return False  
+
 
 @app.get('/inprogressuser')
 async def inprogressuser():
@@ -1823,3 +1834,4 @@ async def inprogressuser():
     except Exception as e:
         print(str(e))
         return False
+
