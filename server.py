@@ -790,6 +790,23 @@ async def add_exp(exp :Experience):
         return False
 
 @app.get('/exp')
+async def get_experience(email: str):
+    filter ={
+        'email' : email,
+    }
+    project ={
+        '_id':0,
+        }
+    
+    try:
+        
+        return list(client.bgv.exp.find(filter,project))
+        
+    except Exception as e:
+        print(str(e))
+        return False
+
+"""@app.get('/exp')
 async def get_exp(email:str):
     filter = {'email': email}
     project = {
@@ -799,7 +816,7 @@ async def get_exp(email:str):
         return dict(client.bgv.exp.find_one(filter,project))
     except Exception as e:
         print(str(e))
-        return False
+        return False"""
 
 
 
@@ -1062,14 +1079,54 @@ async def login(email : str, password : str):
 
 class HRLogin(BaseModel):
     company_mail :str
-    password :str
+    password : Optional[str] = None
+    login_date: str = datetime.now()
+    last_login: str = datetime.now()
 
-@app.post("/hrlogin")
-async def hrlogin(login : HRLogin):
-    filter = dict(login)
-    if client.bgv.hr.count_documents(filter) ==1:
+@app.post('/hr/login_date')
+async def hr_logindate(login:HRLogin):
+    filter={
+        'company_mail': login.company_mail
+    }
+    update={
+        '$set':{
+            'login_date':login.login_date,
+        }
+    }
+    try:
+        client.bgv.hr.update_one(filter, update)
         return True
-    else: 
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.post('/hr/last_login')
+async def hr_lastlogin(login:HRLogin):
+    filter={
+        'company_mail': login.company_mail
+        }
+    update={
+        '$set':{
+            'last_login':login.last_login,
+        }
+    }
+    try:
+        client.bgv.hr.update_one(filter, update)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+@app.get("/hr/login")
+async def hr_login(company_mail : str, password : str):
+    filter = {
+        'company_mail': company_mail,
+        'password': password
+    }
+
+    if client.bgv.hr.count_documents(filter) ==1:
+        return True 
+    else:
         return False
 
 
@@ -1111,6 +1168,7 @@ async def apprpvedusers():
 
 class Verify(BaseModel):
     user_email : str
+    empid: Optional[str] = None 
     sslc_regno: Optional[str] = None
     hse_regno: Optional[str] = None
     ug_regno: Optional[str] = None
@@ -1256,6 +1314,7 @@ async def verifyexp(verify: Verify):
     try:
         filter = {
             'email' : verify.user_email,
+            'empid' : verify.empid
         }
         update = {
             '$set' : {

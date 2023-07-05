@@ -6,7 +6,7 @@
         <v-row>
           <v-col>
             <v-card width="99%">
-              <v-container>
+              <v-container class="text-center">
                 <h4>&ensp; Current Login: &ensp; &ensp;{{ pdata.login_date }}</h4>
 
               </v-container>
@@ -14,14 +14,13 @@
           </v-col>
           <v-col>
             <v-card width="97%">
-              <v-container>
+              <v-container class="text-center">
                 <h4 v-if="pdata.last_login">&ensp; Last Login: &ensp;&ensp;{{ pdata.last_login }}</h4>
 
               </v-container>
 
             </v-card>
           </v-col>
-          <v-spacer/>
         </v-row>
 
         <v-row>

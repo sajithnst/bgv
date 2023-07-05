@@ -39,18 +39,26 @@ export default{
     }),
     methods:{
         async hrlogin(){
-            let url = "http://127.0.0.1:8000/hrlogin";
-            let hlogin = {
-                company_mail : this.company_mail,
-                password : this.password,
+            
+
+            let url = "http://127.0.0.1:8000/hr/login";
+            let nlogin = {
+                company_mail: this.company_mail,
+                password: this.password
             }
-            let result = await this.$axios.post(url, hlogin);
+            let result = await this.$axios.get(url, {params:{'company_mail': this.company_mail, 'password': this.password}});
             if (result.data === true) {
                 this.$storage.setUniversal('hrmail',this.company_mail)
                 this.$router.push('/hrpage');
             }else{
                 this.fail = true;
             }
+            let nurl = "http://127.0.0.1:8000/hr/login_date"
+       
+            let nres =  await this.$axios.post(nurl, nlogin)
+            
+            
+            
         }
     }
 }

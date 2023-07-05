@@ -2,7 +2,7 @@
   <v-container style="width: 100%; " v-if="data_s">
     <v-card>
       <v-card-title>Exp Details</v-card-title>
-      <v-card-content>
+      <v-card-content v-for="data in datas" :key="data.email">
         <v-container >
           <v-row>
             <v-col style="padding-left: 4%; ">
@@ -33,16 +33,17 @@
             </v-col>
           </v-row>
         </v-container>
+        <v-row>
+          <v-container>
+  
+            &emsp;&emsp;
+            <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+  
+          </v-container>
+  
+        </v-row>
       </v-card-content>
-      <v-row>
-        <v-container>
-
-          &emsp;&emsp;
-          <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
-
-        </v-container>
-
-      </v-row>
+      
     </v-card>
 
       </v-container>
@@ -56,10 +57,10 @@ export default{
       let url = "http://127.0.0.1:8000/exp"
       console.log(this.email)
       let res = await this.$axios.get(url,{params:{email: this.email}})
-      this.data= res.data
-      console.log(this.data)
+      this.datas= res.data
+      console.log(this.datas)
 
-      if(this.data == false){
+      if(this.datas == false){
         this.data_ = true,
         this.data_s = false
       }
@@ -74,18 +75,18 @@ export default{
         this.ndata = nres.data
 
 
-      console.log(this.data)
-      if (this.data.status == false){
+      console.log(this.datas)
+      if (this.datas.status == false){
           this.pending = true
           this.verified = false
           this.rejected = false
         }
-        if(this.data.status == "verified"){
+        if(this.datas.status == "verified"){
           this.verified = true
           this.pending = false
           this.rejected = false
         }
-        if(this.data.status == "rejected"){
+        if(this.datas.status == "rejected"){
           this.rejected = true
           this.pending = false
           this.verified = false
@@ -93,9 +94,7 @@ export default{
   },
   data: () =>({
       email:"",
-      data:{
-
-      },
+      data:[],
       pending: false,
       verified: false,
       rejected: false,

@@ -74,6 +74,12 @@ export default{
         async logout() {
             this.$router.push("/hrsignin");
             this.$storage.removeUniversal('user_email')
+            let url = "http://127.0.0.1:8000/hr/last_login"
+            let ndata={
+              company_mail:this.company_mail,
+            }
+            let nres =  await this.$axios.post(url, ndata)
+
 
         },
         async user(){
