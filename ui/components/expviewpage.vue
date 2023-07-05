@@ -13,7 +13,7 @@
 
     <v-card v-if="!expshow">
       <v-card-title>Experience Details</v-card-title>
-      <v-card-content>
+      <v-card-content  v-for="data in datas" :key="data.email">
         <v-container v-if="data_s">
           <v-row>
             <v-col style="padding-left: 4%;">
@@ -26,14 +26,12 @@
           <h6 class="text-subtitle-3"> Submitted on : {{ data.submitted_on }}</h6>
           <h6 v-if="data.edited_on" class="text-subtitle-3"> Edited on : {{ data.edited_on }}</h6>
           <h6 v-if="data.approved_on, verified" class="text-subtitle-3"> Approved on : {{ data.approved_on }}</h6>
-
-
             </v-col>
             <v-col style="margin-top: -5%;">
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="verified" class="text-center">
+              <v-container v-if="data.status, verified" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
               <v-container v-if="rejected" class="text-center">
@@ -44,12 +42,15 @@
 
               <v-container class="text-center">
                 <v-card-action>
-                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.regno)">Document</v-btn>
+                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
                 </v-card-action>
               </v-container>
 
             </v-col>
           </v-row>
+        </v-container>
+        <v-container>
+          <v-btn text icon @click="addsslc()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
         </v-container>
       </v-card-content>
       <v-card-action >
@@ -74,9 +75,9 @@ export default{
        this.email = this.$storage.getUniversal('login_mail')
        let url = "http://127.0.0.1:8000/exp"
        let res = await this.$axios.get(url,{params:{email: this.email}})
-       this.data= res.data
-       console.log(this.data)
-       if(this.data == false){
+       this.datas= res.data
+       console.log(this.datas)
+       if(this.datas == false){
         this.data_ = true,
         this.data_s = false
       }
@@ -84,17 +85,17 @@ export default{
         this.data_s = true,
         this.data_ = false
       }
-       if (this.data.status == false){
+       if (this.datas.status == false){
           this.pending = true
           this.verified = false
           this.rejected = false
         }
-        if(this.data.status == "verified"){
+        if(this.datas.status == "verified"){
           this.verified = true
           this.pending = false
           this.rejected = false
         }
-        if(this.data.status == "rejected"){
+        if(this.datas.status == "rejected"){
           this.rejected = true
           this.pending = false
           this.verified = false
@@ -103,7 +104,7 @@ export default{
    },
    data: () =>({
        email:"",
-       data:{},
+       datas:[],
        pending: false,
        verified: false,
        rejected: false,
@@ -113,11 +114,11 @@ export default{
 
    }),
    methods:{
-    async doc(email, regno){
+    async doc(email, empid){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: regno
+          empid: empid
         },
         responseType: 'arraybuffer'
       })

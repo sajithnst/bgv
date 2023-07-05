@@ -15,7 +15,11 @@
           <!--<v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
-      </v-list>
+      </v-list> 
+      <v-container class="text-center">
+      <v-pagination v-model="currentPage" :total-visible="5" :length="totalPages" @input="changePage"></v-pagination>
+
+    </v-container>
 
     </v-container>
     <v-container v-if="hide">
@@ -28,7 +32,7 @@
 <script>
 export default{
     name :"notaryapproved",
-    layout: "notary_layout",
+    
     async mounted(){
         this.$vuetify.theme.dark=false;
         let url = "http://127.0.0.1:8000/verifiedusers"
@@ -45,15 +49,33 @@ export default{
         }
     },
 
-    data:() =>({
+    data() {
+      return{
+      currentPage : 1,
       profiles: [],
+      requests:{},
       notary_email: null,
       notary_name: null,
       wallet:0,
       show: false,
       hide:false
-    }),
+    };
+  },
+
+  computed: {
+    totalPages() {
+      return Math.ceil(this.requests.length / 10);
+    },
+    paginatedRequests() {
+      const startIndex = (this.currentPage - 1) * 10;
+      const endIndex = startIndex + 10;
+      return this.requests.slice(startIndex, endIndex);
+    },
+},
     methods:{
+      changePage(page) {
+        this.currentPage = page;
+      },
       async home(){
         this.$router.push("/");
       },

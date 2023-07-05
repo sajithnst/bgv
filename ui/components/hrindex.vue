@@ -1,5 +1,25 @@
 <template>
   <v-container>
+    
+    <v-row>
+      <v-col>
+        <v-card width="99%">
+          <v-container class="text-center">
+            <h4>&ensp; Current Login: &ensp; &ensp;{{ pdata.login_date }}</h4>
+
+          </v-container>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card width="97%">
+          <v-container class="text-center">
+            <h4 v-if="pdata.last_login">&ensp; Last Login: &ensp;&ensp;{{ pdata.last_login }}</h4>
+
+          </v-container>
+
+        </v-card>
+      </v-col>
+    </v-row>
     <br><br>
     <v-container class="text-center" fluid style="width:30%">
       <v-text-field label="Enter Email Address" v-model="email"></v-text-field>
@@ -22,7 +42,6 @@
       >
         <v-list-item-title v-text="users.name"></v-list-item-title>
         <v-list-item-subtitle v-text="users.email"></v-list-item-subtitle>
-        <v-list-item-subtitle v-text="users.mob"></v-list-item-subtitle>
         <v-btn icon @click="view(users.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
         <!--<v-btn icon @click="approve(profile.email)"><v-icon color="green">mdi-account-check-outline</v-icon></v-btn>&emsp;&emsp;
         <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
@@ -58,11 +77,19 @@ export default {
   name:"hrsearch",
   async mounted(){
         this.$vuetify.theme.dark=false;
+        this.company_mail = this.$storage.getUniversal('hrmail')
+        let nurl = "http://127.0.0.1:8000/hr"
+        let nres = await this.$axios.get(nurl,{params:{ company_mail :this.company_mail}});
+        this.pdata = nres.data
+        console.log(this.pdata)
     },
     data:() =>({
         email:"",
+        login_date:"",
+        last_login:"",
         company_mail:"",
         users:[],
+        pdata:{},
         user_yes: false,
         user_no: false
     }),
@@ -86,7 +113,7 @@ export default {
 
       async view(email){
         this.$storage.setUniversal('search_email', email)
-        this.$router.push('/companyprofile')
+        this.$router.push('/User_companyprofile')
       },
       async upload(){
         this.company_mail = await this.$storage.getUniversal('hrmail')
