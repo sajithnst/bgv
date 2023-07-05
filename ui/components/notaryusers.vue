@@ -15,6 +15,10 @@
           <v-btn icon @click="deny(profile.email)"><v-icon color="error">mdi-account-remove-outline</v-icon></v-btn>-->
         </v-list-item>
       </v-list>
+      <v-container class="text-center">
+      <v-pagination v-model="currentPage" :total-visible="5" :length="totalPages" @input="changePage"></v-pagination>
+
+    </v-container>
 
     </v-container>
     <v-container v-if="hide">
@@ -45,8 +49,11 @@ export default{
         }
     },
 
-    data:() =>({
+    data(){
+      return{
+      currentPage:1,  
       profiles: [],
+      requests:{},
       count:{},
       notary_email: null,
       notary_name: null,
@@ -54,8 +61,23 @@ export default{
       show: false,
       hide: false
 
-    }),
+    };
+  },
+  computed: {
+     totalPages() {
+       return Math.ceil(this.requests.length / 10);
+     },
+     paginatedRequests() {
+       const startIndex = (this.currentPage - 1) * 10;
+       const endIndex = startIndex + 10;
+       return this.requests.slice(startIndex, endIndex);
+     },
+},
     methods:{
+      changePage(page) {
+         this.currentPage = page;
+  },
+
       async home(){
         this.$router.push("/");
       },

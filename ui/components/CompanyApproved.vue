@@ -30,7 +30,7 @@
   <script>
   export default{
       name :"CompanyApproved",
-      
+    
       async mounted(){
           this.$vuetify.theme.dark=false;
           let url = "http://127.0.0.1:8000/company/verified"

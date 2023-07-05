@@ -27,6 +27,7 @@
 
 <script>
 export default {
+  name:"notaryinprogress",
 data() {
   return {
     currentPage: 1,
