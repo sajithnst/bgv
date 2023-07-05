@@ -124,11 +124,7 @@ export default{
       }
       let nres= await this.$axios.post(nurl,data)
 
-      let jurl = "http://127.0.0.1:8000/inprogress_verified"
-      let jdata={
-        'email':this.email,
-      }
-      let jres= await this.$axios.post(jurl,jdata)
+     
        
 
       this.render = false;

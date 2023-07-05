@@ -9,6 +9,7 @@
       <v-list-item-title v-text="request.name"></v-list-item-title>
       <v-list-item-subtitle v-text="request.email"></v-list-item-subtitle>
       <v-btn icon @click="view(request.email)"><v-icon color="indigo darken-4">mdi-card-account-details-outline</v-icon></v-btn>
+      <v-btn icon @click="approve(request.email)"><v-icon color="green">mdi-check</v-icon></v-btn>
       </v-list-item>
     </v-list>
     <v-container class="text-center">
@@ -73,6 +74,14 @@ methods: {
   async view(email){
     this.$storage.setUniversal('user_email', email)
     this.$router.push("/userprofile")
+  },
+  async approve(email){
+    let jurl = "http://127.0.0.1:8000/inprogress_verified"
+      let jdata={
+        'email': email,
+      }
+      let jres= await this.$axios.post(jurl,jdata)
+      window.location.reload()
   }
 },
 };
