@@ -1788,8 +1788,18 @@ async def inprogress_verified(user: UserVerified):
         'email': user.email, 
         'status': "verified"
     }
+    user_filter={
+        'email': user.email,
+        'status': "InProgress"
+    }
+    
     project={
         '_id':0
+    }
+    update={
+        '$set':{
+            'status':user.status
+        }
     }
     
     personal = client.bgv.personal.count_documents(filter)
@@ -1797,25 +1807,51 @@ async def inprogress_verified(user: UserVerified):
     hse = client.bgv.hse.count_documents(filter)
     ug = client.bgv.ug.count_documents(filter)
 
+    count_filter={
+        'email': user.email
+    }
+    if client.bgv.pg.count_documents(count_filter) >0 and client.bgv.exp.count_documents(count_filter) >0:
+        pg = client.bgv.pg.count_documents(filter)
+        exp = client.bgv.exp.count_documents(filter)
+        exp_count = client.bgv.exp.count_documents(count_filter)
+        if personal > 0 and sslc > 0 and hse > 0 and ug > 0 and pg > 0 and exp == exp_count:
+            try:
+                client.bgv.user.find_one_and_update(user_filter, update)
+                return True
+            except Exception as e:
+                print(str(e))
+                return False
 
-    if personal > 0 and sslc > 0 and hse > 0 and ug > 0:
-        try:
-            nfilter={
-                'email': user.email,
-            }
-            update = {
-                '$set':{
-                    'status': user.status
-                }
-            }
-            client.bgv.user.update_one(nfilter,update)
-            return client.bgv.personal.find_one(filter, project)
-        
-        except Exception as e:
-            print(str(e))
-            return False 
+    elif client.bgv.pg.count_documents(count_filter) == 0 and client.bgv.exp.count_documents(count_filter) >0: 
+        exp = client.bgv.exp.count_documents(filter)
+        exp_count = client.bgv.exp.count_documents(count_filter)
+
+        if personal > 0 and sslc > 0 and hse > 0 and ug > 0 and exp == exp_count:
+            try:
+                client.bgv.user.find_one_and_update(user_filter, update)
+                return True
+            except Exception as e:
+                print(str(e))
+                return False
+    elif client.bgv.pg.count_documents(count_filter) > 0 and client.bgv.exp.count_documents(count_filter) == 0:
+        pg = client.bgv.pg.count_documents(filter)
+        if personal > 0 and sslc > 0 and hse > 0 and ug > 0 and pg > 0:
+            try:
+                client.bgv.user.find_one_and_update(user_filter, update)
+                return True
+            except Exception as e:
+                print(str(e))
+                return False
+    elif client.bgv.pg.count_documents(count_filter) == 0  and client.bgv.exp.count_documents(count_filter) == 0:
+        if personal > 0 and sslc > 0 and hse > 0 and ug > 0:
+            try:
+                client.bgv.user.find_one_and_update(user_filter, update)
+                return True
+            except Exception as e:
+                print(str(e))
+                return False
     else:
-        return False  
+        return False
 
 
 @app.get('/inprogressuser')
