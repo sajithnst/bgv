@@ -7,6 +7,8 @@ from fastapi.responses import FileResponse
 from pymongo import MongoClient
 from datetime import datetime
 from typing import Dict , Optional
+from io import StringIO
+import pandas as pd
 import os
 import configparser
 from graph import Graph
@@ -1845,4 +1847,37 @@ async def inprogressuser():
     except Exception as e:
         print(str(e))
         return False
+    
+########################################################################################################################################
+@app.post("/hr/uploadpersonal")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
 
+    user = insert[['email','name']].copy()
+    user['status']='pending'
+    user["password"]="sajith@123"
+    try:
+        client.bgv.user.insert_many(user.to_dict('records'))
+        client.bgv.personal.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)
+    
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata
