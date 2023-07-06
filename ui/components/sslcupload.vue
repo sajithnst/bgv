@@ -11,7 +11,7 @@
                         <v-container style="margin-top:10%">
                             <v-container style="width: 100%; ">
                                 <v-btn>   
-                                 <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download Template</a>
+                                 <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download SSLC Template</a>
                                </v-btn> 
                              </v-container>
                         </v-container>
@@ -44,6 +44,21 @@ export default {
             let res = await this.$axios.post(furl, formdata);
             console.log(res.data)
     }
-  }
+  },
+  methods: {
+    downloadCSVTemplate() {
+      const csvContent ="name,email,sslc_regno,sslc_marks,sslc_passout,sslc_school,sslc_board"
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "hse.csv";
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    },
+   },
 }
 </script>
