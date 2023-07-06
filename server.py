@@ -1899,6 +1899,14 @@ async def upload_csv(csv_file: UploadFile = None):
     
     delete=df[df.isnull().any(1)]
     delete.fillna(0,inplace=True)
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata
 #######################################################################################################
 @app.post("/hr/uploadhse")
 async def upload_csv(csv_file: UploadFile = None):
@@ -1918,6 +1926,14 @@ async def upload_csv(csv_file: UploadFile = None):
     
     delete=df[df.isnull().any(1)]
     delete.fillna(0,inplace=True)   
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata
 ######################################################################################################
 @app.post("/hr/uploadug")
 async def upload_csv(csv_file: UploadFile = None):
@@ -1936,7 +1952,15 @@ async def upload_csv(csv_file: UploadFile = None):
         print(str(e))
     
     delete=df[df.isnull().any(1)]
-    delete.fillna(0,inplace=True)     
+    delete.fillna(0,inplace=True) 
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata    
 
 ##########################################################################################################
 @app.post("/hr/uploadpg")
@@ -1956,7 +1980,15 @@ async def upload_csv(csv_file: UploadFile = None):
         print(str(e))
     
     delete=df[df.isnull().any(1)]
-    delete.fillna(0,inplace=True)    
+    delete.fillna(0,inplace=True)  
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata  
 
 #####################################################################################################
 @app.post("/hr/uploadexp")
