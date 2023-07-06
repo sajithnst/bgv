@@ -80,7 +80,7 @@ export default {
             console.log(res.data.total_count)
     }
   },  methods: {
-    downloadTemplate() {
+    downloadCSVTemplate() {
       const csvContent ="name,email,mob,doj,empid,company_name,company_mail,designation,aadhaar,pan,passport"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);

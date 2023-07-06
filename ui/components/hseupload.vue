@@ -75,7 +75,7 @@ export default {
     }
   },
     methods: {
-    downloadTemplate() {
+    downloadCSVTemplate() {
       const csvContent ="name,email,hse_regno,hse_marks,hse_passout,hse_school,hse_board"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
