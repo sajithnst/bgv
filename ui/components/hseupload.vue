@@ -11,7 +11,7 @@
                         <v-container style="margin-top:10%">
                             <v-container style="width: 100%; ">
                                 <v-btn>   
-                                 <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download HSE Template</a>
+                                 <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadTemplate">Download HSE Template</a>
                                </v-btn> 
                              </v-container>
                         </v-container>
@@ -43,9 +43,10 @@ export default {
             let furl = "http://127.0.0.1:8000/hr/uploadhse"
             let res = await this.$axios.post(furl, formdata);
             console.log(res.data)
-    },
+    }
+  },
     methods: {
-    downloadCSVTemplate() {
+    downloadTemplate() {
       const csvContent ="name,email,hse_regno,hse_marks,hse_passout,hse_school,hse_board"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
@@ -58,7 +59,8 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   }
-  }
+   },
+  
+  
 };
 </script>
