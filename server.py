@@ -105,9 +105,9 @@ async def get_user(email : str):
 @app.get('/totalprofile')
 async def total_user():
     try:
-
-        counts = client.bgv.user.count_documents({})
-        return {'counts': counts}
+        counts = client.bgv.user.count_documents({'status': "verified"})
+        count1 = client.bgv.user.count_documents({'status':"pending"})
+        return {'counts': counts + count1}
     except Exception as e:
         print(str(e))
         return False
