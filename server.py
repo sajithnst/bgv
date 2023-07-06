@@ -107,7 +107,8 @@ async def total_user():
     try:
         counts = client.bgv.user.count_documents({'status': "verified"})
         count1 = client.bgv.user.count_documents({'status':"pending"})
-        return {'counts': counts + count1}
+        count2 = client.bgv.user.count_documents({'status':"InProgress"})
+        return {'counts': counts + count1 + count2}
     except Exception as e:
         print(str(e))
         return False

@@ -82,7 +82,7 @@
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
       console.log(this.data)
-      if(this.data.submit_button == false){
+      if(this.data.submit_button == false || this.data.status == "pending" || this.data.status == "verified"){
         this.show = false
       }
       else{
