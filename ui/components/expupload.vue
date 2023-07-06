@@ -74,7 +74,7 @@ export default {
             console.log(res.data)
     }
   },
-  methods: {
+
     downloadCSVTemplate() {
       const csvContent ="name,email,empid,company,hr_mail,start_date,end_date,designation,lpa,reporting_manager"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -88,6 +88,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   },
+ 
 }
 </script>

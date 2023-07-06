@@ -74,7 +74,7 @@ export default {
             console.log(res.data)
     }
   },
-    methods: {
+   
     downloadCSVTemplate() {
       const csvContent ="name,email,hse_regno,hse_marks,hse_passout,hse_school,hse_board"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -88,7 +88,7 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   },
+  
   
   
 };

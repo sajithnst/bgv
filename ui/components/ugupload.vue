@@ -45,7 +45,7 @@ export default {
             console.log(res.data)
     }
   },
-  methods: {
+  
     downloadCSVTemplate() {
       const csvContent ="name,email,ug_regno,ug_specialization,ug_marks,ug_passout,ug_college,ug_university"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -59,6 +59,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   },
+  
 }
 </script>

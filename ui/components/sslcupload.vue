@@ -45,7 +45,6 @@ export default {
             console.log(res.data)
     }
   },
-  methods: {
     downloadCSVTemplate() {
       const csvContent ="name,email,sslc_regno,sslc_marks,sslc_passout,sslc_school,sslc_board"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -59,6 +58,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   },
+
 }
 </script>
