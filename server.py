@@ -1861,7 +1861,7 @@ async def upload_csv(csv_file: UploadFile = None):
     insert['submitted_on'] = datetime.now()
 
     user = insert[['email','name']].copy()
-    user['status']='pending'
+    user['submit_button'] = True
     user["password"]="sajith@123"
     try:
         client.bgv.user.insert_many(user.to_dict('records'))
