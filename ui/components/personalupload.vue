@@ -11,7 +11,7 @@
                         <v-container >
                           <v-container style="width: 100%; ">
                             <v-btn>   
-                             <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download Template</a>
+                             <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download Personal Template</a>
                            </v-btn> 
                          </v-container>
                         </v-container>
@@ -79,6 +79,20 @@ export default {
             let delete_count = res.delete_count
             console.log(res.data.total_count)
     }
-  }
+  },  methods: {
+    downloadTemplate() {
+      const csvContent ="name,email,mob,doj,empid,company_name,company_mail,designation,aadhaar,pan,passport"
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "personal.csv";
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    },
+   },
 }
 </script>
