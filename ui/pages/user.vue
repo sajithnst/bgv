@@ -51,9 +51,8 @@
                 <v-row justify="center">
                   <v-card-title>Profile Submission</v-card-title>
                 </v-row>
-                <br>
                 <v-container class="text-center" >
-                  <v-btn color="indigo darken-4" v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
+                  <v-btn color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">

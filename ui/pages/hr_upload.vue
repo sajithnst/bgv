@@ -1,0 +1,36 @@
+<template>
+  <v-container>
+    <br>
+    <v-row>
+      <v-col>
+        <personalupload/>
+      </v-col>
+      <v-col>
+        <sslcupload/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <hseupload/>
+      </v-col>
+      <v-col>
+        <ugupload/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <pgupload/>
+      </v-col>
+      <v-col>
+        <expupload/>
+      </v-col>
+    </v-row>
+<br><br>
+  </v-container>
+</template>
+<script>
+export default{
+    layout:"hr_layout",
+
+}
+</script>
