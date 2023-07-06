@@ -26,14 +26,14 @@
         <v-row>
           <v-col>
             <v-card height="180.5px">
-              <v-card-title>Total Profiles</v-card-title>
+              <v-card-title>Total </v-card-title>
               <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ counts }}</h1></v-card-title>
             </v-card>
           </v-col>
           <v-col>
             <v-card>
 
-              <v-card-title>PENDING PROFILES</v-card-title>
+              <v-card-title>PENDING </v-card-title>
               <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count }}</h1></v-card-title>
               <v-card-actions>
                 <v-btn
@@ -69,7 +69,7 @@
           <v-col>
             <v-card>
 
-              <v-card-title>INPROGRESS PROFILES</v-card-title>
+              <v-card-title>INPROGRESS </v-card-title>
               <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count2 }}</h1></v-card-title>
               <v-card-actions>
                 <v-btn
@@ -105,7 +105,7 @@
           </v-col>
           <v-col>
             <v-card>
-              <v-card-title>COMPLETED PROFILE</v-card-title>
+              <v-card-title>COMPLETED </v-card-title>
               <v-card-title><h1 style="font-weight: normal; font-size: 70px;" >{{ count1 }}</h1></v-card-title>
             <v-card-actions>
               <v-btn
