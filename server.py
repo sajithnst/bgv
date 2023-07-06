@@ -1881,3 +1881,110 @@ async def upload_csv(csv_file: UploadFile = None):
         'delete_list': delete.to_dict('records'),
     }
     return returndata
+
+
+################################################################################################
+@app.post("/hr/uploadsslc")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
+    try:
+        client.bgv.sslc.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)
+#######################################################################################################
+@app.post("/hr/uploadhse")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
+    try:
+        client.bgv.hse.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)   
+######################################################################################################
+@app.post("/hr/uploadug")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
+    try:
+        client.bgv.ug.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)     
+
+##########################################################################################################
+@app.post("/hr/uploadpg")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
+    try:
+        client.bgv.pg.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)    
+
+#####################################################################################################
+@app.post("/hr/uploadexp")
+async def upload_csv(csv_file: UploadFile = None):
+    if csv_file is None:
+        return {"message": "No file uploaded"}
+    contents = await csv_file.read()
+    csv_string = contents.decode("utf-8")
+    df = pd.read_csv(StringIO(csv_string))
+    insert=df[~df.isnull().any(1)]
+    insert['status'] = False
+    insert['submitted_on'] = datetime.now()
+    try:
+        client.bgv.exp.insert_many(insert.to_dict('records'))
+
+    except Exception as e:
+        print(str(e))
+    
+    delete=df[df.isnull().any(1)]
+    delete.fillna(0,inplace=True)    
+    returndata  = {
+        'total_count':len(df.index),
+        'insert_count': len(insert.index),
+        'delete_count': len(delete.index),
+        'insert_list': insert.to_dict('records'),
+        'delete_list': delete.to_dict('records'),
+    }
+    return returndata
