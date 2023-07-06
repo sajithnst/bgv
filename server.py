@@ -1856,7 +1856,11 @@ async def upload_csv(csv_file: UploadFile = None):
     contents = await csv_file.read()
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
+    df['aadhaar'] = df['aadhaar'].astype(str)
+    df['passport'] = df['passport'].astype(str)
+    df['mob'] = df['mob'].astype(str)
     insert=df[~df.isnull().any(1)]
+
     insert['status'] = False
     insert['submitted_on'] = datetime.now()
 
@@ -1879,7 +1883,7 @@ async def upload_csv(csv_file: UploadFile = None):
         'insert_list': insert.to_dict('records'),
         'delete_list': delete.to_dict('records'),
     }
-    return returndata   
+    return returndata  
 ################################################################################################
 @app.post("/hr/uploadsslc")
 async def upload_csv(csv_file: UploadFile = None):
