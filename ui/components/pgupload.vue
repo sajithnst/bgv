@@ -11,7 +11,7 @@
                       <v-container >
                         <v-container style="width: 100%; ">
                           <v-btn>   
-                           <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download Personal Template</a>
+                           <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download PG Template</a>
                          </v-btn> 
                        </v-container>
                       </v-container>
