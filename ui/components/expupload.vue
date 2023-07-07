@@ -85,10 +85,9 @@ export default {
               this.isLoading = false;
               location.reload();
             }, 2000);
-    }
-  },
+    },
 
-    downloadCSVTemplate() {
+      downloadCSVTemplate(){
       const csvContent ="name,email,empid,company_name,hr_mail,start_date,end_date,designation,lpa,reporting_manager"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
@@ -101,6 +100,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
- 
+  }
 }
 </script>

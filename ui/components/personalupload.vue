@@ -88,8 +88,7 @@ export default {
               this.isLoading = false;
               location.reload();
             }, 2000);
-    }
-  }, 
+    },
     downloadCSVTemplate() {
       const csvContent ="name,email,mob,doj,empid,company_name,company_mail,designation,aadhaar,pan,passport"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -103,6 +102,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
-   
+  }
 }
 </script>

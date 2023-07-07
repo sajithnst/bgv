@@ -85,10 +85,9 @@ export default {
               this.isLoading = false;
               location.reload();
             }, 2000);
-    }
-  },
+    },
   
-    downloadCSVTemplate() {
+      downloadCSVTemplate() {
       const csvContent ="name,email,ug_regno,ug_specialization,ug_marks,ug_passout,ug_college,ug_university"
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
@@ -100,7 +99,7 @@ export default {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-    },
-  
+    }
+  }
 }
 </script>

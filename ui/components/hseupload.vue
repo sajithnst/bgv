@@ -85,7 +85,7 @@ export default {
               this.isLoading = false;
               location.reload();
             }, 2000);
-    }
+    
   },
    
     downloadCSVTemplate() {
@@ -102,7 +102,7 @@ export default {
       URL.revokeObjectURL(url);
     },
   
-  
+  }
   
 };
 </script>

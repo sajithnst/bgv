@@ -85,8 +85,7 @@ export default {
               this.isLoading = false;
               location.reload();
             }, 2000);
-    }
-  },
+    },
 
     downloadCSVTemplate() {
       const csvContent ="name,email,pg_regno,pg_specialization,pg_marks,pg_passout,pg_college,pg_university"
@@ -101,6 +100,6 @@ export default {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     },
- 
+  }
 }
 </script>
