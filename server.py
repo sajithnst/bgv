@@ -1896,6 +1896,8 @@ async def upload_csv(csv_file: UploadFile = None):
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
     df['sslc_regno'] = df['sslc_regno'].astype(str)
+    df['sslc_passout'] = df['sslc_passout'].astype(str)
+    df['sslc_marks'] = df['sslc_marks'].astype(str)
     insert=df[~df.isnull().any(1)]
     insert['status'] = False
     insert['submitted_on'] = datetime.now()
@@ -1923,6 +1925,8 @@ async def upload_csv(csv_file: UploadFile = None):
     contents = await csv_file.read()
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
+    df['hse_passout'] = df['hse_passout'].astype(str)
+    df['hse_marks'] = df['hse_marks'].astype(str)
     df['hse_regno'] = df['hse_regno'].astype(str)
     insert=df[~df.isnull().any(1)]
     insert['status'] = False
@@ -1952,6 +1956,8 @@ async def upload_csv(csv_file: UploadFile = None):
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
     df['ug_regno'] = df['ug_regno'].astype(str)
+    df['ug_passout'] = df['ug_passout'].astype(str)
+    df['ug_marks'] = df['ug_marks'].astype(str)
     insert=df[~df.isnull().any(1)]
     insert['status'] = False
     insert['submitted_on'] = datetime.now()
@@ -1981,6 +1987,8 @@ async def upload_csv(csv_file: UploadFile = None):
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
     df['pg_regno'] = df['pg_regno'].astype(str)
+    df['pg_passout'] = df['pg_passout'].astype(str)
+    df['pg_marks'] = df['pg_marks'].astype(str)
     insert=df[~df.isnull().any(1)]
     insert['status'] = False
     insert['submitted_on'] = datetime.now()
@@ -2010,6 +2018,7 @@ async def upload_csv(csv_file: UploadFile = None):
     csv_string = contents.decode("utf-8")
     df = pd.read_csv(StringIO(csv_string))
     df['empid'] = df['empid'].astype(str)
+    df['lpa'] = df['lpa'].astype(str)
     insert=df[~df.isnull().any(1)]
     insert['status'] = False
     insert['submitted_on'] = datetime.now()
@@ -2029,3 +2038,48 @@ async def upload_csv(csv_file: UploadFile = None):
         'delete_list': delete.to_dict('records'),
     }
     return returndata
+#######################################################################################################
+class SubscriptionType(BaseModel):
+    name: str
+    price: float
+
+subscription_types = [
+    SubscriptionType(name="Basic", price=9.99),
+    SubscriptionType(name="Standard", price=19.99),
+    SubscriptionType(name="Premium", price=29.99)
+]
+
+class UserSubscription(BaseModel):
+    email: str
+    subscription_type: str
+
+subscriptions = []
+
+@app.get("/subscription_types")
+def get_subscription_types():
+    return {"subscription_types": subscription_types}
+
+@app.post("/subscribe")
+def subscribe(user_subscription: UserSubscription):
+    matching_subscription_type = next(
+        (st for st in subscription_types if st.name == user_subscription.subscription_type),
+        None
+    )
+    if matching_subscription_type:
+        subscriptions.append(user_subscription)
+        return {"message": "Subscription added successfully"}
+    else:
+        return {"message": "Invalid subscription type"}
+
+@app.get("/subscriptions")
+def get_subscriptions():
+    return {"subscriptions": subscriptions}
+
+@app.get("/subscriptions/{email}")
+def get_subscription_by_email(email: str):
+    matching_subscriptions = [subscription for subscription in subscriptions if subscription.email == email]
+    if matching_subscriptions:
+        return {"subscriptions": matching_subscriptions}
+    else:
+        return {"message": "No subscriptions found for the provided email"}
+    
