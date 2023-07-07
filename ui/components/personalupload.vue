@@ -24,7 +24,6 @@
                           </v-container>
                           <v-container>
                             <v-progress-circular  v-if="isLoading" indeterminate color="indigo darken-4"></v-progress-circular>
-
                           </v-container>
                     </v-col>
                 </v-row>
