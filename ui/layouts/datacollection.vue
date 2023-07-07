@@ -10,7 +10,7 @@
         <v-footer dark padless>
             <v-card class="flex" flat tile>
                 <v-card-subtitle class="indigo darken-1">
-                Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}<br/> Author - Sajith Surendran
+                Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}<br/> 
                 </v-card-subtitle>
             </v-card>
         </v-footer>

@@ -38,7 +38,7 @@
             company_reg : (v) => v.match(/^\d{21}$/) || "Check the register number for errors",
             gst : (v) => v.match(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/) || "Check the GSTN number for errors",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
-            password: (v) =>  v.length > 8 || "Minimun 8 Characters is required",
+            password: (v) =>  v.match(/^(?=.*[A-Z])(?=.*[@])(?=.*[a-z])(?=.*\d).{8,}$/)|| "Enter Password with One Cap letter ,@,small letter and with the number is required",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             alphnum: (v) => v.match(/^[A-Za-z0-9\s]+$/) || "No special Characters",
             date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"

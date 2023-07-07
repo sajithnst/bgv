@@ -15,7 +15,8 @@
         class="my-4 text-center"
       >
         <v-col cols="12"
-          >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}</v-col>
+          >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}</v-col
+ >
         <v-col cols="12">
           <v-btn
             v-for="icon in icons"

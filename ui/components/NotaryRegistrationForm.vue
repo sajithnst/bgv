@@ -41,7 +41,7 @@ export default {
             pan : (v) => v.match(/^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/) || "Check the PAN number for errors",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
-            password: (v) =>  v.length > 8 || "Minimun 8 Characters is required",
+            password: (v) =>  v.match(/^(?=.*[A-Z])(?=.*[@])(?=.*[a-z])(?=.*\d).{8,}$/)|| "Enter Password with One Cap letter ,@,small letter and with the number is required",
 
         }
     }),
