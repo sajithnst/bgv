@@ -10,21 +10,28 @@
                   <v-col>
                       <v-container >
                         <v-container style="width: 100%; ">
-                          <v-btn>   
-                           <a color="indigo darken-4" style="color: rgb(99, 106, 165);" @click="downloadCSVTemplate">Download SSLC Template</a>
+                          <v-btn size="20%" color="indigo darken-4" style="color:white" @click="downloadCSVTemplate">   
+                            SSLC Template
                          </v-btn> 
                        </v-container>
                       </v-container>
                   </v-col>
-                  <v-col>
-                    <v-container class="text-center">
-                      <v-file-input @change="fileselect" style="width:70%; margin:0 auto; " label="File input" variant="solo-filled"></v-file-input>
-                      <v-btn   :loading="isLoading" :disabled="isLoading" color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn>
-                    </v-container>
-                    <v-container>
-                      <v-progress-circular  v-if="isLoading" indeterminate color="indigo darken-4"></v-progress-circular>
-                    </v-container>
-                  </v-col>
+                  
+              </v-row>
+              <v-divider></v-divider>
+              <v-divider ></v-divider>
+              <v-divider ></v-divider>
+
+              <v-row>
+                <v-col>
+                  <v-container class="text-center">
+                    <v-file-input @change="fileselect" style="width:70%; margin:0 auto; " label="File input" variant="solo-filled"></v-file-input>
+                    <v-btn size="20%"  :loading="isLoading" :disabled="isLoading" color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn>
+                  </v-container>
+                  <v-container>
+                    <v-progress-circular  v-if="isLoading" indeterminate color="indigo darken-4"></v-progress-circular>
+                  </v-container>
+                </v-col>
               </v-row>
               <v-row>     
                 <v-container class="text-center">
