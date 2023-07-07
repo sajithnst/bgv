@@ -59,9 +59,6 @@
 export default {
   name: 'personalupload',
   data: () => ({
-      total_count: 0,
-      insert_count: {},
-      delete_count: {},
       data:{}
     }),
   methods:{
