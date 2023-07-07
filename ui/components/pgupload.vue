@@ -4,7 +4,7 @@
           <v-row>
             <v-card class="text-center" :elevation="6" :height="auto" :width="700">
               <br>
-              <v-text-title><h2>Personal Data</h2></v-text-title>
+              <v-text-title><h2>PG Data</h2></v-text-title>
               <br>
               <v-row>
                   <v-col>
