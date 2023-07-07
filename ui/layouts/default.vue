@@ -34,8 +34,7 @@
         <v-col
           cols="12"
           class="align-center"
-          >&copy; 2023 VerifiEdge</v-col
-        >
+          >&copy; 2023 VerifiEdge</v-col>
       </v-row>
     </v-footer>
 </v-app>

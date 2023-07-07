@@ -15,8 +15,7 @@
         class="my-4 text-center"
       >
         <v-col cols="12"
-          >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}<br/> Author - Sajith Surendran</v-col
-        >
+          >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}</v-col>
         <v-col cols="12">
           <v-btn
             v-for="icon in icons"
@@ -30,7 +29,7 @@
         <v-col
           cols="12"
           class="align-center"
-          >&copy; 2023 VerifEidge</v-col
+          >&copy; 2023 VerifiEdge</v-col
         >
       </v-row>
     </v-footer>
