@@ -20,7 +20,7 @@
               <p style="padding-top:35%; padding-right:10%;" class="text-h6 text-white ">
                 A Platform to store your
                  <b>Identity</b>,
-                <b>Eductional Qualification</b>, and
+                <b>Educational Qualification</b>, and
                 <b>Work Experience</b> on a private permissioned blockchain networked named <b>VerifiChain</b>.
               </p>
 
