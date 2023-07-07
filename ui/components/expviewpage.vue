@@ -31,10 +31,10 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="data.status, verified" class="text-center">
+              <v-container v-if="data.status == 'verified'" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
-              <v-container v-if="rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected'" class="text-center">
                 <v-icon size="100px" color="red">mdi-cancel</v-icon>
                 <br>
                 <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
@@ -85,21 +85,7 @@ export default{
         this.data_s = true,
         this.data_ = false
       }
-       if (this.datas.status == false){
-          this.pending = true
-          this.verified = false
-          this.rejected = false
-        }
-        if(this.datas.status == "verified"){
-          this.verified = true
-          this.pending = false
-          this.rejected = false
-        }
-        if(this.datas.status == "rejected"){
-          this.rejected = true
-          this.pending = false
-          this.verified = false
-        }
+
 
    },
    data: () =>({

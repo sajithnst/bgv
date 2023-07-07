@@ -21,11 +21,11 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="verified" class="text-center">
+              <v-container v-if="data.status == 'verified'" class="text-center">
                 <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
-              <v-container v-if="rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected'" class="text-center">
                 <v-icon size="150px" color="red">mdi-cancel</v-icon>
 
               </v-container>
@@ -94,7 +94,7 @@ export default{
   },
   data: () =>({
       email:"",
-      data:[],
+      datas:[],
       pending: false,
       verified: false,
       rejected: false,
