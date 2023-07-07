@@ -1329,6 +1329,7 @@ async def verifyexp(verify: Verify):
             }
         }
         client.bgv.exp.find_one_and_update(filter=filter,update=update)
+        return True
     except Exception as e:
         print(str(e))
         return False

@@ -22,11 +22,11 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="verified" class="text-center">
+              <v-container v-if="data.status  == 'verified'" class="text-center">
                 <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
-              <v-container v-if="rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected'" class="text-center">
                 <v-icon size="150px" color="red">mdi-cancel</v-icon>
 
               </v-container>
@@ -75,25 +75,11 @@ export default{
 
 
       console.log(this.datas)
-      if (this.datas.status == false){
-          this.pending = true
-          this.verified = false
-          this.rejected = false
-        }
-        if(this.datas.status == "verified"){
-          this.verified = true
-          this.pending = false
-          this.rejected = false
-        }
-        if(this.datas.status == "rejected"){
-          this.rejected = true
-          this.pending = false
-          this.verified = false
-        }
+
   },
   data: () =>({
       email:"",
-      data:[],
+      datas:[],
       pending: false,
       verified: false,
       rejected: false,
@@ -128,7 +114,7 @@ export default{
         'email':this.email,
       }
       let nres= await this.$axios.post(nurl,data)
-
+      console.log(this.datas.status)
       
        
       
