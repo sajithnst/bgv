@@ -1,12 +1,6 @@
 <template>
-    <v-app app color="green">
-    <v-app-bar app color="indigo darken-3" dark elevate-on-scroll>
-    <img class="mr-3" :src="require('../assets/blockedge-logo.svg')" height="40"/>
-    <v-spacer></v-spacer>
-    <v-btn icon @click="home()"><v-icon size="32" color="white">mdi-home</v-icon></v-btn>
-    </v-app-bar>
-    <v-main>
         <v-container class="signupform">
+            <br><br><br>
             <h1 class="text-center" >User Sign Up</h1>
             <br/>
             <v-form v-model="isFormValid">
@@ -50,13 +44,13 @@
                 </v-form>
             </v-container>
         </v-container>
-    </v-main>
-</v-app>
+    
 </template>
 <script>
 
 export default{
     name:'signuppage',
+    layout:'signinlayout',
     async mounted(){
         this.$vuetify.theme.dark=false;
     },
@@ -77,7 +71,7 @@ export default{
         sendotp:null,
         rules:{
             required: (v) => !!v || "Required",
-            min : (v) =>  v.length > 8 || "Minimun 8 Characters is required",
+            min : (v) =>  v.match(/^(?=.*[A-Z])(?=.*[@])(?=.*[a-z])(?=.*\d).{8,}$/)|| "Enter Password with One Cap letter ,@,small letter and with the number is required",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name"
         }

@@ -49,7 +49,7 @@ export default{
         error : false,
         rules : {
             required: (v) => !!v || "Required",
-            min : (v) =>  v.length > 8 || "Minimun 8 Characters is required",
+            min : (v) =>  v.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)|| "Example:OpenGK2020 is required",
             email : (v) => v.match(/\S+@\S+\.\S+/) || "Email format is wrong",
         }
     }),
