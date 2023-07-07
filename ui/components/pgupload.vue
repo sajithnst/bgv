@@ -58,6 +58,9 @@
 <script>
 export default {
   name: 'pgupload',
+  data: () => ({
+      data:{}
+    }),
   methods:{
     async fileselect(event){
         this.file=event
@@ -67,6 +70,7 @@ export default {
             formdata.append('csv_file',this.file)
             let furl = "http://127.0.0.1:8000/hr/uploadpg"
             let res = await this.$axios.post(furl, formdata);
+            this.data = res.data
             console.log(res.data)
     }
   },
