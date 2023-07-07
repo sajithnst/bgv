@@ -7,7 +7,7 @@
           <v-row>
             <v-col style="padding-left: 4%; ">
               <h3 class="text-subtitle-1"> Emp ID :{{ data.empid}}</h3>
-           <h3 class="text-subtitle-1"> Company : {{ data.company }}</h3>
+           <h3 class="text-subtitle-1"> Company : {{ data.company_name }}</h3>
            <h3 class="text-subtitle-1"> Start Date : {{ data.start_date }} </h3>
            <h3 class="text-subtitle-1"> End Date : {{ data.end_date }}</h3>
            <h3 class="text-subtitle-1"> Designation : {{ data.designation }}</h3>
