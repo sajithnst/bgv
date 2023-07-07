@@ -62,7 +62,9 @@
 export default {
   name: 'sslcupload',
   data: () => ({
-      data:{}
+      data:{},
+      isLoading: false
+
     }),
   methods:{
     async fileselect(event){
@@ -75,6 +77,14 @@ export default {
             let res = await this.$axios.post(furl, formdata);
             this.data = res.data
             console.log(res.data)
+
+            this.isLoading = true;
+            // Simulate an asynchronous operation, such as an API call
+            setTimeout(() => {
+              // After the operation is complete, set isLoading to false
+              this.isLoading = false;
+              location.reload();
+            }, 2000);
     }
   },
     downloadCSVTemplate() {
