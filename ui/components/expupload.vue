@@ -21,7 +21,6 @@
                 <v-divider></v-divider>
                 <v-divider ></v-divider>
                 <v-divider ></v-divider>
-
                 <v-row>
                   <v-col>
                     <v-container class="text-center">
