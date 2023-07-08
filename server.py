@@ -717,7 +717,7 @@ class Experience(BaseModel):
     empid : str
     name : str
     email : str
-    company : str
+    company_name : str
     hr_mail : str
     start_date : str
     end_date : str
@@ -737,7 +737,7 @@ async def update( exp : Experience ):
     update={
         '$set':{
         'empid': exp.empid,
-        'company':exp.company,
+        'company_name':exp.company_name,
         'hr_mail': exp.hr_mail,
         'start_date': exp.start_date,
         'end_date': exp.end_date,
@@ -761,7 +761,7 @@ async def add_exp(exp :Experience):
     filt = {
         'email' : exp.email,
         'empid': exp.empid,
-        'company':exp.company,
+        'company_name':exp.company_name,
         'hr_mail': exp.hr_mail,
         'start_date': exp.start_date,
         'end_date': exp.end_date,
@@ -774,7 +774,7 @@ async def add_exp(exp :Experience):
     update={
         '$set':{
         'empid': exp.empid,
-        'company':exp.company,
+        'company_name':exp.company_name,
         'hr_mail': exp.hr_mail,
         'start_date': exp.start_date,
         'end_date': exp.end_date,

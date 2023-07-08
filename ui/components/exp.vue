@@ -6,7 +6,7 @@
             <v-text-field label="Employee ID"
             v-model="empid"
             :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Company Name" v-model="company" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Company Name" v-model="company_name" :rules="[rules.required]"></v-text-field>
             <v-text-field label="HR Email" v-model="hr_mail" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Start Date (DD/MM/YYYY)" v-model="start_date" :rules="[rules.required,rules.date]"></v-text-field>
             <v-text-field label="End Date (DD/MM/YYYY)" v-model="end_date" :rules="[rules.required,rules.date]"></v-text-field>
@@ -39,7 +39,7 @@ export default{
         empid :null,
         name: null,
         email:null,
-        company:null,
+        company_name:null,
         hr_mail: null,
         start_date:"",
         end_date:"",
@@ -68,7 +68,7 @@ export default{
             empid : this.empid,
             name: this.name,
             email : this.email,
-            company : this.company,
+            company_name : this.company_name,
             hr_mail : this.hr_mail,
             start_date : this.start_date,
             end_date : this.end_date,
