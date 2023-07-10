@@ -577,7 +577,7 @@ def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File
 ######### PG DETAILS ##################
 class updation(BaseModel):
     email: str 
-    status: str="pending"
+    status: bool = False
     submit_button: bool = True 
 
 
