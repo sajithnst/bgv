@@ -82,6 +82,7 @@ export default {
             formdata.append('csv_file',this.file)
             let furl = "http://127.0.0.1:8000/hr/uploadsslc"
             let res = await this.$axios.post(furl, formdata);
+            this.data = res.data
             console.log(res.data)
 
             this.isLoading = true;
