@@ -40,15 +40,18 @@
                 <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
               </v-container>
 
-              <v-container class="text-center">
-                <v-card-action>
-                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
-                </v-card-action>
-              </v-container>
+              
 
             </v-col>
           </v-row>
         </v-container>
+        <v-row>
+          <v-container>
+            &emsp;&emsp;
+            <v-btn text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
+          </v-container>
+        </v-row>
+
         
       </v-card-content>
       <v-card-action >

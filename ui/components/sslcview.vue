@@ -36,9 +36,9 @@
           <v-container>
             <br>
             &emsp;&emsp;
-            <v-btn color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.sslc_regno)">Approve</v-btn>&emsp;
-          <v-btn color="indigo darken-4" style="color:white;" @click="deny(data.email, data.sslc_regno)">Reject</v-btn>&emsp;
-          <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
+            <v-btn text outlined  color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.sslc_regno)">Approve</v-btn>&emsp;
+          <v-btn text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.sslc_regno)">Reject</v-btn>&emsp;
+          <v-btn text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
           </v-container>
         </v-row>
       </v-card-content>

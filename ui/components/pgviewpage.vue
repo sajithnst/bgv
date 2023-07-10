@@ -42,21 +42,24 @@
 
               </v-container>
 
-              <v-container class="text-center">
-                <v-card-action>
-                  <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
-                </v-card-action>
-              </v-container>
-
 
             </v-col>
 
           </v-row>
 
         </v-container>
+        <v-row>
+          <v-container>
+            &emsp;&emsp;
+  
+            <v-btn text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
+  
+          </v-container>
+        </v-row>
 
-        <br>
+        
       </v-card-content>
+      
 
       <v-card-action >
         <v-container v-if="data_">
