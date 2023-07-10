@@ -38,7 +38,7 @@
         <v-row>
           <v-container>
             &emsp; &emsp;
-            <v-btn color="indigo darken-4" style="color: white;" @click="doc(data.email, data.hse_regno)">Document</v-btn>
+            <v-btn text outlined color="indigo darken-4"  @click="doc(data.email, data.hse_regno)">Document</v-btn>
 
           </v-container>
         </v-row>
