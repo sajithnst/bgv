@@ -700,7 +700,8 @@ async def get_pg(email:str):
 
 @app.post('/uploadpgpdf')
 def upload(email : str = Form(), pg_regno : str = Form(),file: UploadFile = File(...)):
-    
+    if(not os.path.isdir(email)):
+         os.mkdir(email)
     path = os.path.join(email,pg_regno+".pdf")
     try:
         contents = file.file.read()
@@ -825,7 +826,8 @@ async def get_exp(email:str):
 
 @app.post('/uploadexppdf')
 def upload(email : str = Form(), empid : str = Form(),file: UploadFile = File(...)):
-    
+    if(not os.path.isdir(email)):
+         os.mkdir(email)
     path = os.path.join(email,empid+".pdf")
     try:
         contents = file.file.read()
