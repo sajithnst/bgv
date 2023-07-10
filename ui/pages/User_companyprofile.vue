@@ -48,7 +48,7 @@
                 <v-card max-width="350px" height="365px" class="mx-auto bg" elevation="2">
                   <br>
                   <v-row justify="center">
-                    <v-card-title>Profile Submission</v-card-title>
+                    <v-card-title>Personal Details </v-card-title>
                   </v-row>
                   <br>
                   <v-container>
@@ -59,6 +59,10 @@
   
                 </v-card>
               </v-container>
+              <v-container class="text-center">
+                <v-btn text outlined @click="back()" color="indigo darken-4">Go Back</v-btn>
+              </v-container>
+    
   
           </v-col>
           </v-row>
@@ -111,6 +115,9 @@
           }
   
   
+        },
+        async back(){
+          this.$router.push('/hrpage')
         }
       }
   
