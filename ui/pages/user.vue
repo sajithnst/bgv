@@ -31,11 +31,17 @@
           </v-col>
           <v-col>
       <persondetailspage/>
-
+      <v-container v-if="fail">
+        <v-divider thickness="4" color="red"></v-divider>
+      </v-container>
       <sslcviewpage/>
-
+      <v-container v-if="fail">
+        <v-divider thickness="4" color="red"></v-divider>
+      </v-container>
       <hseviewpage/>
-
+      <v-container v-if="fail">
+        <v-divider thickness="4" color="red"></v-divider>
+      </v-container>
       <ugviewpage/>
 
       <pgviewpage/>
@@ -52,11 +58,12 @@
                   <v-card-title>Profile Submission</v-card-title>
                 </v-row>
                 <v-container class="text-center" >
-                  <v-btn color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
+                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
-                  <v-card-subtitle>You have submitted the profile</v-card-subtitle>
+                  <v-alert type="error" dismissible> You have submitted the profile </v-alert>
+
                 </v-container>
                 <v-container v-if="fail" class="text-center">
                   <v-card-subtitle  style="color:red">*Check whether you have entered the details</v-card-subtitle>
@@ -95,6 +102,7 @@
       success: false,
       fail: false,
       show: false,
+      isLoading: false,
       
     }),
     methods:{
@@ -114,6 +122,14 @@
           this.success = false
           this.fail = true
         }
+
+        this.isLoading = true;
+            // Simulate an asynchronous operation, such as an API call
+            setTimeout(() => {
+              // After the operation is complete, set isLoading to false
+              this.isLoading = false;
+              location.reload();
+            }, 2000);
 
 
       }
