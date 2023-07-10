@@ -33,18 +33,15 @@
 
           </v-row>
         </v-container>
-        <v-container v-if="data_" class="text-center">
-          <v-icon size="100px" color="red">mdi-briefcase-remove</v-icon>
-          <h3 class="text-h8">No Data Found</h3>
-        </v-container>
+        <v-row>
+          <v-container>
+            &emsp; &emsp;
+            <v-btn text outlined color="indigo darken-4"  @click="doc(data.email, data.pg_regno)">Document</v-btn>
+  
+          </v-container>
+        </v-row>
       </v-card-content>
-      <v-row>
-        <v-container>
-          &emsp; &emsp;
-          <v-btn text outlined color="indigo darken-4"  @click="doc(data.email, data.pg_regno)">Document</v-btn>
-
-        </v-container>
-      </v-row>
+      
 
 
 

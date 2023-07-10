@@ -28,9 +28,7 @@
                     <v-file-input @change="fileselect" style="width:70%; margin:0 auto; " label="File input" variant="solo-filled"></v-file-input>
                     <v-btn size="20%"  :loading="isLoading" :disabled="isLoading" color="indigo darken-4" style="color:white" @click="upload()">Upload</v-btn>
                   </v-container>
-                  <v-container>
-                    <v-progress-circular  v-if="isLoading" indeterminate color="indigo darken-4"></v-progress-circular>
-                  </v-container>
+                  
                 </v-col>
               </v-row>
               <v-row>     
