@@ -17,9 +17,7 @@
             <v-container class="text-center">
                 <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
             </v-container>
-            <v-container class="text-center">
-                <v-btn text  @click="skip()" color="indigo lighten-2"> I'm a fresher </v-btn>
-            </v-container>
+
         </v-form>
     </v-container>
 </template>
@@ -90,11 +88,7 @@ export default{
             }
 
      },
-     async skip(){
-        let url ="http://127.0.0.1:8000/user/firstlogin"
-        let response = await this.$axios.get(url,{params:{email:this.email}})
-        this.$router.push('/user')
-     }
+
     }
 }
 </script>

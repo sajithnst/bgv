@@ -49,14 +49,15 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container>
-          <v-btn text icon @click="addsslc()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
-        </v-container>
+        
       </v-card-content>
       <v-card-action >
         <v-container v-if="data_">
           <v-btn text icon @click="addsslc()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
 
+        </v-container>
+        <v-container v-if="data_s">
+          <v-btn text icon @click="addsslc()"><v-icon color="indigo darken-4">mdi-plus</v-icon></v-btn>
         </v-container>
 
       </v-card-action>
