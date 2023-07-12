@@ -6,7 +6,7 @@
         <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
         <v-alert class="success" dismissible v-if="success"> Data insertion succeeded</v-alert>
         <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required]"></v-text-field>
-        <v-text-field label="Marks in percent" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
+        <v-text-field label="Marks in %" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
         <v-text-field label="School" v-model="sslc_school" :rules="[rules.required]"></v-text-field>
         <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required]"></v-text-field>
         <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required]"></v-text-field>
