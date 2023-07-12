@@ -12,7 +12,7 @@
         <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required]"></v-text-field>
         <v-file-input @change="fileselect"  label = "Upload PDF Files" :rules="[rules.required]" ></v-file-input>
         <v-container class="text-center">
-            <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
+            <v-btn text  @click="submit()" :disabled="!formvalid" color="indigo lighten-2" class="button"> Submit </v-btn>
         </v-container>
     </v-form>
 </v-container>
@@ -29,7 +29,7 @@ export default{
 
     },
     data : () => ({
-        formvalid: false,
+        formvalid: null,
         sslc_regno : null,
         email : null,
         sslc_marks : null,
