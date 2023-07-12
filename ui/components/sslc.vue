@@ -7,8 +7,8 @@
         <v-alert class="success" dismissible v-if="success"> Data insertion succeeded</v-alert>
         <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required]"></v-text-field>
         <v-text-field label="Marks in %" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-        <v-text-field label="School" v-model="sslc_school" :rules="[rules.required,rules.character]"></v-text-field>
-        <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required,rules.year]"></v-text-field>
+        <v-text-field label="School" v-model="sslc_school" :rules="[rules.required]"></v-text-field>
+        <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required]"></v-text-field>
         <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required]"></v-text-field>
         <v-file-input @change="fileselect"  label = "Upload PDF Files" :rules="[rules.required]" ></v-file-input>
         <v-container class="text-center">
@@ -41,8 +41,6 @@ export default{
         sslc_board : null,
         rules : {
             required: (v) => !!v || "Required",
-            year:(v) => v.match(/^\d{4}$/)||"Check the Year",
-            character: (v) => v.match(/^[A-Za-z\s]+$/)||"Check the Character",
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
         },
     }),
