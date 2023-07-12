@@ -5,10 +5,10 @@
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
             <v-text-field label="Registration Number" v-model="ug_regno" :rules="[rules.required]"></v-text-field>
             <v-text-field label="Specialization" v-model="ug_specialization" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="College" v-model="ug_college" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="College" v-model="ug_college" :rules="[rules.required,rules.character]"></v-text-field>
             <v-text-field label="Marks in percent (e.g. 80)" v-model="ug_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-            <v-text-field label="Year of completion" v-model="ug_passout" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="University" v-model="ug_university" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Year of completion" v-model="ug_passout" :rules="[rules.required,rules.year]"></v-text-field>
+            <v-text-field label="University" v-model="ug_university" :rules="[rules.required,rules.character]"></v-text-field>
             <v-file-input @change="fileselect" label="Upload PDF File" :rules="[rules.required]"></v-file-input>
             <v-container class="text-center">
                 <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
@@ -39,6 +39,8 @@ export default{
         ug_university:null,
         rules : {
             required: (v) => !!v || "Required",
+            year:(v) => v.match(/^\d{4}$/)||"Check the Year",
+            character: (v) => v.match(/^[A-Za-z\s]+$/)||"Check the Character",
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
         },
     }),
