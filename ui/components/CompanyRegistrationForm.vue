@@ -1,7 +1,7 @@
 <template>
     <v-container class="personalform">
         <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-        <v-form  >
+        <v-form  v-model="formValid">
                 <br/>
                 <h3 class="text-center"> Company Registration Data</h3> <br />
                 <v-text-field label="Company Name " v-model="company" :rules="[rules.required]"></v-text-field>
@@ -12,7 +12,7 @@
                 <v-text-field label="GSTN Number" v-model="gst" :rules="[rules.required,rules.gst]"></v-text-field>
                 <v-file-input @change="fileselect" label="Upload GSTN Certificate File" :rules="[rules.required]"></v-file-input>
                 <v-container class="text-center">
-                    <v-btn text color="indigo  lighten-2"  @click="submit()">submit</v-btn>
+                    <v-btn text color="indigo  lighten-2"  @click="submit()" :disabled="!formValid">submit</v-btn>
                 </v-container>
   
         </v-form>
@@ -32,6 +32,7 @@
         password: "",
         mob:"",
         gst:"",
+        formValid:null,
         rules:{
             required: (v) => !!v || "Required",
             mob: (v) => v.match(/^[0-9]{10}$/) || "check your mobile number",

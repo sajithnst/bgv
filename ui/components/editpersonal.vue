@@ -1,7 +1,7 @@
 <template>
   <v-container class="personalform">
       <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-      <v-form  >
+      <v-form v-model="formValid" >
               <br/>
               <h3 class="text-center"> Personal Data</h3> <br />
               <h5 class="text-center"> Here you have to fill the form again without any mistakes</h5>
@@ -15,7 +15,7 @@
               <v-text-field label="PAN" v-model="pan" :rules="[rules.required,rules.pan]"></v-text-field>
               <v-text-field label="Passport" v-model="passport" :rules="[rules.required]"></v-text-field>
               <v-container class="text-center">
-                  <v-btn text color="indigo  lighten-2"  @click="submit()">submit</v-btn>
+                  <v-btn text color="indigo  lighten-2"  @click="submit()" :disabled="!formValid" class="button">submit</v-btn>
               </v-container>
 
       </v-form>
@@ -40,6 +40,7 @@ export default {
       fail: null,
       pan:"",
       passport : "",
+      formValid: null,
       rules:{
           required: (v) => !!v || "Required",
           mob: (v) => v.match(/^[0-9]{10}$/) || "check your mobile number",

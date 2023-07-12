@@ -1,7 +1,7 @@
 <template>
     <v-container class="personalform">
         <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-        <v-form  >
+        <v-form  v-model="formValid" >
                 <br/>
                 <h3 class="text-center"> Notary Registration Data</h3> <br />
                 <v-text-field label="Name " v-model="name" :rules="[rules.required,rules.name]"></v-text-field>
@@ -12,7 +12,7 @@
                 <v-text-field label="PAN" v-model="pan" :rules="[rules.required,rules.pan]"></v-text-field>
 
                 <v-container class="text-center">
-                    <v-btn text color="indigo  lighten-2"  @click="submit()">submit</v-btn>
+                    <v-btn text color="indigo  lighten-2"  @click="submit()" :disabled="!formValid">submit</v-btn>
                 </v-container>
         
         </v-form>
@@ -33,6 +33,7 @@ export default {
         aadhaar : "",
         fail: null,
         pan:"",
+        formValid:null,
         
         rules:{
             required: (v) => !!v || "Required",
