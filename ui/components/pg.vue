@@ -6,7 +6,7 @@
           <v-text-field label="Registration Number" v-model="pg_regno" :rules="[rules.required]"></v-text-field>
           <v-text-field label="Specialization" v-model="pg_specialization" :rules="[rules.required]"></v-text-field>
           <v-text-field label="College" v-model="pg_college" :rules="[rules.required]"></v-text-field>
-          <v-text-field label="Marks in percent (e.g. 80)" v-model="pg_marks" :rules="[rules.required,rules.percents]"></v-text-field>
+          <v-text-field label="Marks in %" v-model="pg_marks" :rules="[rules.required,rules.percents]"></v-text-field>
           <v-text-field label="Year of completion" v-model="pg_passout" :rules="[rules.required]"></v-text-field>
           <v-text-field label="University" v-model="pg_university" :rules="[rules.required]"></v-text-field>
           <v-file-input @change="fileselect" label="Upload PDF File" :rules="[rules.required]"></v-file-input>
