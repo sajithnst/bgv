@@ -181,6 +181,7 @@ class PersonalData(BaseModel):
     personal : bool = True
     submitted_on : str =  datetime.now()
     edited_on : str =  datetime.now()
+    
 
 
 @app.get('/personal')
@@ -236,6 +237,36 @@ async def add_personal( data : PersonalData ):
         return True
     except Exception as e:
         print (str(e))
+        return False
+class PersonalAddress(BaseModel):
+    email:str
+    houseNo:str
+    street:str
+    region:str
+    state:str
+    country:str
+    zipcode:str
+
+@app.post('/personal/address')
+async def update_address(data : PersonalAddress):
+    filt ={
+        'email':data.email
+    }
+    update={
+        '$set':{
+        'houseNo':data.houseNo,
+        'street':data.street,
+        'region' : data.region,
+        'state':data.state,
+        'country':data.country,
+        'zipcode':data.zipcode,
+        }
+    }
+    try:
+        client.bgv.personal.find_one_and_update(filt,update)
+        return True
+    except Exception as e:
+        print(str(e))
         return False
 
 @app.post('/personal/update')

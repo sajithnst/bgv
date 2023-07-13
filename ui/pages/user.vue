@@ -28,6 +28,11 @@
                   </v-row>
                 </v-card>
               </v-container>
+              <v-container>
+                <v-card max-width="450px" class="mx-auto bg" elevation="2">
+                  <Addaddress/>
+                </v-card>
+              </v-container>
           </v-col>
           <v-col>
       <persondetailspage/>
@@ -58,7 +63,7 @@
                   <v-card-title>Profile Submission</v-card-title>
                 </v-row>
                 <v-container class="text-center" >
-                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white;">Submit Profile</v-btn>
+                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white; width:40%">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
