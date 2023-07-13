@@ -28,6 +28,11 @@
                   </v-row>
                 </v-card>
               </v-container>
+              <v-container>
+                <v-card max-width="450px" class="mx-auto bg" elevation="2">
+                  <Addaddress/>
+                </v-card>
+              </v-container>
           </v-col>
           <v-col>
       <persondetailspage/>
