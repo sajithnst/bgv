@@ -1,7 +1,7 @@
 <template>
     <v-card>
       <v-card-text class="text-center">
-        <v-btn  color="indigo darken-4" style="color:white; width:90%;" @click="showForm = true">Add Address</v-btn>
+        <v-btn  color="indigo darken-4" style="color:white; width:40%;" @click="showForm = true">Add Address</v-btn>
       </v-card-text>
   
       <v-dialog v-model="showForm" max-width="500px">
@@ -13,11 +13,11 @@
           <v-card-text>
             <v-form ref="form" v-model="valid">
               <v-text-field v-model="houseNo" label="House No" :rules="[rules.required,rules.houseNo]"></v-text-field>
-              <v-text-field v-model="street" label="Street" ></v-text-field>
-              <v-text-field v-model="region" label="Region" ></v-text-field>
-              <v-text-field v-model="state" label="State" ></v-text-field>
-              <v-text-field v-model="country" label="Country" ></v-text-field>
-              <v-text-field v-model="zipcode" label="ZIP Code" ></v-text-field>
+              <v-text-field v-model="street" label="Street" :rules="[rules.required,rules.omg]"></v-text-field>
+              <v-text-field v-model="region" label="Region" :rules="[rules.required,rules.omg]"></v-text-field>
+              <v-text-field v-model="state" label="State" :rules="[rules.required,rules.omg]"></v-text-field>
+              <v-text-field v-model="country" label="Country" :rules="[rules.required,rules.omg]"></v-text-field>
+              <v-text-field v-model="zipcode" label="ZIP Code" :rules="[rules.required,rules.zipcode]"></v-text-field>
             </v-form>
           </v-card-text>
   
@@ -52,7 +52,8 @@
         rules: {
           required:(v) => !!v || 'House No is required',
           houseNo: (v) => /^\d+$/.test(v) || 'House No must be a number',
-
+          zipcode: (v) => v.match(/^\d{6}$/) || 'Check your zipcode',
+          omg :(v) => v.match(/^[a-zA-Z]+$/) || 'Enter only characters',
           },
       };
     },
