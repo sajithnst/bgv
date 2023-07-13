@@ -63,7 +63,7 @@
                   <v-card-title>Profile Submission</v-card-title>
                 </v-row>
                 <v-container class="text-center" >
-                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white; width:40%">Submit Profile</v-btn>
+                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white; width:40">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
