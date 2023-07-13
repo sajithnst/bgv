@@ -50,7 +50,7 @@
         country: "",
         zipcode: "",
         rules: {
-          required:(v) => !!v || 'House No is required',
+          required:(v) => !!v || 'Required',
           houseNo: (v) => /^\d+$/.test(v) || 'House No must be a number',
           zipcode: (v) => v.match(/^\d{6}$/) || 'Check your zipcode',
           omg :(v) => v.match(/^[a-zA-Z]+$/) || 'Enter only characters',
