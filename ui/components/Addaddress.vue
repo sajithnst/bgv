@@ -1,7 +1,7 @@
 <template>
     <v-card>
       <v-card-text class="text-center">
-        <v-btn  color="indigo darken-4" style="color:white;" @click="showForm = true">Add Address</v-btn>
+        <v-btn  color="indigo darken-4" style="color:white; width:40%;" @click="showForm = true">Add Address</v-btn>
       </v-card-text>
   
       <v-dialog v-model="showForm" max-width="500px">
