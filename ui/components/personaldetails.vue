@@ -38,9 +38,9 @@
                   <br>
                   &emsp;&emsp;
 
-                  <v-btn text outlined color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
+                  <v-btn v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected'" text outlined color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
 
-                  <v-btn text outlined color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
+                  <v-btn v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected'" text outlined color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
 
                 </v-container>
               </v-row>
