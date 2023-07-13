@@ -35,17 +35,20 @@
               </v-container>
           </v-col>
           <v-col>
+            <v-container v-if="personal">
+              <v-alert type="error" dismissible> Fill the Personal details </v-alert>
+            </v-container>
       <persondetailspage/>
-      <v-container v-if="fail">
-        <v-divider thickness="4" color="red"></v-divider>
+      <v-container v-if="sslc">
+        <v-alert type="error" dismissible> Fill the SSLC details </v-alert>
       </v-container>
       <sslcviewpage/>
-      <v-container v-if="fail">
-        <v-divider thickness="4" color="red"></v-divider>
+      <v-container v-if="hse">
+        <v-alert type="error" dismissible> Fill the HSE details </v-alert>
       </v-container>
       <hseviewpage/>
-      <v-container v-if="fail">
-        <v-divider thickness="4" color="red"></v-divider>
+      <v-container v-if="ug">
+        <v-alert type="error" dismissible> Fill the UG details </v-alert>
       </v-container>
       <ugviewpage/>
 
@@ -70,9 +73,7 @@
                   <v-alert type="error" dismissible> You have submitted the profile </v-alert>
 
                 </v-container>
-                <v-container v-if="fail" class="text-center">
-                  <v-card-subtitle  style="color:red">*Check whether you have entered the details</v-card-subtitle>
-                </v-container>
+                
 
               </v-card>
             </v-container>
@@ -108,6 +109,10 @@
       fail: false,
       show: false,
       isLoading: false,
+      personal: false,
+      sslc: false,
+      hse: false,
+      ug: false
       
     }),
     methods:{
@@ -126,6 +131,19 @@
         else{
           this.success = false
           this.fail = true
+        }
+
+        if(this.pdata.personal == false){
+          this.personal = true
+        }
+        if(this.pdata.sslc == false){
+          this.sslc = true
+        }
+        if(this.pdata.hse == false){
+          this.hse = true
+        }
+        if(this.pdata.hse == false){
+          this.hse = true
         }
 
         this.isLoading = true;

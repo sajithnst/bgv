@@ -47,8 +47,14 @@ async def verify(submit:SubmitModel):
     hse = client.bgv.hse.count_documents({'email':submit.email})
     ug = client.bgv.ug.count_documents({'email' : submit.email})
    
-    if personal == 0 or sslc == 0 or hse == 0 or ug == 0:
-        return False
+    if personal == 0:
+        return{'personal': False}
+    elif sslc == 0:
+        return {'sslc': False}
+    elif hse == 0:
+        return {'hse': False}
+    elif ug == 0:
+        return {'ug': False}
     else:
         try:
             filter = {
