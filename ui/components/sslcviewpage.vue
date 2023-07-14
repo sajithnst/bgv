@@ -22,10 +22,10 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="verified" class="text-center">
+              <v-container v-if="data.status == 'verified'" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
-              <v-container v-if="rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected'" class="text-center">
                 <v-icon size="100px" color="red">mdi-cancel</v-icon>
                 <br>
                 <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
@@ -36,12 +36,22 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-container>
+            <v-container v-if="this.datapdf == 'False'">
               &emsp;&emsp;
-  
-              <v-btn text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
-  
+              <v-btn  text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
             </v-container>
+          </v-row>
+          <v-row>
+            <v-col v-if="this.datapdf == 'True'">
+           
+                <v-file-input  style="width:60%;" @change="fileselect"  label = "Upload sslc doc" ></v-file-input>
+      
+            </v-col>
+            <v-col>
+              <v-container v-if="this.datapdf == 'True'">
+                <v-btn  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
+              </v-container>
+            </v-col>
           </v-row>
         </v-container>
         
@@ -65,6 +75,7 @@ export default{
    name: 'userprofile',
    async mounted (){
        this.$vuetify.theme.dark =false;
+       
        this.email = this.$storage.getUniversal('login_mail')
        let url = "http://127.0.0.1:8000/sslc"
        let res = await this.$axios.get(url,{params:{email: this.email}})
@@ -78,27 +89,20 @@ export default{
         this.data_s = true,
         this.data_ = false
       }
-       if (this.data.status == false){
-          this.pending = true
-          this.verified = false
-          this.rejected = false
-        }
-        if(this.data.status == "verified"){
-          this.verified = true
-          this.pending = false
-          this.rejected = false
-        }
-        if(this.data.status == "rejected"){
-          this.rejected = true
-          this.pending = false
-          this.verified = false
-        }
+
+      let nurl = "http://127.0.0.1:8000/pdf"
+      let nres = await this.$axios.get(nurl,{params:{email: this.email}})
+      this.datapdf = nres.data
+ 
 
    },
    data: () =>({
        email:"",
+       datapdf:"",
        data:{},
        regno:"",
+       isLoading: false,
+
        pending: false,
        verified: false,
        rejected: false,
@@ -108,6 +112,25 @@ export default{
 
    }),
    methods:{
+    async fileselect(event){
+      this.file=event
+    },
+    async upload(){
+            let formdata= new FormData()
+            formdata.append('email',this.email)
+            formdata.append('sslc_regno',this.regno)
+            formdata.append('file',this.file)
+            let furl = "http://127.0.0.1:8000/uploadsslcpdf"
+            let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
+            
+            this.isLoading = true;
+            // Simulate an asynchronous operation, such as an API call
+            setTimeout(() => {
+              // After the operation is complete, set isLoading to false
+              this.isLoading = false;
+              location.reload();
+            }, 2000);
+   },
     async doc(email, sslc_regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
@@ -134,5 +157,6 @@ export default{
       this.$router.push('/sslcpage')
     }
    }
+
 }
 </script>

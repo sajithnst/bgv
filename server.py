@@ -388,6 +388,16 @@ async def get_sslc(email : str):
     else : 
         return False
 
+@app.get('/pdf')
+async def checkpdf(email: str):
+    filter = {
+        'email': email
+    }
+    if(not os.path.isdir(email)):
+        return 'True'
+    else:
+        return 'False'
+
 
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
