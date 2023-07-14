@@ -81,6 +81,7 @@ export default{
        let url = "http://127.0.0.1:8000/exp"
        let res = await this.$axios.get(url,{params:{email: this.email}})
        this.datas= res.data
+       this.regno = res.data.empid
        console.log(this.datas)
        if(this.datas == false){
         this.data_ = true,
@@ -95,6 +96,7 @@ export default{
    },
    data: () =>({
        email:"",
+       regno:"",
        datas:[],
        pending: false,
        verified: false,
@@ -121,7 +123,6 @@ export default{
 
         window.open(url)
       })
-      console.log(regno)
 
     },
     async edit(){
