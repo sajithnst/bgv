@@ -72,6 +72,7 @@ export default{
       let url = "http://127.0.0.1:8000/hse"
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
+      this.regno = res.data.hse_regno
 
       if(this.data == false){
         this.data_ = true,
@@ -101,6 +102,7 @@ export default{
   },
   data: () =>({
       email:"",
+      regno:"",
       data:{},
       pending: false,
       verified: false,
@@ -114,7 +116,7 @@ export default{
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          hse_regno: hse_regno
+          regno: this.regno
         },
         responseType: 'arraybuffer'
       })

@@ -73,6 +73,7 @@ export default{
       console.log(this.email)
       let res = await this.$axios.get(url,{params:{email: this.email}})
       this.data= res.data
+      this.regno = res.data.ug_regno
       console.log(this.data)
 
       if(this.data == false){
@@ -103,6 +104,7 @@ export default{
   },
   data: () =>({
       email:"",
+      regno:"",
       data:{
 
       },
@@ -118,7 +120,7 @@ export default{
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          ug_regno: ug_regno
+          regno: this.regno
         },
         responseType: 'arraybuffer'
       })
