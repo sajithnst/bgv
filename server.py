@@ -392,7 +392,8 @@ async def get_sslc(email : str):
 ### code to upload pdf file 
 @app.post('/uploadsslcpdf')
 def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = File(...)):
-    
+    if(not os.path.isdir(email)):
+         os.mkdir(email)
     path = os.path.join(email,sslc_regno+".pdf")
     try:
         contents = file.file.read()
@@ -402,7 +403,6 @@ def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = Fi
         return False
     finally:
         file.file.close()
-
     return True
 
 
@@ -501,7 +501,8 @@ async def get_hse(email:str):
 
 @app.post('/uploadhsepdf')
 def upload(email : str = Form(), hse_regno : str = Form(),file: UploadFile = File(...)):
-    
+    if(not os.path.isdir(email)):
+         os.mkdir(email)
     path = os.path.join(email,hse_regno+".pdf")
     try:
         contents = file.file.read()
@@ -600,7 +601,8 @@ async def get_ug(email:str):
 
 @app.post('/uploadugpdf')
 def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File(...)):
-    
+    if(not os.path.isdir(email)):
+         os.mkdir(email)
     path = os.path.join(email,ug_regno+".pdf")
     try:
         contents = file.file.read()
