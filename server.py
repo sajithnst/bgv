@@ -409,11 +409,11 @@ def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = Fi
 
 
 @app.get('/getpdf')
-async def getpdf(email: str, sslc_regno: str):
-    path = os.path.join(email,sslc_regno+".pdf")
+async def getpdf(email: str, regno: str):
+    path = os.path.join(email,regno+".pdf")
     if os.path.exists(path):
         try:
-            return FileResponse(path, media_type="application/pdf", filename=sslc_regno+".pdf")
+            return FileResponse(path, media_type="application/pdf", filename=regno+".pdf")
         except Exception as e:
             print(str(e))
     else:
