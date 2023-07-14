@@ -36,19 +36,19 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-container v-if="this.datapdf == 'False'">
+            <v-container v-if="this.datapdf == 'True'">
               &emsp;&emsp;
               <v-btn  text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
             </v-container>
           </v-row>
           <v-row>
-            <v-col v-if="this.datapdf == 'True'">
+            <v-col v-if="this.datapdf == 'False'">
            
                 <v-file-input  style="width:60%;" @change="fileselect"  label = "Upload sslc doc" ></v-file-input>
       
             </v-col>
             <v-col>
-              <v-container v-if="this.datapdf == 'True'">
+              <v-container v-if="this.datapdf == 'False'">
                 <v-btn  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
               </v-container>
             </v-col>
@@ -90,8 +90,8 @@ export default{
         this.data_ = false
       }
 
-      let nurl = "http://127.0.0.1:8000/pdf"
-      let nres = await this.$axios.get(nurl,{params:{email: this.email}})
+      let nurl = "http://127.0.0.1:8000/checkpdf"
+      let nres = await this.$axios.get(nurl,{params:{email: this.email, regno: this.regno}})
       this.datapdf = nres.data
  
 

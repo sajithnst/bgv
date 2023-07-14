@@ -388,12 +388,14 @@ async def get_sslc(email : str):
     else : 
         return False
 
-@app.get('/pdf')
-async def checkpdf(email: str):
+
+
+@app.get('/checkpdf')
+async def checkpdf(email: str, regno: str):
     filter = {
         'email': email
     }
-    if(not os.path.isdir(email)):
+    if(os.path.isfile(f"./{email}/{regno}.pdf")):
         return 'True'
     else:
         return 'False'

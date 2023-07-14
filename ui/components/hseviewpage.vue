@@ -21,10 +21,10 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="100px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="verified" class="text-center">
+              <v-container v-if="data.status == 'verified'" class="text-center">
                 <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
               </v-container>
-              <v-container v-if="rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected'" class="text-center">
                 <v-icon size="100px" color="red">mdi-cancel</v-icon>
                 <br>
                 <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
@@ -83,26 +83,14 @@ export default{
         this.data_ = false
       }
 
-      if (this.data.status == false){
-          this.pending = true
-          this.verified = false
-          this.rejected = false
-        }
-        if(this.data.status == "verified"){
-          this.verified = true
-          this.pending = false
-          this.rejected = false
-        }
-        if(this.data.status == "rejected"){
-          this.rejected = true
-          this.pending = false
-          this.verified = false
-        }
-
+      let nurl = "http://127.0.0.1:8000/pdf"
+      let nres = await this.$axios.get(nurl,{params:{email: this.email}})
+      this.datapdf = nres.data
   },
   data: () =>({
       email:"",
       regno:"",
+      datapdf:"",
       data:{},
       pending: false,
       verified: false,
