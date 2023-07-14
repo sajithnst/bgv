@@ -391,7 +391,7 @@ async def get_sslc(email : str):
 
 
 @app.get('/checkpdf')
-async def checkpdf(email: str, regno: str):
+async def checkpdf(email: str, regno: Optional[str] = None):
     filter = {
         'email': email
     }
@@ -430,6 +430,8 @@ async def getpdf(email: str, regno: str):
             print(str(e))
     else:
         return False
+
+
 
 ## hser certificate input
 
