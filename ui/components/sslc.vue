@@ -67,7 +67,12 @@ export default{
             formdata.append('file',this.file)
             let furl = "http://127.0.0.1:8000/uploadsslcpdf"
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
-            
+            if (result.data == res.data){
+                this.$router.push('/user')
+            }else{
+                this.fail= true
+            }
+
         },
     }
 
