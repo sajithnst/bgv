@@ -252,6 +252,7 @@ class PersonalAddress(BaseModel):
     state:str
     country:str
     zipcode:str
+    address:bool=True
 
 @app.post('/personal/address')
 async def update_address(data : PersonalAddress):
@@ -266,6 +267,7 @@ async def update_address(data : PersonalAddress):
         'state':data.state,
         'country':data.country,
         'zipcode':data.zipcode,
+        'address':data.address,
         }
     }
     try:
