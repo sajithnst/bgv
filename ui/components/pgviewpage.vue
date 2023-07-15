@@ -133,6 +133,12 @@ export default{
       this.file=event
     },
     async upload(){
+      let nurl = "http://127.0.0.1:8000/user/expupdation"
+        let ndata={
+          'email': this.email
+        }
+        let nres = await this.$axios.post(nurl, ndata)
+
             let formdata= new FormData()
             formdata.append('email',this.email)
             formdata.append('sslc_regno',this.regno)
