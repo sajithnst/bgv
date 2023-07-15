@@ -1,6 +1,5 @@
 <template>
     <v-container>
-      <v-card></v-card>
       <v-card-text class="text-center" v-if="!formSubmitted">
         <v-btn  color="indigo darken-4" style="color:white; width:40%;" @click="showForm = true" v-if="!formSubmitted">Add Address</v-btn>
       </v-card-text>
