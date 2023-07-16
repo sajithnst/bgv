@@ -3,12 +3,12 @@
         <v-form v-model="formValid">
             <h4 class="text-center"> HSE Details</h4>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-            <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required,rules.hse_regno]"></v-text-field>
             <v-text-field label="Marks in %" v-model="hse_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-            <v-text-field label="Year of Completion" v-model="hse_passout" :rules="[rules.required]" ></v-text-field>
-            <v-text-field label="School" v-model="hse_school" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Board" v-model="hse_board" :rules="[rules.required]"></v-text-field>
-            <v-file-input @change="fileselect"  label = "Upload PDF Files"  :rules="[rules.required]"></v-file-input>
+            <v-text-field label="Year of Completion" v-model="hse_passout" :rules="[rules.required,rules.hse_passout]" ></v-text-field>
+            <v-text-field label="School" v-model="hse_school" :rules="[rules.required,rules.hse_school]"></v-text-field>
+            <v-text-field label="Board" v-model="hse_board" :rules="[rules.required,rules.hse_board]"></v-text-field>
+            <v-file-input @change="fileselect"  label = "Upload Files"  :rules="[rules.required]"></v-file-input>
             <v-container class="text-center">
             <v-btn text  @click="submit()" :disabled="!formValid" class="button" color="indigo lighten-2"> Submit </v-btn>
         </v-container>
@@ -27,18 +27,24 @@ export default{
 
     },
     data:() =>({
-        hse_regno : null,
-        hse_marks : null,
-        email: null,
-        hse_passout: null,
-        hse_school : null,
+        hse_regno : "",
+        hse_marks : "",
+        email: "",
+        hse_passout: "",
+        hse_school : "",
         fail: null,
-        hse_school : null,
-        hse_board : null,
+        hse_school : "",
+        hse_board : "",
         formValid: null,
         rules : {
             required: (v) => !!v || "Required",
-            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
+            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
+            email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
+            name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
+            hse_regno : (v) => v.match(/^[A-Za-z0-9]{1,10}$/) || "Register number format is wrong",
+            hse_passout: (v) => v.match(/^\d{4}$/) || "Only in Numbers",
+            hse_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            hse_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters"
         },
     }),
     methods:{

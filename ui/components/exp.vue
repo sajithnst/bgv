@@ -6,14 +6,14 @@
             <v-text-field label="Employee ID"
             v-model="empid"
             :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Company Name" v-model="company_name" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="HR Email" v-model="hr_mail" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Company Name" v-model="company_name" :rules="[rules.required,rules.company_name]"></v-text-field>
+            <v-text-field label="HR Email" v-model="hr_mail" :rules="[rules.required,rules.hr_mail]"></v-text-field>
             <v-text-field label="Start Date (DD/MM/YYYY)" v-model="start_date" :rules="[rules.required,rules.date]"></v-text-field>
             <v-text-field label="End Date (DD/MM/YYYY)" v-model="end_date" :rules="[rules.required,rules.date]"></v-text-field>
-            <v-text-field label="Designation" v-model="designation" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="CTC (Cost To Company)" v-model="lpa" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Reporting Manager" v-model="reporting_manager" :rules="[rules.required]"></v-text-field>
-            <v-file-input @change="fileselect" label="Experience Letter as PDF" :rules="[rules.required]"></v-file-input>
+            <v-text-field label="Designation" v-model="designation" :rules="[rules.required,rules.designation]"></v-text-field>
+            <v-text-field label="CTC (Cost To Company)" v-model="lpa" :rules="[rules.required,rules.lpa]"></v-text-field>
+            <v-text-field label="Reporting Manager" v-model="reporting_manager" :rules="[rules.required,rules.reporting_manager]"></v-text-field>
+            <v-file-input @change="fileselect" label="Experience Letter" :rules="[rules.required]"></v-file-input>
             <v-container class="text-center">
                 <v-btn text  @click="submit()" :disabled="!formValid" class="button" color="indigo lighten-2"> Submit </v-btn>
             </v-container>
@@ -34,20 +34,28 @@ export default{
     },
     data : () => ({
         fail: null,
-        empid :null,
-        name: null,
-        email:null,
-        company_name:null,
-        hr_mail: null,
+        empid :"",
+        name: "",
+        email:"",
+        company_name:"",
+        hr_mail: "",
         start_date:"",
         end_date:"",
-        designation: null,
-        lpa:null,
-        reporting_manager:null,
+        designation: "",
+        lpa:"",
+        reporting_manager:"",
         formValidator:null,
         rules : {
             required: (v) => !!v || "Required",
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
+            email: (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
+            name: (v) => v.match(/^[A-Za-z\s]+$/) || 'No special characters in Name',
+            empid: (v) => v.match(/^[A-Za-z0-9_-]{1,20}$/) || 'Emp ID format is wrong',
+            company_name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            hr_mail : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
+            designation: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            lpa: (v) => v.match(/^[-+]?[0-9]*\.?[0-9]+$/) || 'lpa format is wrong',
+            reporting_manager: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in name",
             date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"
         },
     }),

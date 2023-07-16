@@ -5,11 +5,11 @@
       <h3 class="text-center"> SSLC Details</h3>
       <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
       <v-alert class="success" dismissible v-if="success"> Data insertion succeeded</v-alert>
-      <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required]"></v-text-field>
+      <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required,rules.sslc_regno]"></v-text-field>
       <v-text-field label="Marks in %" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-      <v-text-field label="School" v-model="sslc_school" :rules="[rules.required]"></v-text-field>
-      <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required]"></v-text-field>
-      <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required]"></v-text-field>
+      <v-text-field label="School" v-model="sslc_school" :rules="[rules.required,rules.sslc_school]"></v-text-field>
+      <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required,rules.sslc_passout]"></v-text-field>
+      <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required,rules.sslc_board]"></v-text-field>
       <v-file-input @change="fileselect"  label = "Upload PDF Files" :rules="[rules.required]" ></v-file-input>
       <v-container class="text-center">
           <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
@@ -30,19 +30,26 @@ export default{
   },
   data : () => ({
       formvalid: false,
-      sslc_regno : null,
-      email : null,
-      sslc_marks : null,
-      sslc_school : null,
+      sslc_regno : '',
+      email : '',
+      sslc_marks : '',
+      sslc_school : '',
       success: null,
-      sslc_passout : null,
-      name : null,
+      sslc_passout : '',
+      name : '',
       fail : null,
-      sslc_board : null,
+      sslc_board : '',
       rules : {
-          required: (v) => !!v || "Required",
-          percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
-      },
+        required: (v) => !!v || "Required",
+            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
+            email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
+            name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
+            sslc_regno : (v) => v.match(/^[A-Za-z0-9]{1,10}$/) || "Register number format is wrong",
+            sslc_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            sslc_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
+            sslc_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+        },
+      
   }),
   methods:{
       async fileselect(event){

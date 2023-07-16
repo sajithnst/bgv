@@ -3,13 +3,13 @@
         <v-form v-model="formValid">
             <h4 class="text-center"> UG Details</h4>
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
-            <v-text-field label="Registration Number" v-model="ug_regno" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="Specialization" v-model="ug_specialization" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="College" v-model="ug_college" :rules="[rules.required]"></v-text-field>
+            <v-text-field label="Registration Number" v-model="ug_regno" :rules="[rules.required,rules.ug_regno]"></v-text-field>
+            <v-text-field label="Specialization" v-model="ug_specialization" :rules="[rules.required,rules.ug_specialization]"></v-text-field>
+            <v-text-field label="College" v-model="ug_college" :rules="[rules.required,rules.ug_college]"></v-text-field>
             <v-text-field label="Marks in % " v-model="ug_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-            <v-text-field label="Year of completion" v-model="ug_passout" :rules="[rules.required]"></v-text-field>
-            <v-text-field label="University" v-model="ug_university" :rules="[rules.required]"></v-text-field>
-            <v-file-input @change="fileselect" label="Upload PDF File" :rules="[rules.required]"></v-file-input>
+            <v-text-field label="Year of completion" v-model="ug_passout" :rules="[rules.required,rules.ug_passout]"></v-text-field>
+            <v-text-field label="University" v-model="ug_university" :rules="[rules.required,rules.ug_university]"></v-text-field>
+            <v-file-input @change="fileselect" label="Upload File" :rules="[rules.required]"></v-file-input>
             <v-container class="text-center">
                 <v-btn text  @click="submit()" :disabled="!formValid" class="button" color="indigo lighten-2"> Submit </v-btn>
             </v-container>
@@ -28,19 +28,26 @@ export default{
 
     },
     data:() =>({
-        ug_regno : null,
-        email : null,
+        ug_regno : "",
+        email : "",
         fail:null,
-        name : null,
-        ug_specialization : null,
-        ug_college:null,
-        ug_marks:null,
-        ug_passout: null,
-        ug_university:null,
+        name : "",
+        ug_specialization : "",
+        ug_college:"",
+        ug_marks:"",
+        ug_passout: "",
+        ug_university:"",
         formValid:null,
         rules : {
             required: (v) => !!v || "Required",
-            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100"
+            percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
+            email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
+            name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
+            ug_regno : (v) => v.match(/^[A-Za-z0-9]{1,10}$/) || "Register number format is wrong",
+            ug_specialization : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            ug_college : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
+            ug_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
+            ug_university : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
         },
     }),
     methods:{
