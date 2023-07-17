@@ -38,9 +38,9 @@
         <v-row>
           <v-container>
             &emsp;&emsp;
-            <v-btn v-if="data.status == !'verified' || data.status==!'rejected'" text outlined color="indigo darken-4" style="color: white;"  @click="approve(data.email, data.empid, ndata.name)">Approve</v-btn>&emsp;
-            <v-btn v-if="data.status == !'verified' || data.status==!'rejected'" text outlined  color="indigo darken-4" style="color: white;"  @click="deny(data.email, data.empid, ndata.name)">Reject</v-btn>&emsp;
-            <v-btn text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
+            <v-btn size="30%" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined color="indigo darken-4" style="color: white;"  @click="approve(data.email, data.empid, ndata.name)">Approve</v-btn>&emsp;
+            <v-btn size="30%" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined  color="indigo darken-4" style="color: white;"  @click="deny(data.email, data.empid, ndata.name)">Reject</v-btn>&emsp;
+            <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
           </v-container>
         </v-row>
       </v-card-content>

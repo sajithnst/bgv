@@ -40,9 +40,9 @@
         <v-container>
 
           &emsp;&emsp;
-          <v-btn v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="approve(data.email, data.ug_regno, ndata.name)">Approve</v-btn>&emsp;
-          <v-btn v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.ug_regno, ndata.name)">Reject</v-btn>&emsp;
-          <v-btn text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.ug_regno)">Document</v-btn>
+          <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="approve(data.email, data.ug_regno, ndata.name)">Approve</v-btn>&emsp;
+          <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.ug_regno, ndata.name)">Reject</v-btn>&emsp;
+          <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.ug_regno)">Document</v-btn>
         </v-container>
       </v-row>
 
