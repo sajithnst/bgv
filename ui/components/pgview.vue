@@ -37,12 +37,18 @@
         </v-container>
       </v-card-content>
       <v-row>
-        <v-container>
-          <br>
+        <v-container v-if="!isLoading">
           &emsp;&emsp;
-          <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="approve(data.email, data.pg_regno, ndata.name)">Approve</v-btn>&emsp;
-          <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.pg_regno, ndata.name)">Reject</v-btn>&emsp;
+          <v-btn size="30%" v-on:click="verified = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="approve(data.email, data.pg_regno, ndata.name)">Approve</v-btn>&emsp;
+          <v-btn size="30%" v-on:click="rejected = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.pg_regno, ndata.name)">Reject</v-btn>&emsp;
+        </v-container>
+      </v-row>
+      <v-row>
+        <v-container>
+          &emsp;&emsp;
+
           <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
+
         </v-container>
       </v-row>
     </v-card>
@@ -102,7 +108,9 @@ export default{
       verified: false,
       rejected: false,
       data_: false,
-      data_s: false
+      data_s: false,
+      isLoading:false,
+
 
 
   }),
@@ -143,7 +151,7 @@ export default{
         notary_name: name
       }
       let res = await this.$axios.post(url, verify)
-      window.location.reload()
+      this.isLoading = true;
 
     },
     async deny(email, pg_regno, name){
@@ -157,7 +165,7 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
-        window.location.reload()
+        this.isLoading = true;
 
     }
    }

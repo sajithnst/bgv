@@ -33,16 +33,19 @@
           </v-row>
         </v-container>
         <v-row>
-          
-          <v-container>
-            &emsp;&emsp;
-            <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
-          </v-container>
           <v-container v-if="!isLoading">
             &emsp;&emsp;
             <v-btn size="30%" v-on:click="verified = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected' " text outlined  color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.sslc_regno)">Approve</v-btn>&emsp;
           <v-btn size="30%" v-on:click="rejected = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected' " text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.sslc_regno)">Reject</v-btn>&emsp;
           </v-container>
+        </v-row>
+        <v-row>
+          
+          <v-container>
+            &emsp;&emsp;
+            <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
+          </v-container>
+          
         </v-row>
       </v-card-content>
       <v-alert border="top" color="red lighten-1" dismissible  v-if="error"> No Documents uploaded</v-alert>
