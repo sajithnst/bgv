@@ -53,11 +53,9 @@
             <v-container fluid>
               <v-card max-width="350px" height="365px" class="mx-auto bg" elevation="2">
                 <br>
-                <v-row justify="center">
-                  <v-card-title>Profile Submission</v-card-title>
-                </v-row>
+             
                 <v-container class="text-center" >
-                  <v-btn :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show" @click="submit(data.email)" style="color:white; width:40">Submit Profile</v-btn>
+                  <v-btn size="30%" :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show &&!isLoading" @click="submit(data.email)" style="color:white; width:40">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
@@ -127,11 +125,7 @@
 
         this.isLoading = true;
             // Simulate an asynchronous operation, such as an API call
-            setTimeout(() => {
-              // After the operation is complete, set isLoading to false
-              this.isLoading = false;
-              location.reload();
-            }, 2000);
+       
 
 
       }
