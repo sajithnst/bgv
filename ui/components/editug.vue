@@ -42,7 +42,7 @@ export default{
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
             email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
             name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
-            ug_regno : (v) => v.match(/^[A-Za-z0-9]{1,10}$/) || "Register number format is wrong",
+            ug_regno : (v) => v.match(/^-?\d+$/) || "Register number format is wrong",
             ug_specialization : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             ug_college : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             ug_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
