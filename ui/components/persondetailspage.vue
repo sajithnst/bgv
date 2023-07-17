@@ -23,10 +23,10 @@
               <v-container v-if="pending" class="text-center">
               </v-container>
               <v-container v-if="pdata.status == 'verified'" class="text-center">
-                <v-icon size="100px" color="green">mdi-check-decagram</v-icon>
+                <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
               </v-container>
               <v-container v-if="pdata.status == 'rejected'" class="text-center">
-                <v-icon size="90px" color="red">mdi-cancel</v-icon>
+                <v-icon size="150px" color="red">mdi-cancel</v-icon>
                 <br>
                 <v-btn color="indigo darken-3" style="color: white;" @click="edit()">EDIT</v-btn>
               </v-container>
