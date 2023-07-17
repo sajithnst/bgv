@@ -62,6 +62,10 @@
                   <v-alert type="success" dismissible> You have submitted the profile </v-alert>
 
                 </v-container>
+                <v-container v-if="fail" class="text-center">
+                  <v-alert type="error" dismissible> Check Whether you have submitted required data </v-alert>
+
+                </v-container>
                 
 
               </v-card>
