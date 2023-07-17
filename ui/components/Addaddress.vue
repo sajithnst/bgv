@@ -27,7 +27,7 @@
           <v-card-actions v-if="!formSubmitted" >
             <v-spacer></v-spacer>
             <v-btn color="error" text @click="showForm = false">Cancel</v-btn>
-            <v-btn color="primary" :disabled="!valid" @click="submitForm()">Submit</v-btn>
+            <v-btn text color="indigo lighten-2" :disabled="!valid" @click="submitForm()" class="button">Submit</v-btn>
           </v-card-actions>
 
         </v-card>
@@ -58,7 +58,7 @@
         rules: {
           required:(v) => !!v || 'Required',
           zipcode: (v) => v.match(/^\d{6}$/) || 'Check your zipcode',
-          omg :(v) => v.match(/^[A-Za-z\s]+$/) || 'Enter only characters',
+          omg :(v) => v.match(/^[a-zA-Z]+$/) || 'Enter only characters',
           },
       };
     },
