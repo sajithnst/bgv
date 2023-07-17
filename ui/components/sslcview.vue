@@ -33,12 +33,15 @@
           </v-row>
         </v-container>
         <v-row>
+          
           <v-container>
-            <br>
             &emsp;&emsp;
-            <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.sslc_regno)">Approve</v-btn>&emsp;
-          <v-btn size="30%" v-if="this.data.status == !'verified' || this.data.status==!'rejected'" text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.sslc_regno)">Reject</v-btn>&emsp;
-          <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
+            <v-btn size="30%" text outlined  color="indigo darken-4" style="color: white;" @click="doc(data.email, data.sslc_regno)">Document</v-btn>
+          </v-container>
+          <v-container v-if="!isLoading">
+            &emsp;&emsp;
+            <v-btn size="30%" v-on:click="verified = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected' " text outlined  color="indigo darken-4" style="color:white;"  @click="approve(data.email, data.sslc_regno)">Approve</v-btn>&emsp;
+          <v-btn size="30%" v-on:click="rejected = true"  :loading="isLoading" :disabled="isLoading" v-if="this.data.status == !'verified' || this.data.status==!'rejected' " text outlined  color="indigo darken-4" style="color:white;" @click="deny(data.email, data.sslc_regno)">Reject</v-btn>&emsp;
           </v-container>
         </v-row>
       </v-card-content>
@@ -65,8 +68,7 @@ export default{
        let nurl = "http://127.0.0.1:8000/notary"
         let nres = await this.$axios.get(nurl,{params:{email: this.notary}})
         this.ndata = nres.data
-
-        if (this.data.status == false){
+        if (this.data.status == "pending"){
           this.pending = true
           this.verified = false
           this.rejected = false
@@ -81,6 +83,9 @@ export default{
           this.pending = false
           this.verified = false
         }
+
+
+
    },
    data: () =>({
        email:"",
@@ -88,7 +93,9 @@ export default{
        pending: false,
        error:false,
        verified: false,
-       rejected: false
+       rejected: false,
+       isLoading:false,
+       
    }),
    methods:{
     async doc(email, sslc_regno){
@@ -137,7 +144,7 @@ export default{
       }
       let res = await this.$axios.post(url, vdata)
       console.log(res.data)
-      window.location.reload()
+      this.isLoading = true;
 
 
     },
@@ -152,7 +159,7 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
-        window.location.reload()
+        this.isLoading = true;
 
     }
    }

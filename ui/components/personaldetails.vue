@@ -33,14 +33,13 @@
                   </v-col>
                 </v-row>
               </v-container>
-              <v-row>
-                <v-container>
-                  <br>
+              <v-row v-if=" !isLoading">
+                <v-container >
                   &emsp;&emsp;
 
-                  <v-btn size="30%" v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected'" text outlined color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
+                  <v-btn size="30%" v-on:click="verified = true"  :loading="isLoading" :disabled="isLoading" v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected' " text outlined color="indigo darken-4" style="color:white;" @click="approve(pdata.email, ndata.name)">Approve</v-btn>&emsp;
 
-                  <v-btn size="30%" v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected'" text outlined color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
+                  <v-btn size="30%" v-on:click="rejected = true"  :loading="isLoading" :disabled="isLoading" v-if="this.pdata.status == !'verified' || this.pdata.status==!'rejected'" text outlined color="indigo darken-4" style="color:white;" @click="deny(pdata.email, ndata.name)">Reject</v-btn>
 
                 </v-container>
               </v-row>
@@ -95,7 +94,10 @@ export default{
         success: false,
         pending: false,
         verified: false,
-        rejected: false
+        rejected: false,
+        isLoading:false,
+
+
     }),
     methods:{
       async approve(email, name){
@@ -115,7 +117,11 @@ export default{
           notary_name: name
         }
         let res = this.$axios.post(url,verify)
-        window.location.reload()
+        this.isLoading = true;
+        setTimeout(() => {
+              // After the operation is complete, set isLoading to false
+              this.isLoading = false;
+            }, 2000);
 
       },
       async deny(email, name){
@@ -128,7 +134,7 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
-        window.location.reload()
+        this.isLoading = true;
 
     }
   }
