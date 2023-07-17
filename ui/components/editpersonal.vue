@@ -8,7 +8,7 @@
       <v-text-field label="Employee ID" v-model="empid" :rules="[rules.required, rules.alphnum]"></v-text-field>
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="doj" transition="scale-transition" offset-y min-width="auto">
         <template v-slot:activator="{ on }">
-          <v-text-field v-model="formattedDoj" label="Date of Join (DD/MM/YYYY)(Current Company)" readonly v-on="on"></v-text-field>
+          <v-text-field v-model="formattedDoj" label="Date of Join (DD/MM/YYYY)(Current Company)"  readonly v-on="on"></v-text-field>
         </template>
         <v-date-picker v-model="doj" :max="today" no-title scrollable>
           <v-spacer></v-spacer>
@@ -66,20 +66,9 @@ export default {
             date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"
       },
       menu: false,
-      today: new Date().toISOString().substr(0, 10),
+      today: new Date().toISOString().substring(0, 10),
+      formattedDoj:''
     };
-  },
-  computed: {
-    formattedDoj() {
-      if (this.doj) {
-        const dateObj = new Date(this.doj);
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const year = dateObj.getFullYear();
-        return `${day}/${month}/${year}`;
-      }
-      return '';
-    },
   },
   methods: {
     async submit() {
@@ -103,11 +92,22 @@ export default {
         this.fail = true;
       }
     },
-    saveDate() {
-      this.menu = false;
-    },
     cancelDate() {
       this.menu = false;
+    },
+    saveDate() {
+      this.formattedDoj = this.getFormattedDate(this.doj);
+      this.menu = false;
+    },
+    getFormattedDate(date) {
+      if (date) {
+        const dateObj = new Date(date);
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+      return '';
     },
   },
 };

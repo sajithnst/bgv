@@ -5,8 +5,16 @@
                 <br/>
                 <h3 class="text-center"> Personal Data</h3> <br />
                 <v-text-field label="Employee ID " v-model="empid" :rules="[rules.required,rules.alphnum]"></v-text-field>
-                <v-text-field label="Date of Join (DD/MM/YYYY)(Current Company)" v-model="doj" :rules="[rules.required,rules.date]"></v-text-field>
-                <v-text-field label="Company Name " v-model="company" :rules="[rules.required,rules.company]"></v-text-field>
+                <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="doj" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on }">
+                      <v-text-field v-model="formattedDoj" label="Date of Join (DD/MM/YYYY)(Current Company)"  readonly v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="doj" :max="today" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="cancelDate()">Cancel</v-btn>
+                      <v-btn text color="primary" @click="saveDate()">OK</v-btn>
+                    </v-date-picker>
+                  </v-menu>                <v-text-field label="Company Name " v-model="company" :rules="[rules.required,rules.company]"></v-text-field>
                 <v-text-field label="Designation" v-model="designation" :rules="[rules.required,rules.designation]"></v-text-field>
                 <v-text-field label="Company Email" v-model="company_email" :rules="[rules.required,rules.email]"></v-text-field>
                 <v-text-field label="Mobile Number" v-model="mob" :rules="[rules.required,rules.mob]"></v-text-field>
@@ -54,7 +62,10 @@ export default {
             alphnum: (v) => v.match(/^[A-Za-z0-9\s]+$/) || "No special Characters",
             date : (v) => (v.match(/^\d{2}\/\d{2}\/\d{4}$/)) || "Date format is not correct"
 
-        }
+        },
+      menu: false,
+      today: new Date().toISOString().substring(0, 10),
+      formattedDoj:''
     }),
     methods:{
         async submit(){
@@ -79,6 +90,23 @@ export default {
             }
 
         },
+        cancelDate() {
+      this.menu = false;
+    },
+    saveDate() {
+      this.formattedDoj = this.getFormattedDate(this.doj);
+      this.menu = false;
+    },
+    getFormattedDate(date) {
+      if (date) {
+        const dateObj = new Date(date);
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+      return '';
+    },
     },
 
 }
