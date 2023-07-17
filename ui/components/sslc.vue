@@ -46,7 +46,7 @@ export default{
             name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             sslc_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
             sslc_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
-            sslc_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
+            sslc_passout : (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
             sslc_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
         },
     }),

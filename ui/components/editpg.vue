@@ -45,7 +45,7 @@ export default{
           pg_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
           pg_specialization : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
           pg_college : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
-          pg_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
+          pg_passout : (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
           pg_university : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
       },
   }),
