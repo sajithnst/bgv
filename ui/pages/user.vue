@@ -69,7 +69,7 @@
 
                 </v-container>
                 <v-container v-if="success" class="text-center">
-                  <v-alert type="error" dismissible> You have submitted the profile </v-alert>
+                  <v-alert type="success" dismissible> You have submitted the profile </v-alert>
 
                 </v-container>
                 
