@@ -45,10 +45,22 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-container>
+            <v-container v-if="docdata == 'True' || show" >
               &emsp;&emsp;
               <v-btn size="30%" text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.empid)">Document</v-btn>
             </v-container>
+          </v-row>
+          <v-row>
+            <v-col v-if="docdata == 'False' &&!isLoading" >
+           
+                <v-file-input  style="width:60%;" @change="fileselect"  label = "Upload sslc doc" ></v-file-input>
+      
+            </v-col>
+            <v-col>
+              <v-container v-if="docdata == 'False' &&!isLoading" >
+                <v-btn size="30%" v-on:click="show = true"  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
+              </v-container>
+            </v-col>
           </v-row>
         </v-container>
         
@@ -92,21 +104,50 @@ export default{
         this.data_ = false
       }
 
+      let nurl = "http://127.0.0.1:8000/checkpdf"
+      let nres = await this.$axios.get(nurl,{params:{email: this.email, regno: this.regno}})
+      this.docdata = nres.data
+      console.log(nres.data)
 
    },
    data: () =>({
        email:"",
        regno:"",
+       docdata:"",
+       empid:"",
        datas:[],
        pending: false,
        verified: false,
        rejected: false,
        data_s: false,
        data_: false,
-       expshow: false
+       expshow: false,
+       show: false,
+       isLoading: false
 
    }),
    methods:{
+    async fileselect(event){
+      this.file=event
+    },
+    async upload(){
+      let nurl = "http://127.0.0.1:8000/user/expupdation"
+        let ndata={
+          'email': this.email
+        }
+        let nres = await this.$axios.post(nurl, ndata)
+
+            let formdata= new FormData()
+            formdata.append('email',this.email)
+            formdata.append('empid',this.regno)
+            formdata.append('file',this.file)
+            let furl = "http://127.0.0.1:8000/uploadexppdf"
+            let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
+            
+            this.isLoading = true;
+            // Simulate an asynchronous operation, such as an API call
+            
+   },
     async doc(email, empid){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{

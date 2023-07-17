@@ -93,6 +93,7 @@ export default{
       let nurl = "http://127.0.0.1:8000/checkpdf"
       let nres = await this.$axios.get(nurl,{params:{email: this.email, regno: this.regno}})
       this.datapdf = nres.data
+      console.log(this.datapdf)
  
 
    },
