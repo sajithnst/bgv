@@ -21,7 +21,7 @@
         <v-col cols="12"
           >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}</v-col
         >
-        <v-col cols="12" style="width: 30%;">
+        <v-col cols="12" style="width: 10%;">
           <v-btn
             v-for="icon in icons"
             :key="icon"
@@ -43,7 +43,7 @@
 export default {
     name : 'indexlayout',
     async mounted(){
-        this.$vuetify.theme.dark=false
+      this.$vuetify.theme.dark=false
     },
     data: () => {
     return {
