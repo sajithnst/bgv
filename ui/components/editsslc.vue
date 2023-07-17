@@ -44,7 +44,7 @@ export default{
             percents : (v) => (v>=0 && v<=100) || "Value must be between 0 and 100",
             email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
             name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
-            sslc_regno : (v) => v.match(/^-?\d+$/) || "Register number format is wrong",
+            sslc_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
             sslc_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             sslc_passout : (v) => v.match(/^\d{4}$/) || "Only in Numbers",
             sslc_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
