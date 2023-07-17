@@ -50,7 +50,7 @@
             <v-container v-if="this.datapdf == 'True' || show">
               &emsp;&emsp;
     
-              <v-btn text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
+              <v-btn size="30%" text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.pg_regno)">Document</v-btn>
     
             </v-container>
           </v-row>
@@ -62,7 +62,7 @@
             </v-col>
             <v-col>
               <v-container v-if="this.datapdf == 'False' &&!isLoading">
-                <v-btn v-on:click="show = true"  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
+                <v-btn size="30%" v-on:click="show = true"  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
               </v-container>
             </v-col>
           </v-row>
