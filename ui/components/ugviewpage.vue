@@ -39,21 +39,21 @@
 
           </v-row>
           <v-row>
-            <v-container v-if="this.datapdf == 'True'">
+            <v-container v-if="this.datapdf == 'True' || show">
               &emsp;&emsp;
               <v-btn text outlined color="indigo darken-4" style="color: white;" @click="doc(data.email, data.ug_regno)">Document</v-btn>
   
             </v-container>
           </v-row>
           <v-row>
-            <v-col v-if="this.datapdf == 'False'">
+            <v-col v-if="this.datapdf == 'False'  &&!isLoading">
            
                 <v-file-input  style="width:60%;" @change="fileselect"  label = "Upload UG doc" ></v-file-input>
       
             </v-col>
             <v-col>
-              <v-container v-if="this.datapdf == 'False'">
-                <v-btn  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
+              <v-container v-if="this.datapdf == 'False'  &&!isLoading">
+                <v-btn v-on:click="show = true"  :loading="isLoading" :disabled="isLoading"  text outlined color="indigo darken-4" style="color: white;" @click="upload()">Upload</v-btn>
               </v-container>
             </v-col>
           </v-row>
@@ -113,7 +113,8 @@ export default{
       verified: false,
       rejected: false,
       data_: false,
-      data_s: false
+      data_s: false,
+      show: false
 
   }),
   methods:{
@@ -136,11 +137,7 @@ export default{
             
             this.isLoading = true;
             // Simulate an asynchronous operation, such as an API call
-            setTimeout(() => {
-              // After the operation is complete, set isLoading to false
-              this.isLoading = false;
-              location.reload();
-            }, 2000);
+     
    },
     async doc(email, ug_regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
