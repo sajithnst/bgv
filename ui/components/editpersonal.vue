@@ -8,7 +8,7 @@
       <v-text-field label="Employee ID" v-model="empid" :rules="[rules.required, rules.alphnum]"></v-text-field>
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="doj" transition="scale-transition" offset-y min-width="auto">
         <template v-slot:activator="{ on }">
-          <v-text-field v-model="formattedDoj" label="Date of Join (Current Company)"  readonly v-on="on"></v-text-field>
+          <v-text-field v-model="Doj" label="Date of Join (Current Company)"  readonly v-on="on"></v-text-field>
         </template>
         <v-date-picker v-model="doj" :max="today" no-title scrollable>
           <v-spacer></v-spacer>
@@ -67,7 +67,7 @@ export default {
       },
       menu: false,
       today: new Date().toISOString().substring(0, 10),
-      formattedDoj:''
+      Doj:''
     };
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
       this.menu = false;
     },
     saveDate() {
-      this.formattedDoj = this.getFormattedDate(this.doj);
+      this.Doj = this.getFormattedDate(this.doj);
       this.menu = false;
     },
     getFormattedDate(date) {
