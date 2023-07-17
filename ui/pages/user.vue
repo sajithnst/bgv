@@ -34,21 +34,13 @@
              
           </v-col>
           <v-col>
-            <v-container v-if="personal">
-              <v-alert type="error" dismissible> Fill the Personal details </v-alert>
-            </v-container>
+
       <persondetailspage/>
-      <v-container v-if="sslc">
-        <v-alert type="error" dismissible> Fill the SSLC details </v-alert>
-      </v-container>
+
       <sslcviewpage/>
-      <v-container v-if="hse">
-        <v-alert type="error" dismissible> Fill the HSE details </v-alert>
-      </v-container>
+
       <hseviewpage/>
-      <v-container v-if="ug">
-        <v-alert type="error" dismissible> Fill the UG details </v-alert>
-      </v-container>
+
       <ugviewpage/>
 
       <pgviewpage/>
@@ -132,18 +124,6 @@
           this.fail = true
         }
 
-        if(this.pdata.personal == false){
-          this.personal = true
-        }
-        if(this.pdata.sslc == false){
-          this.sslc = true
-        }
-        if(this.pdata.hse == false){
-          this.hse = true
-        }
-        if(this.pdata.hse == false){
-          this.hse = true
-        }
 
         this.isLoading = true;
             // Simulate an asynchronous operation, such as an API call
