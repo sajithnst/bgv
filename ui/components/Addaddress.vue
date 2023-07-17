@@ -58,7 +58,7 @@
         rules: {
           required:(v) => !!v || 'Required',
           zipcode: (v) => v.match(/^\d{6}$/) || 'Check your zipcode',
-          omg :(v) => v.match(/^[a-zA-Z]+$/) || 'Enter only characters',
+          omg :(v) => v.match(/^[A-Za-z\s]+$/) || 'Enter only characters',
           },
       };
     },
