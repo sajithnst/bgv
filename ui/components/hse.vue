@@ -42,7 +42,7 @@ export default{
             email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             hse_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
-            hse_passout: (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
+            hse_passout: (v) => v.match(/^(19[0-9]{2}|20[0-3][0-3])$/) || "Invalid Year",
             hse_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             hse_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters"
         },

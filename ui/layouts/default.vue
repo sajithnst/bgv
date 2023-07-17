@@ -21,8 +21,8 @@
         <v-col cols="12"
           >Copyright @ Securekloud Technologies Ltd {{ new Date().getFullYear() }}</v-col
         >
-        <v-col cols="12">
-          <v-btn style="width: 30;"
+        <v-col cols="12" style="width: 30%;">
+          <v-btn
             v-for="icon in icons"
             :key="icon"
             text

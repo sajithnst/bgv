@@ -14,7 +14,8 @@
                       <v-btn text color="primary" @click="cancelDate()">Cancel</v-btn>
                       <v-btn text color="primary" @click="saveDate()">OK</v-btn>
                     </v-date-picker>
-                  </v-menu>                <v-text-field label="Company Name " v-model="company" :rules="[rules.required,rules.company]"></v-text-field>
+                  </v-menu>
+                <v-text-field label="Company Name " v-model="company" :rules="[rules.required,rules.company]"></v-text-field>
                 <v-text-field label="Designation" v-model="designation" :rules="[rules.required,rules.designation]"></v-text-field>
                 <v-text-field label="Company Email" v-model="company_email" :rules="[rules.required,rules.email]"></v-text-field>
                 <v-text-field label="Mobile Number" v-model="mob" :rules="[rules.required,rules.mob]"></v-text-field>
