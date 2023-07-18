@@ -7,6 +7,7 @@
           <v-text-field label="Specialization" v-model="pg_specialization" :rules="[rules.required,rules.pg_specialization]"></v-text-field>
           <v-text-field label="College" v-model="pg_college" :rules="[rules.required,rules.pg_college]"></v-text-field>
           <v-text-field label="Marks in %" v-model="pg_marks" :rules="[rules.required,rules.percents]"></v-text-field>
+          <v-text-field label="University" v-model="pg_university" :rules="[rules.required,rules.pg_university]"></v-text-field>
           <v-select
           v-model="pg_passout"
           :items="pg_passout"
@@ -14,7 +15,6 @@
           :rules="[rules.required]"
           prepend-icon="mdi-calendar"
         ></v-select>
-          <v-text-field label="University" v-model="pg_university" :rules="[rules.required,rules.pg_university]"></v-text-field>
           <v-file-input @change="fileselect" label="Upload File" :rules="[rules.required]"></v-file-input>
           <v-container class="text-center">
               <v-btn text  @click="submit()" :disabled="!formValid" class="button" color="indigo lighten-2"> Submit </v-btn>

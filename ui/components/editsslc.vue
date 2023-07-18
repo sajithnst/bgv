@@ -8,14 +8,14 @@
       <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required,rules.sslc_regno]"></v-text-field>
       <v-text-field label="Marks in %" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
       <v-text-field label="School" v-model="sslc_school" :rules="[rules.required,rules.sslc_school]"></v-text-field>
-      <v-select
-      v-model="sslc_passout"
-      :items="sslc_passout"
-      label="Year of Completion"
-      :rules="[rules.required]"
-      prepend-icon="mdi-calendar"
-    ></v-select>
      <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required,rules.sslc_board]"></v-text-field>
+     <v-select
+     v-model="sslc_passout"
+     :items="sslc_passout"
+     label="Year of Completion"
+     :rules="[rules.required]"
+     prepend-icon="mdi-calendar"
+   ></v-select>
       <v-file-input @change="fileselect"  label = "Upload Files" :rules="[rules.required]" ></v-file-input>
       <v-container class="text-center">
           <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>

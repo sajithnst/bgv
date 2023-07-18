@@ -5,6 +5,8 @@
           <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
           <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required,rules.hse_regno]"></v-text-field>
           <v-text-field label="Marks in Percents" v-model="hse_marks" :rules="[rules.required,rules.percents]"></v-text-field>
+          <v-text-field label="School" v-model="hse_school" :rules="[rules.required,rules.hse_school]"></v-text-field>
+          <v-text-field label="Board" v-model="hse_board" :rules="[rules.required,rules.hse_board]"></v-text-field>
           <v-select
           v-model="hse_passout"
           :items="hse_passout"
@@ -12,8 +14,6 @@
           :rules="[rules.required]"
           prepend-icon="mdi-calendar"
         ></v-select>
-          <v-text-field label="School" v-model="hse_school" :rules="[rules.required,rules.hse_school]"></v-text-field>
-          <v-text-field label="Board" v-model="hse_board" :rules="[rules.required,rules.hse_board]"></v-text-field>
           <v-file-input @change="fileselect"  label = "Upload Files"  :rules="[rules.required]"></v-file-input>
           <v-container class="text-center">
           <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
