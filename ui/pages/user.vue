@@ -119,6 +119,8 @@
         this.pdata = nres.data
         if(this.pdata == true){
           this.success = true
+          this.isLoading = true;
+
           this.fail = false
         }
         else{
@@ -127,7 +129,6 @@
         }
 
 
-        this.isLoading = true;
             // Simulate an asynchronous operation, such as an API call
        
 
