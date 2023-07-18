@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 100%; ">
+  <v-container style="width: 100%; "  v-if="data_s">
     <v-card>
       <v-card-title>PG Details</v-card-title>
       <v-card-content>
