@@ -106,9 +106,7 @@
                 <v-row align="center" justify="center">
                 <v-spacer></v-spacer>
                   <v-col class="white--text text-left">
-                    <v-row>
-                    <h1>Company Login</h1>
-                    </v-row>
+                    
                     <v-row>
             
                         <v-btn rounded outlined  large color="white" class="mt-4" @click="hr()">
@@ -124,9 +122,7 @@
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col class="white--text text-left">
-                    <v-row>
-                      <h1>Admin Login</h1>
-                    </v-row>
+                    
                     <v-row>
                       <v-btn rounded outlined  large color="white" class="mt-4" @click="notary()">
                         <v-icon class="mr-2">
@@ -139,9 +135,6 @@
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col class="white--text text-left">
-                    <v-row>
-                      <h1>Agencies Login</h1>
-                    </v-row>
                     <v-row>
                       <v-btn rounded outlined   large color="white" class="mt-4" @click="agencies()">
                         <v-icon class="mr-2">
