@@ -2,7 +2,7 @@
   <v-container style="width: 100%; ">
     <v-card>
       <v-container v-if="data_">
-        <h6 class="text-subtitle-3" style="color:red">*SSLC Data is mandatory.</h6>
+        <v-alert type="error" >SSLC Data is mandatory.</v-alert>
       </v-container>
       <v-card-title>SSLC Details</v-card-title>
       <v-card-content>

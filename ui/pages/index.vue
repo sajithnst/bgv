@@ -27,12 +27,13 @@
                <br>
               
               Educational Qualification, 
+
               <br>
-             break it down into small tasks and 
+              and Work Experience,
               <br>
-              and Work Experience
-              <br>
-              on a private permissioned blockchain networked named VerifiChain
+              on a private permissioned blockchain networked named VerifiChain.
+
+       
              </div>
           </div>
           
