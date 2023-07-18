@@ -105,11 +105,11 @@ export default{
 
   }),
   methods:{
-    async doc(email, empid){
+    async doc(email, regno){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: empid
+          regno: regno
         },
         responseType: 'arraybuffer'
       })
