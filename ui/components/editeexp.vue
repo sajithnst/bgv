@@ -16,9 +16,9 @@
           </v-menu>
           <v-menu v-model="endDatePicker" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
             <template v-slot:activator="{ on }">
-              <v-text-field v-model="end_date" label="End Date" readonly v-on="on"></v-text-field>
+              <v-text-field v-model="end_date" prepend-icon="mdi-calendar" label="End Date" readonly v-on="on"></v-text-field>
             </template>
-            <v-date-picker v-model="end_date" :max="today" no-title scrollable @input="saveEndDatePicker"></v-date-picker>
+            <v-date-picker v-model="end_date" prepend-icon="mdi-calendar" :max="today" no-title scrollable @input="saveEndDatePicker"></v-date-picker>
           </v-menu>
           <v-text-field label="Designation" v-model="designation" :rules="[rules.required,rules.designation]"></v-text-field>
           <v-text-field label="CTC (Cost To Company)" v-model="lpa" :rules="[rules.required,rules.lpa]"></v-text-field>
