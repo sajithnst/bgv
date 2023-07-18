@@ -1,6 +1,9 @@
 <template>
   <v-container style="width: 100%; ">
     <v-card>
+      <v-container v-if="data_">
+        <h6 class="text-subtitle-3" style="color:red">*HSE Data is mandatory.</h6>
+      </v-container>
       <v-card-title>HSE Details</v-card-title>
       <v-card-content>
         <v-container v-if="data_s">
