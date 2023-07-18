@@ -93,7 +93,6 @@ export default{
        let url = "http://127.0.0.1:8000/exp"
        let res = await this.$axios.get(url,{params:{email: this.email}})
        this.datas= res.data
-       this.value = res.data[0].empid
        
        if(this.datas == false){
         this.data_ = true,
@@ -101,12 +100,16 @@ export default{
       }
       else{
         this.data_s = true,
+        this.value = res.data[0].empid
+
         this.data_ = false
       }
+
       let nurl = "http://127.0.0.1:8000/checkpdf"
       let nres = await this.$axios.get(nurl,{params:{email: this.email, regno: this.value }})
       this.datapdf = nres.data
       console.log(this.datapdf)
+      
 
 
    },
@@ -126,6 +129,7 @@ export default{
 
    }),
    methods:{
+
     async fileselect(event){
       this.file=event
     },
