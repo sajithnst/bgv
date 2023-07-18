@@ -22,11 +22,11 @@
               <v-container v-if="pending" class="text-center">
                 <v-icon size="150px" color="yellow" ></v-icon>
               </v-container>
-              <v-container v-if="data.status  == 'verified' || verified" class="text-center">
+              <v-container v-if="data.status  == 'verified' && !isLoading" class="text-center">
                 <v-icon size="150px" color="green">mdi-check-decagram</v-icon>
 
               </v-container>
-              <v-container v-if="data.status == 'rejected' && rejected" class="text-center">
+              <v-container v-if="data.status == 'rejected' " class="text-center">
                 <v-icon size="150px" color="red">mdi-cancel</v-icon>
 
               </v-container>
@@ -36,10 +36,10 @@
           
         </v-container>
         <v-row>
-          <v-container v-if="!isLoading">
+          <v-container>
             &emsp;&emsp;
-            <v-btn size="30%" v-on:click="verified = true"  :loading="isLoading" :disabled="isLoading" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined color="indigo darken-4" style="color: white;"  @click="approve(data.email, data.empid, ndata.name)">Approve</v-btn>&emsp;
-            <v-btn size="30%" v-on:click="rejected = true"  :loading="isLoading" :disabled="isLoading" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined  color="indigo darken-4" style="color: white;"  @click="deny(data.email, data.empid, ndata.name)">Reject</v-btn>&emsp;
+            <v-btn size="30%"  :loading="isLoading" :disabled="isLoading" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined color="indigo darken-4" style="color: white;"  @click="approve(data.email, data.empid, ndata.name)">Approve</v-btn>&emsp;
+            <v-btn size="30%"   :loading="isrejecting" :disabled="isrejecting" v-if="data.status == !'verified' || data.status==!'rejected'" text outlined  color="indigo darken-4" style="color: white;"  @click="deny(data.email, data.empid, ndata.name)">Reject</v-btn>&emsp;
           </v-container>
         </v-row>
         <v-row>
@@ -93,6 +93,7 @@ export default{
       data_: false,
       data_s: false,
       isLoading:false,
+      isrejecting: false
 
 
 
@@ -135,7 +136,8 @@ export default{
         notary_name: name
       }
       let res = await this.$axios.post(url, verify)
-      this.isLoading = true;
+      window.location.reload()
+
 
     },
     async deny(email, empid, name){
@@ -149,8 +151,7 @@ export default{
           status: "rejected"
         }
         let res = this.$axios.post(url,reject)
-        this.isLoading = true;
-
+        window.location.reload()
     }
    }
 }
