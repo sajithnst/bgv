@@ -7,9 +7,15 @@
           <v-text-field label="Specialization" v-model="ug_specialization" :rules="[rules.required,rules.ug_specialization]"></v-text-field>
           <v-text-field label="College" v-model="ug_college" :rules="[rules.required,ug_college]"></v-text-field>
           <v-text-field label="Marks in percent (e.g. 80)" v-model="ug_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-          <v-text-field label="Year of completion" v-model="ug_passout" :rules="[rules.required,rules.ug_passout]"></v-text-field>
+          <v-select
+          v-model="ug_passout"
+          :items="ug_passout"
+          label="Year of Completion"
+          :rules="[rules.required]"
+          prepend-icon="mdi-calendar"
+        ></v-select>
           <v-text-field label="University" v-model="ug_university" :rules="[rules.required,rules.ug_university]"></v-text-field>
-          <v-file-input @change="fileselect" label="Upload PDF File" :rules="[rules.required]"></v-file-input>
+          <v-file-input @change="fileselect" label="Upload File" :rules="[rules.required]"></v-file-input>
           <v-container class="text-center">
               <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
           </v-container>
@@ -21,6 +27,7 @@ export default{
   name: "ug",
   async mounted(){
       var url ='http://127.0.0.1:8000/user'
+      this.generateYearRange();
       this.email= await this.$storage.getUniversal('Email');
       await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
           this.name = res.data.name
@@ -45,10 +52,21 @@ export default{
             ug_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
             ug_specialization : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             ug_college : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
-            ug_passout : (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
             ug_university : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
       },
+      ug_passout: [],
   }),
+  computed: {
+    ug_passout() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      return (date) => {
+        const year = new Date(date).getFullYear();
+        return year >= startYear && year <= currentYear;
+      };
+    },
+  },
   methods:{
       async fileselect(event){
     this.file=event
@@ -86,7 +104,15 @@ export default{
               this.fail= true
           }
 
+      },
+      generateYearRange() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      for (let year = currentYear; year >= startYear; year--) {
+        this.ug_passout.push(year);
       }
+    },
   }
 
 }

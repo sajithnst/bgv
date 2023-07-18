@@ -23,7 +23,7 @@
           <v-text-field label="Designation" v-model="designation" :rules="[rules.required,rules.designation]"></v-text-field>
           <v-text-field label="CTC (Cost To Company)" v-model="lpa" :rules="[rules.required,rules.lpa]"></v-text-field>
           <v-text-field label="Reporting Manager" v-model="reporting_manager" :rules="[rules.required,rules.reporting_manager]"></v-text-field>
-          <v-file-input @change="fileselect" label="Experience Letter as PDF" :rules="[rules.required]"></v-file-input>
+          <v-file-input @change="fileselect" label="Experience Letter" :rules="[rules.required]"></v-file-input>
           <v-container class="text-center">
               <v-btn text  @click="submit()" color="indigo lighten-2"> Submit </v-btn>
           </v-container>

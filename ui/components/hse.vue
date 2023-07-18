@@ -5,7 +5,13 @@
             <v-alert border="top" color="red lighten-1" dismissible  v-if="fail"> Data insertion failed</v-alert>
             <v-text-field label="Registration Number" v-model="hse_regno" :rules="[rules.required,rules.hse_regno]"></v-text-field>
             <v-text-field label="Marks in %" v-model="hse_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-            <v-text-field label="Year of Completion" v-model="hse_passout" :rules="[rules.required,rules.hse_passout]" ></v-text-field>
+            <v-select
+            v-model="hse_passout"
+            :items="hse_passout"
+            label="Year of Completion"
+            :rules="[rules.required]"
+            prepend-icon="mdi-calendar"
+          ></v-select>
             <v-text-field label="School" v-model="hse_school" :rules="[rules.required,rules.hse_school]"></v-text-field>
             <v-text-field label="Board" v-model="hse_board" :rules="[rules.required,rules.hse_board]"></v-text-field>
             <v-file-input @change="fileselect"  label = "Upload Files"  :rules="[rules.required]"></v-file-input>
@@ -20,6 +26,7 @@ export default{
     name: "hse",
     async mounted(){
         var url ='http://127.0.0.1:8000/user'
+        this.generateYearRange();
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -42,11 +49,22 @@ export default{
             email : (v) => v.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) || "Email format is wrong",
             name: (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             hse_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
-            hse_passout: (v) => v.match(/^(19[0-9]{2}|20[0-3][0-3])$/) || "Invalid Year",
             hse_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
             hse_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters"
         },
+        hse_passout: [],
     }),
+    computed: {
+    hse_passout() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      return (date) => {
+        const year = new Date(date).getFullYear();
+        return year >= startYear && year <= currentYear;
+      };
+    },
+  },
     methods:{
         async fileselect(event){
       this.file=event
@@ -75,7 +93,15 @@ export default{
             else{
                 this.fail = true
             }
-        }
+        },
+        generateYearRange() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      for (let year = currentYear; year >= startYear; year--) {
+        this.hse_passout.push(year);
+      }
+    },
     }
 }
 </script>

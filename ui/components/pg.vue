@@ -7,7 +7,13 @@
           <v-text-field label="Specialization" v-model="pg_specialization" :rules="[rules.required,rules.pg_specialization]"></v-text-field>
           <v-text-field label="College" v-model="pg_college" :rules="[rules.required,rules.pg_college]"></v-text-field>
           <v-text-field label="Marks in %" v-model="pg_marks" :rules="[rules.required,rules.percents]"></v-text-field>
-          <v-text-field label="Year of completion" v-model="pg_passout" :rules="[rules.required,rules.pg_passout]"></v-text-field>
+          <v-select
+          v-model="pg_passout"
+          :items="pg_passout"
+          label="Year of Completion"
+          :rules="[rules.required]"
+          prepend-icon="mdi-calendar"
+        ></v-select>
           <v-text-field label="University" v-model="pg_university" :rules="[rules.required,rules.pg_university]"></v-text-field>
           <v-file-input @change="fileselect" label="Upload File" :rules="[rules.required]"></v-file-input>
           <v-container class="text-center">
@@ -21,6 +27,8 @@ export default{
   name: "ug",
   async mounted(){
       var url ='http://127.0.0.1:8000/user'
+      this.generateYearRange();
+      this.$vuetify.theme.dark =false;
       this.email= await this.$storage.getUniversal('Email');
       await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
           this.name = res.data.name
@@ -46,10 +54,21 @@ export default{
           pg_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
           pg_specialization : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
           pg_college : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
-          pg_passout : (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
           pg_university : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
       },
+      pg_passout: [],
   }),
+  computed: {
+    pg_passout() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      return (date) => {
+        const year = new Date(date).getFullYear();
+        return year >= startYear && year <= currentYear;
+      };
+    },
+  },
   methods:{
       async fileselect(event){
     this.file=event
@@ -87,7 +106,15 @@ export default{
               this.fail= true
           }
 
+      },
+      generateYearRange() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      for (let year = currentYear; year >= startYear; year--) {
+        this.pg_passout.push(year);
       }
+    },
   }
 
 }

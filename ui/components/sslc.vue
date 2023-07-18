@@ -8,7 +8,13 @@
         <v-text-field label="Registration Number" v-model="sslc_regno" :rules="[rules.required,rules.sslc_regno]"></v-text-field>
         <v-text-field label="Marks in %" v-model="sslc_marks" :rules="[rules.required,rules.percents]"></v-text-field>
         <v-text-field label="School" v-model="sslc_school" :rules="[rules.required,rules.sslc_school]"></v-text-field>
-        <v-text-field label="Year of Completion" v-model="sslc_passout" :rules="[rules.required,rules.sslc_passout]"></v-text-field>
+        <v-select
+        v-model="sslc_passout"
+        :items="sslc_passout"
+        label="Year of Completion"
+        :rules="[rules.required]"
+        prepend-icon="mdi-calendar"
+      ></v-select>
         <v-text-field label="Board" v-model="sslc_board" :rules="[rules.required,rules.sslc_board]"></v-text-field>
         <v-file-input @change="fileselect"  label = "Upload Files" :rules="[rules.required]" ></v-file-input>
         <v-container class="text-center">
@@ -22,6 +28,7 @@ export default{
     name: "sslc",
     async mounted(){
         var url ='http://127.0.0.1:8000/user'
+        this.generateYearRange();
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -46,10 +53,21 @@ export default{
             name : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters in Name",
             sslc_regno : (v) => v.match(/^[a-zA-Z0-9]+$/) || "Register number format is wrong",
             sslc_school : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
-            sslc_passout : (v) => v.match(/^(19[0-9]{2}|20[0-2][0-3])$/) || "Only in Numbers",
             sslc_board : (v) => v.match(/^[A-Za-z\s]+$/) || "No special Characters",
         },
+        sslc_passout: [],
     }),
+    computed: {
+    sslc_passout() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      return (date) => {
+        const year = new Date(date).getFullYear();
+        return year >= startYear && year <= currentYear;
+      };
+    },
+  },
     methods:{
         async fileselect(event){
       this.file=event
@@ -79,6 +97,14 @@ export default{
                 this.fail= true
             }
         },
+        generateYearRange() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 50;
+
+      for (let year = currentYear; year >= startYear; year--) {
+        this.sslc_passout.push(year);
+      }
+    },
     }
 
 }
