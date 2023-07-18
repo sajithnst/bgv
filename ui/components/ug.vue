@@ -28,7 +28,7 @@ export default{
     async mounted(){
         var url ='http://127.0.0.1:8000/user'
         this.generateYearRange();
-        
+
         this.email= await this.$storage.getUniversal('Email');
         await this.$axios.get(url,{params:{email : this.email}}).then(res=>{
             this.name = res.data.name
@@ -58,17 +58,6 @@ export default{
         },
         ug_passout: [],
     }),
-    computed: {
-    ug_passout() {
-      const currentYear = new Date().getFullYear();
-      const startYear = currentYear - 50;
-
-      return (date) => {
-        const year = new Date(date).getFullYear();
-        return year >= startYear && year <= currentYear;
-      };
-    },
-  },
     methods:{
         async fileselect(event){
       this.file=event

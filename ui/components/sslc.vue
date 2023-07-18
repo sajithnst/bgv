@@ -57,17 +57,6 @@ export default{
         },
         sslc_passout: [],
     }),
-    computed: {
-    sslc_passout() {
-      const currentYear = new Date().getFullYear();
-      const startYear = currentYear - 50;
-
-      return (date) => {
-        const year = new Date(date).getFullYear();
-        return year >= startYear && year <= currentYear;
-      };
-    },
-  },
     methods:{
         async fileselect(event){
       this.file=event
