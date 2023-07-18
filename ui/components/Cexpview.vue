@@ -37,7 +37,7 @@
           <v-container>
   
             &emsp;&emsp;
-            <v-btn text outlined color="indigo darken-4"  @click="doc(data.email, data.regno)">Document</v-btn>
+            <v-btn text outlined color="indigo darken-4"  @click="doc(data.email, data.empid)">Document</v-btn>
             <br><br>
             <v-divider thickness="2" color="indigo darken-4"></v-divider>
           </v-container>
@@ -105,11 +105,11 @@ export default{
 
   }),
   methods:{
-    async doc(email, regno){
+    async doc(email, empid){
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          regno: regno
+          regno: empid
         },
         responseType: 'arraybuffer'
       })

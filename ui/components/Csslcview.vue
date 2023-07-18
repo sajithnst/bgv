@@ -87,7 +87,7 @@ export default{
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          sslc_regno: sslc_regno
+          regno: sslc_regno
         },
         responseType: 'arraybuffer'
       })

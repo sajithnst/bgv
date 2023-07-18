@@ -55,7 +55,7 @@
                 <br>
              
                 <v-container class="text-center" >
-                  <v-btn size="30%" :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show &&!isLoading" @click="submit(data.email)" style="color:white; width:40">Submit Profile</v-btn>
+                  <v-btn size="20%" :loading="isLoading" :disabled="isLoading" color="indigo darken-4"  v-if="show &&!isLoading" @click="submit(data.email)" style="color:white; width:40">Submit Profile</v-btn>
 
                 </v-container>
                 <v-container v-if="success" class="text-center">

@@ -102,7 +102,7 @@ export default{
       this.$axios.get("http://127.0.0.1:8000/getpdf",{
         params:{
           email: email,
-          pg_regno: pg_regno
+          regno: pg_regno
         },
         responseType: 'arraybuffer'
       })
