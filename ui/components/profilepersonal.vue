@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 80%; ">
+  <v-container style="width: 80%; " v-if="data_s">
 
 
         <v-container>
@@ -31,6 +31,9 @@ async mounted (){
   let res = await this.$axios.get(url,{params:{ email :this.email}});
   this.pdata=res.data
   console.log(this.pdata)
+  if(this.pdata == true){
+    this.data_s = true
+  }
   if (this.pdata.status == "pending"){
     this.pending = true
     this.verified = false
@@ -46,6 +49,7 @@ async mounted (){
 data: () =>({
   email:"",
   pdata :{},
+  data_s: false,
   pending: false,
   verified: false,
 }),
