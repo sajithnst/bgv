@@ -11,6 +11,7 @@ from io import StringIO
 import pandas as pd
 import os
 
+
 client = MongoClient('mongodb://localhost:27017/')
 
 
@@ -28,7 +29,7 @@ app.add_middleware(
     allow_headers=['*']
     )
 ######################## Test API #############################################################
-@app.get('/')
+@app.get('/' ,tags=['Test'])
 async def get():
     return True
 ######### API related to users #################################################################
@@ -38,7 +39,7 @@ class SubmitModel(BaseModel):
     status: str='pending'
     submit_button: bool = False 
 
-@app.post('/user/submit')
+@app.post('/user/submit',tags=["User"])
 async def verify(submit:SubmitModel):
     personal = client.bgv.personal.count_documents({'email' : submit.email})
     sslc = client.bgv.sslc.count_documents({'email':submit.email})
@@ -69,7 +70,7 @@ class UserModel(BaseModel):
     submit_button: bool = True 
 
 ### create a new user and also create a folder with email as filename
-@app.post('/user')
+@app.post('/user',tags=["User"])
 async def add_user(user: UserModel):
     filter = {
         'email': user.email,
@@ -89,7 +90,7 @@ async def add_user(user: UserModel):
 
 #### getting user information from database
 
-@app.get('/user')
+@app.get('/user',tags=["User"])
 async def get_user(email : str):
     filter = {
         'email': email
@@ -102,7 +103,7 @@ async def get_user(email : str):
     else : 
         return False
 
-@app.get('/totalprofile')
+@app.get('/totalprofile',tags=["User "])
 async def total_user():
     try:
         counts = client.bgv.user.count_documents({'status': "verified"})
@@ -114,7 +115,7 @@ async def total_user():
         return False
 
 
-@app.get('/usereducation')
+@app.get('/usereducation',tags=["User"])
 async def get_usercertificates(email:str):
     filter = {
         'email': email
@@ -129,7 +130,7 @@ async def get_usercertificates(email:str):
     }
     return data
 
-@app.get('userexp')
+@app.get('userexp',tags=["User"])
 async def user_exp(email: str):
     filter ={
         'email': email
@@ -148,7 +149,7 @@ async def user_exp(email: str):
 ####  comparing OTP with existing user account
 
 
-@app.post('/emailverified')
+@app.post('/emailverified',tags=["User"])
 async def checkotp(email : str ):
 
     filter = { 'email' : email}
@@ -183,7 +184,7 @@ class PersonalData(BaseModel):
     
 
 
-@app.get('/personal')
+@app.get('/personal', tags=["Personal"])
 async def get_personal(email : str):
     filter = {
         'email': email
@@ -196,7 +197,7 @@ async def get_personal(email : str):
     else : 
         return False
 
-@app.post('/personal')
+@app.post('/personal',tags=["Personal"])
 async def add_personal( data : PersonalData ):
     filt = {
         'email' : data.email,
@@ -247,7 +248,7 @@ class PersonalAddress(BaseModel):
     zipcode:str
     address:bool=True
 
-@app.post('/personal/address')
+@app.post('/personal/address',tags=["Personal"])
 async def update_address(data : PersonalAddress):
     filt ={
         'email':data.email
@@ -270,7 +271,7 @@ async def update_address(data : PersonalAddress):
         print(str(e))
         return False
 
-@app.post('/personal/update')
+@app.post('/personal/update',tags=["Personal"])
 async def update( data : PersonalData ):
     filt = {
         'email' : data.email
@@ -314,7 +315,7 @@ class SSLC(BaseModel):
     status : bool = False
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
-@app.post('/sslcupdate')
+@app.post('/sslcupdate',tags=["SSLC"])
 async def update( sslc : SSLC ):
     filt = {
         'email' : sslc.email
@@ -338,7 +339,7 @@ async def update( sslc : SSLC ):
         print (str(e))
         return False
     
-@app.post('/sslc')
+@app.post('/sslc',tags=["SSLC"])
 async def sslcinput(sslc : SSLC):
     filt = {
         'email' : sslc.email,
@@ -370,7 +371,7 @@ async def sslcinput(sslc : SSLC):
         print (str(e))
         return False
 
-@app.get('/sslc')
+@app.get('/sslc',tags=["SSLC"])
 async def get_sslc(email : str):
     filter = {
         'email': email
@@ -385,7 +386,7 @@ async def get_sslc(email : str):
 
 
 
-@app.get('/checkpdf')
+@app.get('/checkpdf',tags=["SSLC"])
 async def checkpdf(email: str, regno: Optional[str] = None):
     filter = {
         'email': email
@@ -397,7 +398,7 @@ async def checkpdf(email: str, regno: Optional[str] = None):
 
 
 ### code to upload pdf file 
-@app.post('/uploadsslcpdf')
+@app.post('/uploadsslcpdf', tags=["SSLC"])
 def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = File(...)):
     if(not os.path.isdir(email)):
          os.mkdir(email)
@@ -415,7 +416,7 @@ def upload(email : str = Form(), sslc_regno : str = Form(),file: UploadFile = Fi
 
 
 
-@app.get('/getpdf')
+@app.get('/getpdf',tags=['READ PDF'])
 async def getpdf(email: str, regno: str):
     path = os.path.join(email,regno+".pdf")
     if os.path.exists(path):
@@ -441,7 +442,7 @@ class HSE (BaseModel):
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
 
-@app.post('/hseupdate')
+@app.post('/hseupdate', tags=["HSE"])
 async def update( hse : HSE ):
     filt = {
         'email' : hse.email
@@ -465,7 +466,7 @@ async def update( hse : HSE ):
         print (str(e))
         return False
 
-@app.post('/hse')
+@app.post('/hse', tags=["HSE"])
 async def hseinput(hse : HSE):
     filt = {
         'email' : hse.email,
@@ -494,7 +495,7 @@ async def hseinput(hse : HSE):
     except Exception as e:
         print (str(e))
         return False
-@app.get('/hse')
+@app.get('/hse', tags=["HSE"])
 async def get_hse(email:str):
     filter = {
         'email': email,
@@ -508,7 +509,7 @@ async def get_hse(email:str):
         print (str(e))
         return False
 
-@app.post('/uploadhsepdf')
+@app.post('/uploadhsepdf', tags=["HSE"])
 def upload(email : str = Form(), hse_regno : str = Form(),file: UploadFile = File(...)):
     if(not os.path.isdir(email)):
          os.mkdir(email)
@@ -538,7 +539,7 @@ class UG(BaseModel):
     submitted_on: str= datetime.now()
     edited_on: str=datetime.now()
 
-@app.post('/ugupdate')
+@app.post('/ugupdate', tags=["UG"])
 async def update( ug : UG ):
     filt = {
         'email' : ug.email
@@ -563,7 +564,7 @@ async def update( ug : UG ):
         print (str(e))
         return False
 
-@app.post('/ug')
+@app.post('/ug', tags=["UG"])
 async def addug(ug: UG):
     filt = {
         'email' : ug.email,
@@ -596,7 +597,7 @@ async def addug(ug: UG):
         return False
 
 
-@app.get('/ug')
+@app.get('/ug', tags=["UG"])
 async def get_ug(email:str):
     filter = {'email': email}
     project = {
@@ -608,7 +609,7 @@ async def get_ug(email:str):
         print(str(e))
         return False
 
-@app.post('/uploadugpdf')
+@app.post('/uploadugpdf', tags=["UG"])
 def upload(email : str = Form(), ug_regno : str = Form(),file: UploadFile = File(...)):
     if(not os.path.isdir(email)):
          os.mkdir(email)
