@@ -68,7 +68,7 @@ export default{
                 email : this.email,
                 sslc_marks : this.sslc_marks,
                 sslc_school : this.sslc_school,
-                sslc_passout : this.sslc_passout,
+                sslc_passout : this.sslc_passout.toString(),
                 name : this.name,
                 sslc_board : this.sslc_board
             }
@@ -79,6 +79,7 @@ export default{
             formdata.append('sslc_regno',this.sslc_regno)
             formdata.append('file',this.file)
             let furl = "http://127.0.0.1:8000/uploadsslcpdf"
+            console.log(furl,formdata);
             let res = await this.$axios.post(furl,formdata,{ headers : {'Content-Type': 'application/json',}});
             if (result.data == res.data){
                 this.$router.push('/user')

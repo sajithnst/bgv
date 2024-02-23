@@ -64,7 +64,7 @@ export default{
                 hse_regno : this.hse_regno,
                 email : this.email,
                 hse_marks: this.hse_marks,
-                hse_passout: this.hse_passout,
+                hse_passout: this.hse_passout.toString(),
                 hse_school: this.hse_school,
                 hse_board : this.hse_board
 

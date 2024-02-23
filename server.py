@@ -10,8 +10,6 @@ from typing import Dict , Optional
 from io import StringIO
 import pandas as pd
 import os
-import configparser
-from graph import Graph
 
 client = MongoClient('mongodb://localhost:27017/')
 

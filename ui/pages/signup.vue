@@ -81,13 +81,16 @@ export default{
             this.$router.push('/')
         },
         async submit(){
-            let url = "http://3.84.79.77:8000/otp"
-            let mdata = { params :{email : this.user.email}}
-            await this.$axios.get(url,mdata).then(res => {
-                this.otp = res.data
-                this.sendotp = true
-                console.log(this.otp)
-            }).catch(err => { console.log(err)});
+            //let url = "http://3.84.79.77:8000/otp"
+            //let mdata = { params :{email : this.user.email}}
+            //await this.$axios.get(url,mdata).then(res => {
+             //   this.otp = res.data
+            //    this.sendotp = true
+             //   console.log(this.otp)
+           // }).catch(err => { console.log(err)});
+           console.log("23456")
+           this.otp = 23456
+           this.sendotp = true
         },
         async signup(){
             if (this.utop == this.otp){

@@ -71,7 +71,7 @@ export default{
                 ug_specialization : this.ug_specialization,
                 ug_college : this.ug_college,
                 ug_marks : this.ug_marks,
-                ug_passout : this.ug_passout,
+                ug_passout : this.ug_passout.toString(),
                 ug_university : this.ug_university
             }
             let result = await this.$axios.post(url,udata);
